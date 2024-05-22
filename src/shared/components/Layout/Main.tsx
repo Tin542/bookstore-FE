@@ -1,14 +1,15 @@
 import React, { FC } from "react";
 import { ConfigProvider, Layout } from "antd";
 import HeaderLayout from "./Header";
-// import Footer from "./Footer";
-
-import "./styles/style.css";
 
 interface MainProps {
   children: React.ReactNode;
 }
 const { Header, Content, Footer } = Layout;
+
+const contentStyle: React.CSSProperties = {
+  padding: '10px 15rem',
+};
 
 const Main: FC<MainProps> = ({ children }) => {
   return (
@@ -18,6 +19,7 @@ const Main: FC<MainProps> = ({ children }) => {
           Layout: {
             headerHeight: 64,
             headerPadding: '0 10px',
+            footerBg: '#001529'
           },
         },
       }}>
@@ -25,9 +27,9 @@ const Main: FC<MainProps> = ({ children }) => {
         <Header>
           <HeaderLayout />
         </Header>
-        <Content>{children}</Content>
-        <Footer style={{ textAlign: "center" }}>
-          BOOKSTORE ©{new Date().getFullYear()} Created Tin
+        <Content style={contentStyle}>{children}</Content>
+        <Footer style={{ textAlign: "center", marginTop: 10, color: '#fff' }}>
+          BOOKSTORE ©{new Date().getFullYear()} Created by Bin
         </Footer>
       </Layout>
     </ConfigProvider>

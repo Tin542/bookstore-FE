@@ -1,15 +1,10 @@
 import React from "react";
 import { Button, ConfigProvider, Flex } from "antd";
-import { useSelector } from "react-redux";
 import { CUSTOMER_PATH } from "../../constants/path";
 import logo from "../../../assets/logo.png";
-import { userSelector } from "../../redux-flow/selector";
 import { Link } from "react-router-dom";
 
 const HeaderLayout: React.FC = () => {
-  const user = useSelector(userSelector);
-
-  console.log(user);
 
   return (
     <ConfigProvider

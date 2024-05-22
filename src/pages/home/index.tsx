@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
+import Homeview from './view'
 
 const HomePage: FC = () => {
   return (
-    <div>HOME PAGE</div>
+    <Homeview/>
   )
 }
 

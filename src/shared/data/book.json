@@ -1,0 +1,162 @@
+[
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Comic"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    },
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Comic"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    },
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Comic"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    },
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Comic"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    },
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Category"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    },
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Category"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    },
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFPHUaBrFc/1/0/1003w/canva-black-and-white-modern-alone-story-book-cover-QHBKwQnsgzs.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Category"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    },
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Category"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    },
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Category"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    },
+    {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "book title 1",
+        "description": "book description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
+        "author": {
+            "name": "Author name"
+        },
+        "category": {
+            "name": "Category"
+        },
+        "isOutofStock": false,
+        "isActive": true
+    }
+]

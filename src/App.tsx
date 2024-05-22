@@ -1,9 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { Suspense } from "react";
 
 import pageRouters from "./pages/routes";
 import Main from "./shared/components/Layout/Main";
 import { CUSTOMER_PATH } from "./shared/constants/path";
-import { Suspense } from "react";
+
+import './index.css'
 
 function App() {
   return (
