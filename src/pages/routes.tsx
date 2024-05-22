@@ -1,4 +1,6 @@
-import { lazy } from "react";
+import { ComponentType, lazy } from "react";
+
+import { AUTH_PATH, CUSTOMER_PATH } from "../shared/constants/path";
 
 const HomePage = lazy(() => import("./home"));
 const ShopPage = lazy(() => import("./shop"));
@@ -7,41 +9,43 @@ const CartPage = lazy(() => import("./cart"));
 const SignInPage = lazy(() => import("./authentication/signin"));
 const SignUpPage = lazy(() => import("./authentication/signup"));
 
-export default [
-    {
-        path: "/",
-        exact: true,
-        public: true,
-        component: HomePage
-    },
-    {
-        path: "/sign-in",
-        exact: true,
-        public: true,
-        component: SignInPage
-    },
-    {
-        path: "/sign-up",
-        exact: true,
-        public: true,
-        component: SignUpPage
-    },
-    {
-        path: "/shop",
-        exact: true,
-        public: true,
-        component: ShopPage 
-    },
-    {
-        path: "/about",
-        exact: true,
-        public: true,
-        component: AboutPage 
-    },
-    {
-        path: "/cart",
-        exact: true,
-        public: true,
-        component: CartPage
-    }
-]
+interface RouteObject {
+  path: string;
+  component: ComponentType;
+  exact?: boolean; // Add other route-specific properties as needed
+}
+
+const pageRoutes: RouteObject[] = [
+  {
+    path: AUTH_PATH.SIGNIN,
+    exact: true,
+    component: SignInPage,
+  },
+  {
+    path: AUTH_PATH.SIGNUP,
+    exact: true,
+    component: SignUpPage,
+  },
+  {
+    path: CUSTOMER_PATH.HOME,
+    exact: true,
+    component: HomePage,
+  },
+  {
+    path: CUSTOMER_PATH.SHOP,
+    exact: true,
+    component: ShopPage,
+  },
+  {
+    path: CUSTOMER_PATH.ABOUT,
+    exact: true,
+    component: AboutPage,
+  },
+  {
+    path: CUSTOMER_PATH.CART,
+    exact: true,
+    component: CartPage,
+  },
+];
+
+export default pageRoutes;

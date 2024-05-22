@@ -1,0 +1,65 @@
+.footer-container {
+    background: #224e33;
+    position: relative;
+    width: 100%;
+    padding: 40px 10vw;
+    padding-bottom: 10px;
+  }
+  .logo {
+    width: 300px;
+  }
+  .footer-category {
+    color: #ffffff;
+    text-align: left;
+    font-size: 20px;
+    font-family: SVN-Gilroy;
+    margin-left: 63px;
+    margin-top: -16px;
+  }
+  .footer-category > .footer-info {
+    font-size: 15px;
+    font-family: SVN-Gilroy;
+    color: #c4c4c4;
+    list-style: none;
+  }
+  .footer-contact-facebook {
+    font-size: 30px;
+    color: #0000ff;
+    cursor: pointer;
+  }
+  .footer-contact-instagram {
+    font-size: 30px;
+    background:linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .footer-contact-youtube {
+    font-size: 37px;
+    color: #ff0000;
+    cursor: pointer;
+  }
+  .footer-info > a {
+    font-size: 15px;
+    font-family: SVN-Gilroy;
+    color: #c4c4c4;
+  }
+  .footer-services {
+    font-size: 15px;
+    font-family: SVN-Gilroy;
+    color: #c4c4c4;
+  }
+  .footer-services:hover {
+    color: '#0000ff';
+  }
+  .footer-more-product {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    transition: 0.3s;
+  }
+  .footer-more-product:hover {
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1);
+  }
+  
