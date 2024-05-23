@@ -5,12 +5,11 @@ import logo from "../../../assets/logo.png";
 import { Link } from "react-router-dom";
 
 const HeaderLayout: React.FC = () => {
-
   return (
     <ConfigProvider
       theme={{
         token: {
-          padding: 5
+          padding: 5,
         },
       }}>
       <Flex justify="space-between" align="center">

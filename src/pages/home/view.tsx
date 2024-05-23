@@ -20,14 +20,14 @@ const onsaleBooks = book.slice(0, 5);
 const recommentBooks = book.slice(5, 10);
 const contentList: Record<string, React.ReactNode> = {
   tab1: (
-    <Flex wrap gap={12}>
+    <Flex wrap gap={10}>
       {recommentBooks.map((item) => (
         <CardComponent item={item} />
       ))}
     </Flex>
   ),
   tab2: (
-    <Flex wrap gap={12}>
+    <Flex wrap gap={10}>
       {book.map((item) => (
         <CardComponent item={item} />
       ))}
@@ -57,23 +57,26 @@ const Homeview = () => {
             titleMarginBottom: 10,
           },
         },
+        token: {
+          padding: 10
+        },
       }}>
       <div style={contentStyle}>
-        <Flex wrap justify="space-between" align="center" gap="small">
+        <Flex justify="space-between" align="center" gap="small">
           <Title level={4}>ON SALE</Title>
           <Button style={{ width: "5rem", height: "3rem" }} type="primary">
             View all
           </Button>
         </Flex>
         <hr />
-        <Flex wrap justify="flex-start" align="center" gap={12}>
+        <Flex wrap gap={10}>
           {onsaleBooks.map((item) => (
             <CardComponent item={item} />
           ))}
         </Flex>
       </div>
       <Card
-        style={{ width: "100%", marginTop: "10px", borderRadius: 0 }}
+        style={{ marginTop: "10px", borderRadius: 0 }}
         title="FEATURED BOOK"
         tabList={tabList}
         activeTabKey={activeTabKey1}

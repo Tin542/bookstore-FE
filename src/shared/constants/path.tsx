@@ -6,6 +6,6 @@ export const CUSTOMER_PATH = {
 };
 
 export const AUTH_PATH = {
-    SIGNIN: "/signin",
-    SIGNUP: "/signup",
-  };
+  SIGNIN: "/signin",
+  SIGNUP: "/signup",
+};

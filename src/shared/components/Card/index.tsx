@@ -8,7 +8,7 @@ interface Item {
   rate: number;
   author: {
     name: string;
-  }
+  };
 }
 
 interface CardComponentProps {
@@ -16,14 +16,13 @@ interface CardComponentProps {
 }
 
 const cardStyle: React.CSSProperties = {
-  width: '19%',
+  width: "12rem",
   borderRadius: 0,
   padding: "10px",
-  marginTop: "10px",
   overflow: "hidden",
 };
 const { Meta } = Card;
-const CardComponent = (props: CardComponentProps) => {
+const CardComponent: React.FC<CardComponentProps> = (props) => {
   const { item } = props;
   return (
     <Card
@@ -37,9 +36,8 @@ const CardComponent = (props: CardComponentProps) => {
             src={item.imageUrl}
           />
         </div>
-      }
-      >
-      <Meta title={item.title} description={`${item.price} VND`}/>
+      }>
+      <Meta title={item.title} description={`${item.price} VND`} />
     </Card>
   );
 };
