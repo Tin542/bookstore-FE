@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "./shared/redux-flow/store.tsx";
 import App from "./App.tsx";
 import "./index.css";
+
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql", // Replace with your GraphQL API endpoint
   cache: new InMemoryCache(),

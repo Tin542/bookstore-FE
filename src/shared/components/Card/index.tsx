@@ -1,18 +1,9 @@
 import React from "react";
 import { Card } from "antd";
-
-interface Item {
-  imageUrl: string;
-  title: string;
-  price: number;
-  rate: number;
-  author: {
-    name: string;
-  };
-}
+import { IBook } from "../../types/book.type";
 
 interface CardComponentProps {
-  item: Item;
+  item: IBook;
 }
 
 const cardStyle: React.CSSProperties = {

@@ -10,20 +10,12 @@ import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
 import { DefaultOptionType } from "antd/es/select";
-
-interface Item {
-  id: string;
-  imageUrl: string;
-  title: string;
-  price: number;
-  rate: number;
-  author: {
-    name: string;
-  };
-}
+import { IBook } from "../../shared/types/book.type";
 
 interface ShopViewProps {
-  item: Item[];
+  item: IBook[] | [];
+  currentPage: number;
+  totalPages: number;
   selectProps: SelectProps<DefaultOptionType>;
   onChangeRate: (value: number) => void;
   onChangeSort: (value: string) => void;
@@ -45,6 +37,8 @@ const filterContainerStyle: React.CSSProperties = {
 const { Option } = Select;
 const ShopView: FC<ShopViewProps> = (props) => {
   const { onChangeRate, onChangeSort, item, selectProps } = props;
+  console.log('item', item)
+  // const [data, setData] = useState(item.data.findAllBooks.data);
 
   return (
     <ConfigProvider
