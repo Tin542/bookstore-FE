@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import AboutView from "./view";
 
 const AboutPage = () => {
-  return (
-    <div>About page</div>
-  )
-}
+  return <AboutView />;
+};
 
-export default AboutPage
+export default AboutPage;

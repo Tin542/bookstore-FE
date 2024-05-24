@@ -31,10 +31,10 @@ const Homeview: React.FC = () => {
 
   const handleChangeFeatured = (val: string) => {
     if(val === 'recommented') {
-      setListBook(book.slice(0, 6));
+      setListBook(book.slice(0, 5));
     }
     if(val === 'popular') {
-      setListBook(book.slice(3, 9));
+      setListBook(book.slice(3, 8));
     }
     
   }
