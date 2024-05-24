@@ -1,11 +1,9 @@
 import {
   Rate,
   Select,
-  Button,
-  Space,
   ConfigProvider,
   Flex,
-  Form,
+  Pagination, 
   SelectProps,
 } from "antd";
 import React, { FC } from "react";
@@ -38,8 +36,11 @@ const contentStyle: React.CSSProperties = {
 const filterContainerStyle: React.CSSProperties = {
   background: "#fff",
   border: "1px solid",
-  borderRadius: 2,
+  borderRadius: 5,
   padding: 5,
+  height: "200px",
+  width: "200px",
+  textAlign: "center",
 };
 const { Option } = Select;
 const ShopView: FC<ShopViewProps> = (props) => {
@@ -61,39 +62,44 @@ const ShopView: FC<ShopViewProps> = (props) => {
       <div style={contentStyle}>
         <Flex wrap justify="space-between" align="flex-start">
           <div style={{ padding: 5 }}>
-            <Form>
-              <Flex align="flex-start" justify="center" vertical>
-                <div style={filterContainerStyle}>
-                  <h3>Category</h3>
-                  <Select {...selectProps} />
-                </div>
+            <Flex align="center" justify="center" gap={20} vertical>
+              <div style={filterContainerStyle}>
+                <h3>Category</h3>
+                <Select {...selectProps} />
+              </div>
 
-                <hr />
+              <div style={filterContainerStyle}>
+                <h3>Author</h3>
+                <Select {...selectProps} />
+              </div>
+
+              <div style={filterContainerStyle}>
                 <h3>Rate</h3>
                 <Rate onChange={onChangeRate} />
-                <hr />
-                <Space size="middle">
-                  <Button>submit</Button>
-                  <Button>reset</Button>
-                </Space>
-              </Flex>
-            </Form>
+              </div>
+            </Flex>
           </div>
 
           <div style={{ width: "63rem" }}>
-            <Select
-              defaultValue="popular"
-              style={{ width: 120, marginBottom: 5 }}
-              onChange={onChangeSort}>
-              <Option value="popular">Popular</Option>
-              <Option value="onsale">On Sale</Option>
-              <Option value="all">All</Option>
-            </Select>
-            <Flex wrap gap={5} justify="center" align="center">
+            <Flex justify="space-between" align="center">
+              <Select
+                defaultValue="popular"
+                style={{ width: 150, marginBottom: 5 }}
+                onChange={onChangeSort}>
+                <Option value="popular">Sort by Popular</Option>
+                <Option value="onsale"> Sort by On Sale</Option>
+                <Option value="all">All</Option>
+              </Select>
+            </Flex>
+
+            <Flex wrap gap={5} justify="flex-start" align="center">
               {item.map((book) => (
                 <CardComponent key={book.id} item={book} />
               ))}
             </Flex>
+            <div style={{marginTop: 10, background: '#fff', padding: 5, width: '81.5%'}}>
+            <Pagination defaultCurrent={6} total={500} />
+            </div>
           </div>
         </Flex>
       </div>
