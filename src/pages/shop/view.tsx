@@ -1,16 +1,10 @@
-import {
-  Rate,
-  Select,
-  ConfigProvider,
-  Flex,
-  Pagination,
-  Empty,
-} from "antd";
+import { Rate, Select, ConfigProvider, Flex, Pagination, Empty } from "antd";
 import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
 import { IBook } from "../../shared/types/book.type";
 import { ICategory } from "../../shared/types/category.type";
+import { IAuthor } from "../../shared/types/author.type";
 
 interface ShopViewProps {
   item: IBook[] | undefined;
@@ -18,6 +12,7 @@ interface ShopViewProps {
   totalItems: number | undefined;
   limit: number | undefined;
   category: ICategory[] | undefined;
+  author: IAuthor[] | undefined;
   onChangeRate: (value: number) => void;
   onChangeSort: (value: string) => void;
 }
@@ -34,10 +29,20 @@ const filterContainerStyle: React.CSSProperties = {
   height: "200px",
   width: "200px",
   textAlign: "center",
+  overflow: "scroll",
 };
 const { Option } = Select;
 const ShopView: FC<ShopViewProps> = (props) => {
-  const { onChangeRate, onChangeSort, item, currentPage, totalItems, limit } = props;
+  const {
+    onChangeRate,
+    onChangeSort,
+    item,
+    currentPage,
+    totalItems,
+    limit,
+    category,
+    author,
+  } = props;
   // const [data, setData] = useState(item.data.findAllBooks.data);
 
   return (
@@ -59,12 +64,24 @@ const ShopView: FC<ShopViewProps> = (props) => {
             <Flex align="center" justify="center" gap={20} vertical>
               <div style={filterContainerStyle}>
                 <h3>Category</h3>
-                
+                {category && category.length > 0
+                  ? category.map((item) => (
+                      <p>
+                        <a>{item.name}</a>
+                      </p>
+                    ))
+                  : ""}
               </div>
 
               <div style={filterContainerStyle}>
                 <h3>Author</h3>
-                
+                {author && author.length > 0
+                  ? author.map((item) => (
+                      <p>
+                        <a>{item.name}</a>
+                      </p>
+                    ))
+                  : ""}
               </div>
 
               <div style={filterContainerStyle}>
@@ -74,7 +91,7 @@ const ShopView: FC<ShopViewProps> = (props) => {
             </Flex>
           </div>
 
-          <div style={{margin: '0 -7px'}}>
+          <div style={{ margin: "0 -7px" }}>
             <Flex justify="space-between" align="center">
               <Select
                 defaultValue="popular"
@@ -87,12 +104,24 @@ const ShopView: FC<ShopViewProps> = (props) => {
             </Flex>
 
             <Flex wrap gap={5} justify="flex-start" align="center">
-              {item && (item.length > 0) ? item.map((book) => (
-                <CardComponent key={book.id} item={book} />
-              )): <Empty />}
+              {item && item.length > 0 ? (
+                item.map((book) => <CardComponent key={book.id} item={book} />)
+              ) : (
+                <Empty />
+              )}
             </Flex>
-            <div style={{marginTop: 10, background: '#fff', padding: 5, width: '81.5%'}}>
-            <Pagination defaultCurrent={currentPage ? currentPage : 1} total={totalItems} pageSize={limit}/>
+            <div
+              style={{
+                marginTop: 10,
+                background: "#fff",
+                padding: 5,
+                width: "81.5%",
+              }}>
+              <Pagination
+                defaultCurrent={currentPage ? currentPage : 1}
+                total={totalItems}
+                pageSize={limit}
+              />
             </div>
           </div>
         </Flex>

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import { fetchAllBooks } from "../../shared/services/book/book.service.ts";
+import {fetchAllCategory} from "../../shared/services/category/category.service.ts";
+import {fetchAllAuthor} from "../../shared/services/author/author.service.ts";
 import ShopView from "./view";
 
 const ShopPage: React.FC = () => {
   const [category, setCategory] = useState();
+  const [author, setAuthor] = useState();
   const [book, setBook] = useState();
   const [currentPage, setCurrentPage] = useState();
   const [totalProducts, setTotalProducts] = useState();
@@ -12,6 +15,8 @@ const ShopPage: React.FC = () => {
 
   useEffect(() => {
     findAllBooks();
+    getAllCategory();
+    getAllAUthor();
   }, []);
   const findAllBooks = () => {
     fetchAllBooks()
@@ -26,6 +31,26 @@ const ShopPage: React.FC = () => {
         console.log(err);
       });
   };
+  const getAllAUthor = () => {
+    fetchAllAuthor()
+      .then((res) => {
+        const responseData = res.data.data.findAllAuthors;
+        setAuthor(responseData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  const getAllCategory = () => {
+    fetchAllCategory()
+      .then((res) => {
+        const responseData = res.data.data.findAllCategories;
+        setCategory(responseData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   const onChangeRate = (val: number) => {
     console.log("Rate", val);
   };
@@ -41,6 +66,7 @@ const ShopPage: React.FC = () => {
       onChangeRate={onChangeRate}
       onChangeSort={onChangeSort}
       category={category}
+      author={author}
     />
   );
 };

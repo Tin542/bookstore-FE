@@ -11,7 +11,7 @@ function App() {
   return (
     <Main>
       <Suspense
-        fallback={<div style={{ textAlign: "center" }}>Loading...</div>}>
+        fallback={<h1 style={{ textAlign: "center" }}>Loading...</h1>}>
         <Routes>
           {pageRouters.map(({ component: Component, path, ...rest }) => {
             return <Route element={<Component />} path={path} {...rest} />;
@@ -20,6 +20,7 @@ function App() {
             path="/"
             element={<Navigate replace to={CUSTOMER_PATH.HOME} />}
           />
+          
         </Routes>
       </Suspense>
     </Main>
