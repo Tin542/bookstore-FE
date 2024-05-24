@@ -2,10 +2,14 @@ import { gql } from '@apollo/client';
 
 export const GET_ALL_BOOK = gql`
 query FindAllBooks {
-    findAllBooks(filter: { page: 1, limit: 12 }) {
+    findAllBooks(filter: { limit: 5, page: 1 }) {
         currentPage
-        pages
-        data {
+        limit
+        totalPages
+        totalProducts
+        list {
+            authorId
+            categoryId
             id
             imageUrl
             isOutofStock

@@ -3,20 +3,21 @@ import {
   Select,
   ConfigProvider,
   Flex,
-  Pagination, 
-  SelectProps,
+  Pagination,
+  Empty,
 } from "antd";
 import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
-import { DefaultOptionType } from "antd/es/select";
 import { IBook } from "../../shared/types/book.type";
+import { ICategory } from "../../shared/types/category.type";
 
 interface ShopViewProps {
-  item: IBook[] | [];
-  currentPage: number;
-  totalPages: number;
-  selectProps: SelectProps<DefaultOptionType>;
+  item: IBook[] | undefined;
+  currentPage: number | undefined;
+  totalItems: number | undefined;
+  limit: number | undefined;
+  category: ICategory[] | undefined;
   onChangeRate: (value: number) => void;
   onChangeSort: (value: string) => void;
 }
@@ -36,8 +37,7 @@ const filterContainerStyle: React.CSSProperties = {
 };
 const { Option } = Select;
 const ShopView: FC<ShopViewProps> = (props) => {
-  const { onChangeRate, onChangeSort, item, selectProps } = props;
-  console.log('item', item)
+  const { onChangeRate, onChangeSort, item, currentPage, totalItems, limit } = props;
   // const [data, setData] = useState(item.data.findAllBooks.data);
 
   return (
@@ -54,17 +54,17 @@ const ShopView: FC<ShopViewProps> = (props) => {
         },
       }}>
       <div style={contentStyle}>
-        <Flex wrap justify="space-between" align="flex-start">
+        <Flex gap={50} justify="center" align="flex-start">
           <div style={{ padding: 5 }}>
             <Flex align="center" justify="center" gap={20} vertical>
               <div style={filterContainerStyle}>
                 <h3>Category</h3>
-                <Select {...selectProps} />
+                
               </div>
 
               <div style={filterContainerStyle}>
                 <h3>Author</h3>
-                <Select {...selectProps} />
+                
               </div>
 
               <div style={filterContainerStyle}>
@@ -74,7 +74,7 @@ const ShopView: FC<ShopViewProps> = (props) => {
             </Flex>
           </div>
 
-          <div style={{ width: "63rem" }}>
+          <div style={{margin: '0 -7px'}}>
             <Flex justify="space-between" align="center">
               <Select
                 defaultValue="popular"
@@ -87,12 +87,12 @@ const ShopView: FC<ShopViewProps> = (props) => {
             </Flex>
 
             <Flex wrap gap={5} justify="flex-start" align="center">
-              {item.map((book) => (
+              {item && (item.length > 0) ? item.map((book) => (
                 <CardComponent key={book.id} item={book} />
-              ))}
+              )): <Empty />}
             </Flex>
             <div style={{marginTop: 10, background: '#fff', padding: 5, width: '81.5%'}}>
-            <Pagination defaultCurrent={6} total={500} />
+            <Pagination defaultCurrent={currentPage ? currentPage : 1} total={totalItems} pageSize={limit}/>
             </div>
           </div>
         </Flex>

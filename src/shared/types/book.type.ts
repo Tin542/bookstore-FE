@@ -12,12 +12,18 @@ export interface IBook {
 
 export interface IBooks {
   findAllBooks: {
+    list: [IBook];
     currentPage: number;
-    pages: number;
-    data: IBook[] | [];
+    totalProducts: number;
+    limit: number;
   };
 }
 
-export type IBookMutation = {
-  addBook: IBook;
-};
+export interface FilterBookDto {
+  title?: string;
+  rate?: number;
+  authorId?: string;
+  category?: string;
+  page?: number;
+  limit?: number;
+}
