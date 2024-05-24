@@ -8,7 +8,8 @@ interface MainProps {
 const { Header, Content, Footer } = Layout;
 
 const contentStyle: React.CSSProperties = {
-  padding: '10px 26rem',
+  padding: '10px 100px',
+  minWidth: '500px',
 };
 
 const Main: FC<MainProps> = ({ children }) => {
