@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "antd";
-import { IBook } from "../../types/book.type";
+import { IBook } from "../../constants/types/book.type";
 
 interface CardComponentProps {
   item: IBook;

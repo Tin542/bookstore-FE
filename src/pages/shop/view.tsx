@@ -2,9 +2,9 @@ import { Rate, Select, ConfigProvider, Flex, Pagination, Empty } from "antd";
 import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
-import { IBook } from "../../shared/types/book.type";
-import { ICategory } from "../../shared/types/category.type";
-import { IAuthor } from "../../shared/types/author.type";
+import { IBook } from "../../shared/constants/types/book.type";
+import { ICategory } from "../../shared/constants/types/category.type";
+import { IAuthor } from "../../shared/constants/types/author.type";
 
 interface ShopViewProps {
   item: IBook[] | undefined;

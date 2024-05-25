@@ -19,11 +19,12 @@ export interface IBooks {
   };
 }
 
-export interface FilterBookDto {
+export interface IBookQuery {
   title?: string;
   rate?: number;
-  authorId?: string;
-  category?: string;
+  authorId?: string[];
+  category?: string[];
   page?: number;
   limit?: number;
 }
+

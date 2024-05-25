@@ -19,7 +19,7 @@ const ShopPage: React.FC = () => {
     getAllAUthor();
   }, []);
   const findAllBooks = () => {
-    fetchAllBooks()
+    fetchAllBooks({})
       .then((res) => {
         const responseData = res.data.data.findAllBooks;
         setBook(responseData.list);
