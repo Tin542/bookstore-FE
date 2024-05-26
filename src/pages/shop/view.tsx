@@ -3,7 +3,7 @@ import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
 import FilterComponent from "./filter/index";
-import { IBook } from "../../shared/constants/types/book.type";
+import { IBook, IBookQuery } from "../../shared/constants/types/book.type";
 
 interface ShopViewProps {
   item: IBook[] | undefined;
@@ -11,6 +11,8 @@ interface ShopViewProps {
   totalItems: number | undefined;
   limit: number | undefined;
   onChangeSort: (value: string) => void;
+  setFilter: (value: IBookQuery) => void;
+  filter: IBookQuery;
 }
 
 const contentStyle: React.CSSProperties = {
@@ -20,7 +22,7 @@ const contentStyle: React.CSSProperties = {
 
 const { Option } = Select;
 const ShopView: FC<ShopViewProps> = (props) => {
-  const { onChangeSort, item, currentPage, totalItems, limit } = props;
+  const { onChangeSort, item, currentPage, totalItems, limit, setFilter, filter } = props;
   // const [data, setData] = useState(item.data.findAllBooks.data);
 
   return (
@@ -38,7 +40,7 @@ const ShopView: FC<ShopViewProps> = (props) => {
       }}>
       <div style={contentStyle}>
         <Flex gap={50} justify="center" align="flex-start">
-          <FilterComponent />
+          <FilterComponent filter={filter} setFilter={setFilter} />
           <div style={{ margin: "0 -7px" }}>
             <Flex justify="space-between" align="center">
               <Select

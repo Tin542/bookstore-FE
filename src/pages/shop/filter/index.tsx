@@ -5,8 +5,15 @@ import { fetchAllCategory } from "../../../shared/services/category/category.ser
 import { fetchAllAuthor } from "../../../shared/services/author/author.service.ts";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import { SearchProps } from "antd/es/input/Search";
+import { IBookQuery } from "../../../shared/constants/types/book.type.ts";
 
-const Filter: FC = () => {
+interface FilterProps {
+  filter: IBookQuery;
+  setFilter: (value: IBookQuery) => void;
+}
+
+const Filter: FC<FilterProps> = (props) => {
+  const { filter, setFilter } = props;
   const [category, setCategory] = useState();
   const [author, setAuthor] = useState();
 
@@ -37,18 +44,33 @@ const Filter: FC = () => {
   };
 
   const onChangeCategory = (checkedValues: CheckboxValueType[]) => {
-    console.log("category = ", checkedValues);
+    const stringValues = checkedValues.map(value => value.toString());
+    setFilter({
+      ...filter,
+      category: stringValues
+    })
   };
 
   const onChangeAuthor = (checkedValues: CheckboxValueType[]) => {
-    console.log("author = ", checkedValues);
+    const stringValues = checkedValues.map(value => value.toString());
+    setFilter({
+      ...filter,
+      author: stringValues
+    })
   };
 
   const onChangeRating = (checkedValues: CheckboxValueType[]) => {
     console.log("rate = ", checkedValues);
   };
 
-  const onSearch: SearchProps['onSearch'] = (value) => console.log('search', value);
+  const onSearch: SearchProps["onSearch"] = (value) =>{
+    console.log("search", value);
+    setFilter({
+      ...filter,
+      title: value
+    })
+  }
+    
 
   return (
     <FilterComponent
@@ -57,7 +79,7 @@ const Filter: FC = () => {
       onChangeCategory={onChangeCategory}
       onChangeAuthor={onChangeAuthor}
       onChangeRating={onChangeRating}
-      onSearch= {onSearch}
+      onSearch={onSearch}
     />
   );
 };

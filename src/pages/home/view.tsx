@@ -59,7 +59,7 @@ const Homeview: React.FC = () => {
           </Button>
         </Flex>
         <hr />
-        <Flex wrap justify="center" align="center" gap={19}>
+        <Flex wrap justify="center" align="center" gap={10}>
           {book.map((item) => (
             <CardComponent key={item.id} item={item} />
           ))}
