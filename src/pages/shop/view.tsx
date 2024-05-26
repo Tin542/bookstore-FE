@@ -63,7 +63,7 @@ const ShopView: FC<ShopViewProps> = (props) => {
                 marginTop: 10,
                 background: "#fff",
                 padding: 5,
-                width: "81.5%",
+                width: "99.5%",
               }}>
               <Pagination
                 defaultCurrent={currentPage ? currentPage : 1}
