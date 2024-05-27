@@ -11,6 +11,7 @@ interface ShopViewProps {
   totalItems: number | undefined;
   limit: number | undefined;
   onChangeSort: (value: string) => void;
+  onChangePage: (value: number) => void;
   setFilter: (value: IBookQuery) => void;
   filter: IBookQuery;
 }
@@ -22,7 +23,7 @@ const contentStyle: React.CSSProperties = {
 
 const { Option } = Select;
 const ShopView: FC<ShopViewProps> = (props) => {
-  const { onChangeSort, item, currentPage, totalItems, limit, setFilter, filter } = props;
+  const { onChangeSort, item, currentPage, totalItems, limit, onChangePage, setFilter, filter } = props;
   // const [data, setData] = useState(item.data.findAllBooks.data);
 
   return (
@@ -71,6 +72,7 @@ const ShopView: FC<ShopViewProps> = (props) => {
                 defaultCurrent={currentPage ? currentPage : 1}
                 total={totalItems}
                 pageSize={limit}
+                onChange={onChangePage}
               />
             </div>
           </div>

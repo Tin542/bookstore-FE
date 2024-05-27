@@ -48,6 +48,7 @@ const Filter: FC<FilterProps> = (props) => {
     setFilter({
       ...filter,
       category: stringValues,
+      page: 1
     });
   };
 
@@ -56,6 +57,7 @@ const Filter: FC<FilterProps> = (props) => {
     setFilter({
       ...filter,
       author: stringValues,
+      page: 1
     });
   };
 
@@ -66,6 +68,7 @@ const Filter: FC<FilterProps> = (props) => {
     setFilter({
       ...filter,
       rate: stringValues,
+      page: 1
     });
   };
 
@@ -74,6 +77,7 @@ const Filter: FC<FilterProps> = (props) => {
     setFilter({
       ...filter,
       title: value,
+      page: 1
     });
   };
 

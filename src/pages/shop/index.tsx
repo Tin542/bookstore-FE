@@ -41,6 +41,12 @@ const ShopPage: React.FC = () => {
   const onChangeSort = (val: string) => {
     console.log("Sort", val);
   };
+  const onChangePage = (val: number) => {
+    setFilter({
+      ...filter,
+      page: val
+    })
+  }
   return (
     <ShopView
       item={book}
@@ -48,6 +54,7 @@ const ShopPage: React.FC = () => {
       totalItems={totalProducts}
       limit={limit}
       onChangeSort={onChangeSort}
+      onChangePage={onChangePage}
       setFilter={setFilter}
       filter={filter}
     />
