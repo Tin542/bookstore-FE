@@ -8,7 +8,8 @@ interface MainProps {
 const { Header, Content, Footer } = Layout;
 
 const contentStyle: React.CSSProperties = {
-  margin: '10px 15%',
+  padding: "0 15%",
+  marginTop: 64,
 };
 
 const Main: FC<MainProps> = ({ children }) => {
@@ -18,17 +19,25 @@ const Main: FC<MainProps> = ({ children }) => {
         components: {
           Layout: {
             headerHeight: 64,
-            headerPadding: '0 10px',
-            footerBg: '#001529'
+            headerPadding: "0 10px",
+            footerBg: "#001529",
           },
         },
       }}>
-      <Layout>
-        <Header>
+      <Layout style={{ minHeight: "100vh" }}>
+        <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
           <HeaderLayout />
         </Header>
-        <Content style={contentStyle}>{children}</Content>
-        <Footer style={{ textAlign: "center", marginTop: 10, color: '#fff' }}>
+        <Content style={contentStyle}>
+          <div style={{ minHeight: 380 }}>{children}</div>
+        </Content>
+        <Footer
+          style={{
+            textAlign: "center",
+            marginTop: 10,
+            color: "#fff",
+            height: 64,
+          }}>
           BOOKSTORE ©{new Date().getFullYear()} Created by Bin
         </Footer>
       </Layout>

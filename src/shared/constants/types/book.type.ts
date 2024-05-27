@@ -1,7 +1,6 @@
 export interface IBook {
   id?: string;
   title: string;
-  description: string;
   rate: number;
   price: number;
   imageUrl: string;
