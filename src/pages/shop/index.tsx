@@ -13,7 +13,7 @@ const ShopPage: React.FC = () => {
 
   const [filter, setFilter] = useState<IBookQuery>({
     title: "",
-    rate: undefined,
+    rate: [],
     author: [],
     category: [],
     page: 1,

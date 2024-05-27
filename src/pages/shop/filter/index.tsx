@@ -44,33 +44,38 @@ const Filter: FC<FilterProps> = (props) => {
   };
 
   const onChangeCategory = (checkedValues: CheckboxValueType[]) => {
-    const stringValues = checkedValues.map(value => value.toString());
+    const stringValues = checkedValues.map((value) => value.toString());
     setFilter({
       ...filter,
-      category: stringValues
-    })
+      category: stringValues,
+    });
   };
 
   const onChangeAuthor = (checkedValues: CheckboxValueType[]) => {
-    const stringValues = checkedValues.map(value => value.toString());
+    const stringValues = checkedValues.map((value) => value.toString());
     setFilter({
       ...filter,
-      author: stringValues
-    })
+      author: stringValues,
+    });
   };
 
   const onChangeRating = (checkedValues: CheckboxValueType[]) => {
-    console.log("rate = ", checkedValues);
+    const stringValues = checkedValues.map((value) =>
+      parseInt(value as string)
+    );
+    setFilter({
+      ...filter,
+      rate: stringValues,
+    });
   };
 
-  const onSearch: SearchProps["onSearch"] = (value) =>{
+  const onSearch: SearchProps["onSearch"] = (value) => {
     console.log("search", value);
     setFilter({
       ...filter,
-      title: value
-    })
-  }
-    
+      title: value,
+    });
+  };
 
   return (
     <FilterComponent

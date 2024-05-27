@@ -20,7 +20,7 @@ export interface IBooks {
 
 export interface IBookQuery {
   title?: string;
-  rate?: number;
+  rate?: number[];
   author?: string[];
   category?: string[];
   page?: number;

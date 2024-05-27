@@ -39,7 +39,7 @@ const ShopView: FC<ShopViewProps> = (props) => {
         },
       }}>
       <div style={contentStyle}>
-        <Flex gap={50} justify="center" align="flex-start">
+        <Flex gap={50} justify="flex-start" align="flex-start">
           <FilterComponent filter={filter} setFilter={setFilter} />
           <div style={{ margin: "0 -7px" }}>
             <Flex justify="space-between" align="center">
