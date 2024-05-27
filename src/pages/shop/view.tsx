@@ -23,8 +23,16 @@ const contentStyle: React.CSSProperties = {
 
 const { Option } = Select;
 const ShopView: FC<ShopViewProps> = (props) => {
-  const { onChangeSort, item, currentPage, totalItems, limit, onChangePage, setFilter, filter } = props;
-  // const [data, setData] = useState(item.data.findAllBooks.data);
+  const {
+    onChangeSort,
+    item,
+    currentPage,
+    totalItems,
+    limit,
+    onChangePage,
+    setFilter,
+    filter,
+  } = props;
 
   return (
     <ConfigProvider
@@ -53,20 +61,23 @@ const ShopView: FC<ShopViewProps> = (props) => {
                 <Option value="all">All</Option>
               </Select>
             </Flex>
-
-            <Flex wrap gap={5} justify="flex-start" align="center">
-              {item && item.length > 0 ? (
-                item.map((book) => <CardComponent key={book.id} item={book} />)
-              ) : (
-                <Empty style={{ width: "40rem" }} />
-              )}
-            </Flex>
+            <div style={{minHeight: '120vh'}}>
+              <Flex wrap gap={5} justify="flex-start" align="center">
+                {item && item.length > 0 ? (
+                  item.map((book) => (
+                    <CardComponent key={book.id} item={book} />
+                  ))
+                ) : (
+                  <Empty style={{ width: "40rem" }} />
+                )}
+              </Flex>
+            </div>
             <div
               style={{
                 marginTop: 10,
                 background: "#fff",
                 padding: 5,
-                width: "99.5%",
+                width: "98%",
               }}>
               <Pagination
                 defaultCurrent={currentPage ? currentPage : 1}

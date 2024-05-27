@@ -6,8 +6,8 @@ const HomePage = lazy(() => import("./home"));
 const ShopPage = lazy(() => import("./shop"));
 const AboutPage = lazy(() => import("./about"));
 const CartPage = lazy(() => import("./cart"));
-const SignInPage = lazy(() => import("./authentication/signin"));
-const SignUpPage = lazy(() => import("./authentication/signup"));
+const SignInPage = lazy(() => import("./auth/signin"));
+const SignUpPage = lazy(() => import("./auth/signup"));
 
 interface RouteObject {
   path: string;

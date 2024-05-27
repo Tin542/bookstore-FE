@@ -19,8 +19,6 @@ const ShopPage: React.FC = () => {
     page: 1,
     limit: 12,
   });
-
-  console.log('filter', filter);
   useEffect(() => {
     findAllBooks();
   }, [filter]);
