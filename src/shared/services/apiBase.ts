@@ -17,3 +17,6 @@ export const apiBase = (graphqlQuery: IApi) => {
   });
   return response;
 };
+
+// axiosClient.interceptors.response.use(res => res.data.d)
+

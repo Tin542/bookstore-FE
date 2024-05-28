@@ -18,7 +18,7 @@ export interface IBooks {
   };
 }
 
-export interface IBookQuery {
+export type BookQuery = {
   title?: string;
   rate?: number[];
   author?: string[];

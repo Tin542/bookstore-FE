@@ -1,14 +1,14 @@
 import React from "react";
-import { Button, Checkbox, Flex, Form, Input } from "antd";
+import { Button, Flex, Form, Input } from "antd";
 import type { FormProps } from "antd";
-import { LoginFieldType } from "../../../shared/constants/types/auth.type";
+import { SignUpFieldType } from "../../../shared/constants/types/auth.type";
 import { HomeOutlined, LockOutlined, MailOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AUTH_PATH } from "../../../shared/constants/path";
 
 interface SignViewProps {
-  onFinish: FormProps<LoginFieldType>["onFinish"];
-  onFinishFailed: FormProps<LoginFieldType>["onFinishFailed"];
+  onFinish: FormProps<SignUpFieldType>["onFinish"];
+  onFinishFailed: FormProps<SignUpFieldType>["onFinishFailed"];
 }
 const containerStyle: React.CSSProperties = {
   marginTop: 20,

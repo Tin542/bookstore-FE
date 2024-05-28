@@ -1,7 +1,6 @@
-import { IBookQuery } from "./book.type";
 
-export interface IApi {
-    operationName: string,
-    query: string,
-    variables: IBookQuery
+export interface IApi<V = Record<string, unknown>> {
+  operationName: string;
+  query: string;
+  variables: V;
 }

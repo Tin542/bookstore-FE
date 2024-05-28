@@ -1,6 +1,6 @@
-import { IBookQuery } from "../../constants/types/book.type";
+import { BookQuery } from "../../constants/types/book.type";
 
-export const getAllBook = (data?: IBookQuery) => {
+export const getAllBook = (data?: BookQuery) => {
   return {
     operationName: "FindAllBooks",
     query: `query FindAllBooks(
@@ -30,6 +30,6 @@ export const getAllBook = (data?: IBookQuery) => {
       }
     }
       `,
-    variables: data || ({} as IBookQuery),
+    variables: data || ({} as BookQuery),
   };
 };

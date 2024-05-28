@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { ConfigProvider, Layout } from "antd";
 import HeaderLayout from "./Header";
+import FooterLayout from "./Footer";
 
 interface MainProps {
   children: React.ReactNode;
@@ -37,8 +38,9 @@ const Main: FC<MainProps> = ({ children }) => {
             marginTop: 10,
             color: "#fff",
             height: 64,
+            width: "100%",
           }}>
-          BOOKSTORE ©{new Date().getFullYear()} Created by Bin
+          <FooterLayout />
         </Footer>
       </Layout>
     </ConfigProvider>

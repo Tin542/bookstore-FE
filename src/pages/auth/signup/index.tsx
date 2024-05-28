@@ -1,12 +1,41 @@
+import { FormProps, message } from "antd";
+import { useNavigate } from "react-router-dom";
+
 import SignUpView from "./view";
-import { FormProps } from "antd";
-import { LoginFieldType } from "../../../shared/constants/types/auth.type";
+import { SignUpFieldType } from "../../../shared/constants/types/auth.type";
+import { signUp } from "../../../shared/services/auth/auth.service";
+import { success, error } from "../../../shared/components/Notification";
+import { AUTH_PATH } from "../../../shared/constants/path";
+
 
 const SignUpPage = () => {
-  const onFinish: FormProps<LoginFieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+  const navigate = useNavigate();
+
+  const onFinish: FormProps<SignUpFieldType>["onFinish"] = async (values) => {
+    try {
+      await signUp({
+        ...values,
+        avatar:
+          "https://res.cloudinary.com/dyo7rdbmx/image/upload/v1716861871/c3rzctkh5otpkgua522n.jpg",
+      })
+        .then((rs) => {
+          const checkResult = rs.data;
+          if (!checkResult.data) {
+            const errorAlert = checkResult.errors[0];
+            error("Sign up Failed", errorAlert.message);
+          } else {
+            success("Sign Up Success");
+            navigate(AUTH_PATH.SIGNIN);
+          }
+        })
+        .catch((err) => {
+          message.error("Signup failed", err);
+        });
+    } catch (error) {
+      message.error("Signup failed. Please try again.");
+    }
   };
-  const onFinishFailed: FormProps<LoginFieldType>["onFinishFailed"] = (
+  const onFinishFailed: FormProps<SignUpFieldType>["onFinishFailed"] = (
     errorInfo
   ) => {
     console.log("Failed:", errorInfo);
