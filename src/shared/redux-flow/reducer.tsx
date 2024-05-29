@@ -3,27 +3,18 @@ import { AuthActionTypes, LOGIN, LOGOUT, State } from "../constants/type";
 
 // Initial state
 const initState: State = {
-  data: {
-    user: JSON.stringify(localStorage.getItem(USER_STORE)) || undefined,
-  },
+  user: localStorage.getItem(USER_STORE) || undefined,
 };
 
 // Reducer
-const rootReducer = (state = initState, action: AuthActionTypes): State => {
+const rootReducer = (state = initState, action: AuthActionTypes) => {
   switch (action.type) {
     case LOGIN:
-      return {
-        ...state,
-        data: {
-          user: action.payload,
-        },
-      };
+      return { ...state, user: action.payload };
     case LOGOUT:
       return {
         ...state,
-        data: {
-          user: undefined,
-        },
+        user: undefined,
       };
     default:
       return state;

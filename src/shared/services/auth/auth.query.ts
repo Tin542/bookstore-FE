@@ -1,5 +1,25 @@
-import { SignUpFieldType } from "../../constants/types/auth.type";
+import {
+  LoginFieldType,
+  SignUpFieldType,
+} from "../../constants/types/auth.type";
 
+export const signin = (data?: LoginFieldType) => {
+  return {
+    operationName: "Signin",
+    query: ` mutation Signin($username: String!, $password: String!) {
+        signin(password: $password, username: $username) {
+          accessToken
+          userInfo {
+            fullName
+            username
+            id
+          }
+        }
+      }
+      `,
+    variables: data || ({} as LoginFieldType),
+  };
+};
 export const signup = (data?: SignUpFieldType) => {
   return {
     operationName: "Signup",

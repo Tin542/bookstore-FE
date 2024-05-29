@@ -1,28 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const LOGIN = 'auth/login';
 export const LOGOUT = 'auth/logout';
 export const UPDATE_PROFILE = 'auth/updateProfile';
 
+// Define the base action type
+interface UnknownAction {
+  type: string;
+  [key: string]: any; // Index signature
+}
+
 // State type
-export interface User {
+export type User = {
   id: number;
   name: string;
-  email: string;
+  username: string;
 }
 
 export interface State {
-  data: {
-    user: string | User | undefined;
-  };
+  user: string | User | undefined;
 }
 
+
 //Actions Type
-export interface LoginAction {
+export interface LoginAction extends UnknownAction {
   type: typeof LOGIN;
   payload: User;
 }
 
 export interface LogoutAction {
-  type: typeof LOGOUT;
+  type: string;
   payload: undefined; // Assuming no payload for logout
 }
 
