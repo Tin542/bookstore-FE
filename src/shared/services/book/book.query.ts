@@ -26,6 +26,7 @@ export const getAllBook = (data?: BookQuery) => {
           imageUrl
           price
           title
+          rate
         }
       }
     }

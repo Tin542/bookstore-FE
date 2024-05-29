@@ -14,12 +14,12 @@ export type User = {
   id: number;
   name: string;
   username: string;
-  access_token: string;
-  refresh_token: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface State {
-  user: string | User | undefined;
+  user: User | undefined;
 }
 
 //Actions Type

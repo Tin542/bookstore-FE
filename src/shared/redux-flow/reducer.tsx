@@ -1,9 +1,13 @@
 import { USER_STORE } from "../constants/appConstants";
-import { AuthActionTypes, LOGIN, LOGOUT, State } from "../constants/types/redux.type";
+import { AuthActionTypes, LOGIN, LOGOUT, State, User } from "../constants/types/redux.type";
+
+// Get initial user state from local storage
+const storedUser = localStorage.getItem(USER_STORE);
+const initialUser: User | undefined = storedUser ? JSON.parse(storedUser) : undefined;
 
 // Initial state
 const initState: State = {
-  user: localStorage.getItem(USER_STORE) || undefined,
+  user: initialUser,
 };
 
 // Reducer

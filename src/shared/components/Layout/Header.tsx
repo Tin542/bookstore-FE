@@ -18,7 +18,7 @@ const HeaderLayout: React.FC = () => {
   const userStore = useSelector(userSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const itemsWithOutLogin: MenuProps["items"] = [
     {
       key: "1",
@@ -69,16 +69,21 @@ const HeaderLayout: React.FC = () => {
             <Link to={CUSTOMER_PATH.ABOUT}>About</Link>
           </Button>
           <Button style={contentStyle} type="link">
-            <Link to={CUSTOMER_PATH.CART}>Cart (0)</Link>
+            <Link to={ userStore ? CUSTOMER_PATH.CART : AUTH_PATH.SIGNIN}>Cart (0)</Link>
           </Button>
           <Dropdown
             menu={{ items: userStore ? itemsWithLogin : itemsWithOutLogin }}
             placement="bottom"
             arrow>
-            <Button
+            <div style={{color: 'white'}}>
+              {userStore ? `Welcome, ${userStore.username}` : ''}
+              
+              <Button
               style={contentStyle}
               icon={<UserOutlined />}
               type="link"></Button>
+            </div>
+            
           </Dropdown>
         </Flex>
       </Flex>

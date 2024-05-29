@@ -1,12 +1,14 @@
 import axios from "axios";
 import { IApi } from "../constants/types/api.type";
+import { ACCESS_TOKEN } from "../constants/appConstants";
 
 export const apiBase = (graphqlQuery: IApi) => {
+  
   const baseUrl: string = import.meta.env.VITE_API;
-  const token = "";
+  const token = localStorage.getItem(ACCESS_TOKEN);
   const headers = {
     "Content-Type": "application/json",
-    token: token,
+    token: token || "",
   };
 
   const response = axios({
@@ -17,6 +19,4 @@ export const apiBase = (graphqlQuery: IApi) => {
   });
   return response;
 };
-
-// axiosClient.interceptors.response.use(res => res.data.d)
 

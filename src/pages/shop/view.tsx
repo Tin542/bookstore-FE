@@ -3,7 +3,7 @@ import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
 import FilterComponent from "./filter/index";
-import { IBook, IBookQuery } from "../../shared/constants/types/book.type";
+import { IBook, BookQuery } from "../../shared/constants/types/book.type";
 
 interface ShopViewProps {
   item: IBook[] | undefined;
@@ -12,8 +12,8 @@ interface ShopViewProps {
   limit: number | undefined;
   onChangeSort: (value: string) => void;
   onChangePage: (value: number) => void;
-  setFilter: (value: IBookQuery) => void;
-  filter: IBookQuery;
+  setFilter: (value: BookQuery) => void;
+  filter: BookQuery;
 }
 
 const contentStyle: React.CSSProperties = {

@@ -1,28 +1,4 @@
-import axios from "axios";
+import { apiBase } from "../apiBase";
+import { getAllAuthorQuery } from "./author.query";
 
-const endPoint = "http://localhost:3000/graphql";
-const token = "";
-const headers = {
-  "Content-Type": "application/json",
-  token: token,
-};
-const allAuthorQuery = `{
-    findAllAuthors {
-        id
-        name
-    }
-  }`;
-const graphqlQuery = {
-  operationName: "FindAllAuthors",
-  query: `query FindAllAuthors ${allAuthorQuery}`,
-  variables: {},
-};
-export const fetchAllAuthor = () => {
-  const response = axios({
-    url: endPoint,
-    method: "post",
-    data: graphqlQuery,
-    headers: headers,
-  });
-  return response;
-};
+export const fetchAllAuthor = () => apiBase(getAllAuthorQuery());
