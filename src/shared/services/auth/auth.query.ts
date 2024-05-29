@@ -13,6 +13,7 @@ export const signin = (data?: LoginFieldType) => {
             fullName
             username
             id
+            refreshToken
           }
         }
       }

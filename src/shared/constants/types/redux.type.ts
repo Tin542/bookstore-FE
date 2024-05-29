@@ -14,12 +14,13 @@ export type User = {
   id: number;
   name: string;
   username: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 export interface State {
   user: string | User | undefined;
 }
-
 
 //Actions Type
 export interface LoginAction extends UnknownAction {
@@ -27,7 +28,7 @@ export interface LoginAction extends UnknownAction {
   payload: User;
 }
 
-export interface LogoutAction {
+export interface LogoutAction extends UnknownAction {
   type: string;
   payload: undefined; // Assuming no payload for logout
 }

@@ -1,5 +1,5 @@
 import { USER_STORE } from "../constants/appConstants";
-import { AuthActionTypes, LOGIN, LOGOUT, State } from "../constants/type";
+import { AuthActionTypes, LOGIN, LOGOUT, State } from "../constants/types/redux.type";
 
 // Initial state
 const initState: State = {
