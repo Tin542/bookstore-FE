@@ -8,6 +8,7 @@ const AboutPage = lazy(() => import("./about"));
 const CartPage = lazy(() => import("./cart"));
 const SignInPage = lazy(() => import("./auth/signin"));
 const SignUpPage = lazy(() => import("./auth/signup"));
+const ProfilePage = lazy(() => import("./profile"));
 
 interface RouteObject {
   path: string;
@@ -16,6 +17,11 @@ interface RouteObject {
 }
 
 const pageRoutes: RouteObject[] = [
+  {
+    path: CUSTOMER_PATH.PROFILE,
+    exact: true,
+    component: ProfilePage,
+  },
   {
     path: AUTH_PATH.SIGNIN,
     exact: true,

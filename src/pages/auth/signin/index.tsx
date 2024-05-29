@@ -31,7 +31,7 @@ const SignInPage: React.FC = () => {
             success("Sign in successfully");
             navigate(CUSTOMER_PATH.HOME);
             dispatch(
-              handleLogin({...user.userInfo, access_token: user.accessToken })
+              handleLogin({...user.userInfo, accessToken: user.accessToken })
             );
           }
         })

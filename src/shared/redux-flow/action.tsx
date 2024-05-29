@@ -10,9 +10,8 @@ export const handleLogin = (data: User): LoginAction => {
 };
 
 export const handleLogout = (): LogoutAction => {
-  localStorage.setItem(USER_STORE, "{}");
+  localStorage.setItem(USER_STORE, '');
   return {
     type: LOGOUT,
-    payload: undefined,
   };
 };

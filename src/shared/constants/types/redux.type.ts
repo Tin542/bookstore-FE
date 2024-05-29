@@ -30,7 +30,6 @@ export interface LoginAction extends UnknownAction {
 
 export interface LogoutAction extends UnknownAction {
   type: string;
-  payload: undefined; // Assuming no payload for logout
 }
 
 export type AuthActionTypes = LoginAction | LogoutAction ;
