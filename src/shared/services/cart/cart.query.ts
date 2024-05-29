@@ -15,7 +15,7 @@ export const allCartItemQuery = (uid: string) => {
         }
     }         
         `,
-      variables: uid,
+      variables: {uid: uid},
     };
   };
   

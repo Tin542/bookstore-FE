@@ -1,5 +1,5 @@
 
-export type CartType = {
+export type CartStoreType = [{
     price: number;
     quantity: number;
     book: {
@@ -8,4 +8,4 @@ export type CartType = {
       title: string;
       imageUrl: string
     }
-  }
+  }]
