@@ -24,6 +24,7 @@ const rootReducer = (state = initState, action: AuthActionTypes) => {
       return {
         ...state,
         user: undefined,
+        cart: undefined
       };
     case CART:
       return { ...state, cart: action.payload };

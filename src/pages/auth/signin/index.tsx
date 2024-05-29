@@ -7,25 +7,19 @@ import SignInView from "./view";
 import { LoginFieldType } from "../../../shared/constants/types/auth.type";
 import { signIn } from "../../../shared/services/auth/auth.service";
 import { error, success } from "../../../shared/components/Notification";
-import { handleLogin } from "../../../shared/redux-flow/action";
+import { handleLogin, handleStoreCart } from "../../../shared/redux-flow/action";
 import { CUSTOMER_PATH } from "../../../shared/constants/path";
 import { fetchAllCartItem } from "../../../shared/services/cart/cart.service";
 
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // console.log(loginInfo);
-  // useEffect(() => {
-  //   console.log(loginInfo);
-  //   if (loginInfo?.id) {
-  //     fetchAllCartItems(loginInfo.id);
-  //   }
-  // }, [loginInfo]);
 
   const fetchAllCartItems = async (uid: string) => {
     try {
       const response = await fetchAllCartItem(uid);
-      console.log("cart", response);
+      const cartItems = response.data.data.getCart;
+      dispatch(handleStoreCart(cartItems));
     } catch (err) {
       error('Failed to get cart', err as string);
     }
