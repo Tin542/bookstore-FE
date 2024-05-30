@@ -9,6 +9,7 @@ const CartPage = lazy(() => import("./cart"));
 const SignInPage = lazy(() => import("./auth/signin"));
 const SignUpPage = lazy(() => import("./auth/signup"));
 const ProfilePage = lazy(() => import("./profile"));
+const DetailPage = lazy(() => import("./detail"));
 
 interface RouteObject {
   path: string;
@@ -23,6 +24,17 @@ const pageRoutes: RouteObject[] = [
     exact: true,
     component: ProfilePage,
     protected: true,
+  },
+  {
+    path: CUSTOMER_PATH.CART,
+    exact: true,
+    component: CartPage,
+    protected: true,
+  },
+  {
+    path: CUSTOMER_PATH.DETAIL_PRODUCT,
+    exact: true,
+    component: DetailPage,
   },
   {
     path: AUTH_PATH.SIGNIN,
@@ -48,12 +60,6 @@ const pageRoutes: RouteObject[] = [
     path: CUSTOMER_PATH.ABOUT,
     exact: true,
     component: AboutPage,
-  },
-  {
-    path: CUSTOMER_PATH.CART,
-    exact: true,
-    component: CartPage,
-    protected: true,
   },
 ];
 
