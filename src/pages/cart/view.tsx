@@ -11,14 +11,16 @@ import {
 } from "antd";
 
 import { CartItemType } from "../../shared/constants/types/cart.type";
+import { CloseOutlined } from "@ant-design/icons";
 
 interface CartViewProps {
   data: CartItemType[] | undefined;
   onChangeQuantity: (value: number, item: CartItemType) => void;
+  onClickRemoveCartItem: (value: string) => void;
 }
 
 const CartView: FC<CartViewProps> = (props) => {
-  const { data, onChangeQuantity } = props;
+  const { data, onChangeQuantity, onClickRemoveCartItem } = props;
   const cartItems = data ?? [];
   const columns: TableColumnsType<CartItemType> = [
     {
@@ -57,7 +59,7 @@ const CartView: FC<CartViewProps> = (props) => {
         <InputNumber
           type="number"
           min={1}
-          value={item.quantity}
+          value={item.quantity ?? 1}
           onChange={(value) => onChangeQuantity(value as number, item)}
         />
       ),
@@ -72,14 +74,18 @@ const CartView: FC<CartViewProps> = (props) => {
     {
       title: "",
       key: "action",
-      render: () => <a>Delete</a>,
+      render: (_,item) => (
+        <>
+          <Button onClick={() => onClickRemoveCartItem(item.id)} type="text" danger icon={<CloseOutlined />} size={'small'} />
+        </>
+      ),
     },
   ];
 
   return (
     <>
       <span style={{ margin: "auto 0" }}>
-        <b style={{ fontSize: 20 }}>Cart </b>({} products)
+        <b style={{ fontSize: 20 }}>Cart </b>({cartItems.length} products)
       </span>
       <hr />
       <Row gutter={[10, 10]}>

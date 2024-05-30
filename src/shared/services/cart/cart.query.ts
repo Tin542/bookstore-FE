@@ -43,3 +43,17 @@ export const allCartItemQuery = (uid: string) => {
       variables: data,
     };
   }
+
+  export const removeCartItem = (id: string) => {
+    return {
+      operationName: "RemoveCart",
+      query: `
+      mutation RemoveCart($id: String!) {
+        removeCart(id: $id) {
+            id
+        }
+      }
+        `,
+      variables: {id: id},
+    };
+  }

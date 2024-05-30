@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SignUpView from "./view";
 import { SignUpFieldType } from "../../../shared/constants/types/auth.type";
 import { signUp } from "../../../shared/services/auth/auth.service";
-import { success, error } from "../../../shared/components/Notification";
+import { successPopUpMessage, errorPopUpMessage } from "../../../shared/components/Notification";
 import { AUTH_PATH } from "../../../shared/constants/path";
 
 
@@ -22,9 +22,9 @@ const SignUpPage = () => {
           const checkResult = rs.data;
           if (!checkResult.data) {
             const errorAlert = checkResult.errors[0];
-            error("Sign up Failed", errorAlert.message);
+            errorPopUpMessage("Sign up Failed", errorAlert.message);
           } else {
-            success("Sign Up Success");
+            successPopUpMessage("Sign Up Success");
             navigate(AUTH_PATH.SIGNIN);
           }
         })

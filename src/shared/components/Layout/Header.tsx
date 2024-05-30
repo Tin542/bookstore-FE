@@ -14,7 +14,7 @@ import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { cartSelector, userSelector } from "../../redux-flow/selector";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../../redux-flow/action";
-import { success } from "../Notification";
+import { successPopUpMessage } from "../Notification";
 
 const contentStyle: React.CSSProperties = {
   color: "white",
@@ -46,7 +46,7 @@ const HeaderLayout: React.FC = () => {
       label: "Sign Out",
       onClick: () => {
         dispatch(handleLogout());
-        success("Sign Out successfully");
+        successPopUpMessage("Sign Out successfully");
         navigate(AUTH_PATH.SIGNIN);
       },
     },

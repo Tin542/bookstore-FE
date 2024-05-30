@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import SignInView from "./view";
 import { LoginFieldType } from "../../../shared/constants/types/auth.type";
 import { signIn } from "../../../shared/services/auth/auth.service";
-import { error, success } from "../../../shared/components/Notification";
+import { errorPopUpMessage, successPopUpMessage } from "../../../shared/components/Notification";
 import { handleLogin, handleStoreCart } from "../../../shared/redux-flow/action";
 import { CUSTOMER_PATH } from "../../../shared/constants/path";
 import { fetchAllCartItem } from "../../../shared/services/cart/cart.service";
@@ -21,7 +21,7 @@ const SignInPage: React.FC = () => {
       const cartItems = response.data.data.getCart;
       dispatch(handleStoreCart(cartItems));
     } catch (err) {
-      error('Failed to get cart', err as string);
+      errorPopUpMessage('Failed to get cart', err as string);
     }
   };
 
@@ -31,7 +31,7 @@ const SignInPage: React.FC = () => {
       const data = response.data;
 
       if (data.errors) {
-        error("Sign in Failed", data.errors[0].message);
+        errorPopUpMessage("Sign in Failed", data.errors[0].message);
         return;
       }
 
@@ -41,11 +41,11 @@ const SignInPage: React.FC = () => {
           handleLogin({ ...user.userInfo, accessToken: user.accessToken })
         );
         await fetchAllCartItems(user.userInfo.id);
-        success("Sign in successfully");
+        successPopUpMessage("Sign in successfully");
         navigate(CUSTOMER_PATH.HOME);
       }
     } catch (err) {
-      error("Sign in failed", "");
+      errorPopUpMessage("Sign in failed", "");
     }
   };
 
