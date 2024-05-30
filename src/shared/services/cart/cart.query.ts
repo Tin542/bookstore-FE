@@ -1,4 +1,4 @@
-import { UpdateCartItemType } from "../../constants/types/cart.type";
+import { AddToCartType, UpdateCartItemType } from "../../constants/types/cart.type";
 
 export const allCartItemQuery = (uid: string) => {
     return {
@@ -55,5 +55,33 @@ export const allCartItemQuery = (uid: string) => {
       }
         `,
       variables: {id: id},
+    };
+  }
+
+  export const addToCart = (data: AddToCartType) => {
+    return {
+      operationName: "AddToCart",
+      query: `
+      mutation AddToCart($bookId: String!, $price: Float!, $quantity: Int!, $userId: String!) {
+        addToCart(
+            bookId: $bookId
+            price: $price
+            quantity: $quantity
+            userId: $userId
+        ) {
+            id
+            price
+            quantity
+            book {
+                id
+                imageUrl
+                price
+                title
+            }
+        }
+      }
+    
+        `,
+      variables: data,
     };
   }

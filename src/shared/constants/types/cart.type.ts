@@ -23,3 +23,10 @@
     id: string;
     quantity: number;
   }
+
+  export type AddToCartType = {
+    bookId: string;
+    price: number;
+    quantity: number;
+    userId: string;
+  }

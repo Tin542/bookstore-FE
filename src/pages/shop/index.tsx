@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { fetchAllBooks } from "../../shared/services/book/book.service.ts";
 
 import ShopView from "./view";
-import { IBookQuery } from "../../shared/constants/types/book.type.ts";
+import { BookQuery } from "../../shared/constants/types/book.type.ts";
 
 const ShopPage: React.FC = () => {
   const [book, setBook] = useState();
@@ -11,7 +11,7 @@ const ShopPage: React.FC = () => {
   const [totalProducts, setTotalProducts] = useState();
   const [limit, setLimit] = useState();
 
-  const [filter, setFilter] = useState<IBookQuery>({
+  const [filter, setFilter] = useState<BookQuery>({
     title: "",
     rate: [],
     author: [],

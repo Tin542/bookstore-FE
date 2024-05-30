@@ -15,7 +15,6 @@ const CartPage = () => {
     try {
       const response = await updateCartItem(value);
       const updatedItem = response.data.data.updateCart;
-
       // Update Store
       const updatedCart: CartItemType[] = cartStore ?  cartStore?.map((item) => 
         item.id === updatedItem.id ? { ...item, quantity: updatedItem.quantity, price: updatedItem.price } : item
@@ -31,7 +30,6 @@ const CartPage = () => {
     try {
       const response = await deleteCartItem(cid);
       const deletedItem = response.data.data.removeCart;
-
       // Update Store
       const updatedCart: CartItemType[] = cartStore ?  cartStore.filter((item) => item.id !== deletedItem.id) : [];
       dispatch(handleStoreCart(updatedCart));
