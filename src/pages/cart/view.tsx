@@ -1,5 +1,6 @@
 import { FC } from "react";
 import {
+  Affix,
   Button,
   Card,
   Col,
@@ -74,9 +75,15 @@ const CartView: FC<CartViewProps> = (props) => {
     {
       title: "",
       key: "action",
-      render: (_,item) => (
+      render: (_, item) => (
         <>
-          <Button onClick={() => onClickRemoveCartItem(item.id)} type="text" danger icon={<CloseOutlined />} size={'small'} />
+          <Button
+            onClick={() => onClickRemoveCartItem(item.id)}
+            type="text"
+            danger
+            icon={<CloseOutlined />}
+            size={"small"}
+          />
         </>
       ),
     },
@@ -93,24 +100,26 @@ const CartView: FC<CartViewProps> = (props) => {
           <Table columns={columns} dataSource={cartItems} pagination={false} />
         </Col>
         <Col md={9} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
-          <Card
-            title="CART TOTAL"
-            bordered={false}
-            style={{ width: "100%", border: "1px, solid" }}>
-            <Flex justify="space-between" align="flex-start">
-              <b>Total Price</b>
-              <span style={{ color: "red" }}>$ 300000</span>
-            </Flex>
-            <hr />
-            <Flex
-              vertical
-              gap="small"
-              style={{ width: "100%", padding: "0 10px" }}>
-              <Button type="primary" danger>
-                Place Order
-              </Button>
-            </Flex>
-          </Card>
+          <Affix offsetTop={100}>
+            <Card
+              title="CART TOTAL"
+              bordered={false}
+              style={{ width: "100%", border: "1px, solid" }}>
+              <Flex justify="space-between" align="flex-start">
+                <b>Total Price</b>
+                <span style={{ color: "red" }}>$ 300000</span>
+              </Flex>
+              <hr />
+              <Flex
+                vertical
+                gap="small"
+                style={{ width: "100%", padding: "0 10px" }}>
+                <Button type="primary" danger>
+                  Place Order
+                </Button>
+              </Flex>
+            </Card>
+          </Affix>
         </Col>
       </Row>
     </>

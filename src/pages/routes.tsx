@@ -14,6 +14,7 @@ interface RouteObject {
   path: string;
   component: ComponentType;
   exact?: boolean; // Add other route-specific properties as needed
+  protected?: boolean // check if routes is need to be protected
 }
 
 const pageRoutes: RouteObject[] = [
@@ -21,6 +22,7 @@ const pageRoutes: RouteObject[] = [
     path: CUSTOMER_PATH.PROFILE,
     exact: true,
     component: ProfilePage,
+    protected: true,
   },
   {
     path: AUTH_PATH.SIGNIN,
@@ -51,6 +53,7 @@ const pageRoutes: RouteObject[] = [
     path: CUSTOMER_PATH.CART,
     exact: true,
     component: CartPage,
+    protected: true,
   },
 ];
 
