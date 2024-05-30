@@ -1,15 +1,8 @@
 import React from "react";
-import { Button, Card, ConfigProvider, Rate } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
+import { Card, Rate } from "antd";
 import { useNavigate } from "react-router-dom";
 
-import { cartSelector, userSelector } from "../../redux-flow/selector";
-import { addCartItem } from "../../services/cart/cart.service";
-import { AUTH_PATH, CUSTOMER_PATH } from "../../constants/path";
-import { errorPopUpMessage, successPopUpMessage } from "../Notification";
-import { handleStoreCart } from "../../redux-flow/action";
-import { CartItemType } from "../../constants/types/cart.type";
+import { CUSTOMER_PATH } from "../../constants/path";
 import { IBook } from "../../constants/types/book.type";
 import { PRODUCT_ID } from "../../constants/appConstants";
 
@@ -27,92 +20,31 @@ const cardStyle: React.CSSProperties = {
 const { Meta } = Card;
 const CardComponent: React.FC<CardComponentProps> = (props) => {
   const { item } = props;
-  const userStore = useSelector(userSelector);
-  const cartStore = useSelector(cartSelector);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onClickDetail = () => {
-    console.log("clickDetail: ", item.id);
     localStorage.setItem(PRODUCT_ID, item.id);
     navigate(CUSTOMER_PATH.DETAIL_PRODUCT);
   };
-  const addToCartButton = async () => {
-    if (!userStore) {
-      errorPopUpMessage("Add to cart failed", "Signin required");
-      navigate(AUTH_PATH.SIGNIN);
-    } else {
-      await addCartItem({
-        bookId: item.id,
-        price: item.price,
-        quantity: 1,
-        userId: userStore.id,
-      }).then((rs) => {
-        const response = rs.data.data.addToCart;
-
-        if (cartStore) {
-          const updatedCart: CartItemType[] = cartStore
-            ? cartStore?.map((item) =>
-                item.id === response.id
-                  ? {
-                      ...item,
-                      quantity: response.quantity,
-                      price: response.price,
-                    }
-                  : item
-              )
-            : [];
-          // If the item was not found in the cart, add the new item to the cart
-          if (!updatedCart.find((cartItem) => cartItem.id === response.id)) {
-            updatedCart.push(response);
-          }
-          dispatch(handleStoreCart(updatedCart));
-          successPopUpMessage("Added To Cart");
-        } else {
-          errorPopUpMessage("Add to cart failed", "Could not find cart");
-        }
-      });
-    }
-  };
-
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Button: {
-            defaultHoverColor: "#fff",
-            defaultHoverBorderColor: "#001529",
-            defaultHoverBg: "#001529",
-          },
-        },
-      }}>
-      <Card
-        onClick={onClickDetail}
-        hoverable
-        style={cardStyle}
-        cover={
-          <div style={{ width: "100%", height: "178px", textAlign: "center" }}>
-            <img
-              style={{ borderRadius: 0, height: "100%", objectFit: "cover" }}
-              alt="example"
-              src={item.imageUrl}
-            />
-          </div>
-        }>
-        <div>
-          <Rate disabled value={item.rate} style={{ fontSize: 15 }} />
-          <Meta title={item.title} description={`${item.price} VND`} />
+    <Card
+      onClick={onClickDetail}
+      hoverable
+      style={cardStyle}
+      cover={
+        <div style={{ width: "100%", height: "178px", textAlign: "center" }}>
+          <img
+            style={{ borderRadius: 0, height: "100%", objectFit: "cover" }}
+            alt="example"
+            src={item.imageUrl}
+          />
         </div>
-        {/* <div style={{ marginTop: 20, marginBottom: -20 }}>
-          <Button
-            onClick={addToCartButton}
-            style={{ borderRadius: 0 }}
-            icon={<ShoppingCartOutlined />}>
-            Add To Cart
-          </Button>
-        </div> */}
-      </Card>
-    </ConfigProvider>
+      }>
+      <div>
+        <Rate disabled value={item.rate} style={{ fontSize: 15 }} />
+        <Meta title={item.title} description={`${item.price} VND`} />
+      </div>
+    </Card>
   );
 };
 

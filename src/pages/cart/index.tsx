@@ -8,7 +8,7 @@ import { errorPopUpMessage, successPopUpMessage } from '../../shared/components/
 
 const CartPage = () => {
   const cartStore = useSelector(cartSelector);
-  // const userStore = useSelector(userSelector);
+  
   const dispatch = useDispatch();
 
   const updateQuantity = async (value: UpdateCartItemType) => {

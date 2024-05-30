@@ -33,6 +33,7 @@ export type Book = {
   rate: number;
   price: number;
   imageUrl: string;
+  description: string;
   isOutofStock: boolean;
   category: {
     id: string;
