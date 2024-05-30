@@ -26,8 +26,6 @@ const HeaderLayout: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log('cart: ', cartStore);
-
   const itemsWithOutLogin: MenuProps["items"] = [
     {
       key: "1",

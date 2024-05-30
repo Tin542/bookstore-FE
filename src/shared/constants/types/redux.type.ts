@@ -5,6 +5,7 @@ import { UserStoreType } from "./user.type";
 export const LOGIN = 'auth/login';
 export const LOGOUT = 'auth/logout';
 export const CART = 'customer/cart';
+export const UPDATE_CART_ITEM = 'customer/updateCart'
 export const UPDATE_PROFILE = 'auth/updateProfile';
 
 // Define the base action type
