@@ -25,5 +25,21 @@ export type BookQuery = {
   category?: string[];
   page?: number;
   limit?: number;
-}
+};
 
+export type Book = {
+  id: string;
+  title: string;
+  rate: number;
+  price: number;
+  imageUrl: string;
+  isOutofStock: boolean;
+  category: {
+    id: string;
+    name: string;
+  };
+  author: {
+    id: string;
+    name: string;
+  };
+};

@@ -1,15 +1,17 @@
 import React from "react";
 import { Button, Card, ConfigProvider, Rate } from "antd";
-import { IBook } from "../../constants/types/book.type";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { cartSelector, userSelector } from "../../redux-flow/selector";
 import { addCartItem } from "../../services/cart/cart.service";
-import { useNavigate } from "react-router-dom";
-import { AUTH_PATH } from "../../constants/path";
+import { AUTH_PATH, CUSTOMER_PATH } from "../../constants/path";
 import { errorPopUpMessage, successPopUpMessage } from "../Notification";
 import { handleStoreCart } from "../../redux-flow/action";
 import { CartItemType } from "../../constants/types/cart.type";
+import { IBook } from "../../constants/types/book.type";
+import { PRODUCT_ID } from "../../constants/appConstants";
 
 interface CardComponentProps {
   item: IBook;
@@ -30,9 +32,14 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const onClickDetail = () => {
+    console.log("clickDetail: ", item.id);
+    localStorage.setItem(PRODUCT_ID, item.id);
+    navigate(CUSTOMER_PATH.DETAIL_PRODUCT);
+  };
   const addToCartButton = async () => {
     if (!userStore) {
-      errorPopUpMessage("Failed to add cart item", "Authorzation required");
+      errorPopUpMessage("Add to cart failed", "Signin required");
       navigate(AUTH_PATH.SIGNIN);
     } else {
       await addCartItem({
@@ -60,9 +67,9 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
             updatedCart.push(response);
           }
           dispatch(handleStoreCart(updatedCart));
-          successPopUpMessage("Added To Cart")
+          successPopUpMessage("Added To Cart");
         } else {
-          errorPopUpMessage("Failed to add cart item", "Could not find cart")
+          errorPopUpMessage("Add to cart failed", "Could not find cart");
         }
       });
     }
@@ -80,6 +87,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
         },
       }}>
       <Card
+        onClick={onClickDetail}
         hoverable
         style={cardStyle}
         cover={
@@ -95,14 +103,14 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
           <Rate disabled value={item.rate} style={{ fontSize: 15 }} />
           <Meta title={item.title} description={`${item.price} VND`} />
         </div>
-        <div style={{ marginTop: 20, marginBottom: -20 }}>
+        {/* <div style={{ marginTop: 20, marginBottom: -20 }}>
           <Button
             onClick={addToCartButton}
             style={{ borderRadius: 0 }}
             icon={<ShoppingCartOutlined />}>
             Add To Cart
           </Button>
-        </div>
+        </div> */}
       </Card>
     </ConfigProvider>
   );

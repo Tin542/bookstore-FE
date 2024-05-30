@@ -34,3 +34,32 @@ export const getAllBook = (data?: BookQuery) => {
     variables: data || ({} as BookQuery),
   };
 };
+
+export const getDetailBook = (id: string) => {
+  return {
+    operationName: "GetDetailBook",
+    query: `
+    query GetDetailBook($id: String!) {
+      getDetailBook(id: $id) {
+          id
+          imageUrl
+          isOutofStock
+          price
+          rate
+          title
+          description
+          category {
+              id
+              name
+          }
+          author {
+              id
+              name
+          }
+      }
+    }
+  
+      `,
+    variables: {id: id},
+  };
+};

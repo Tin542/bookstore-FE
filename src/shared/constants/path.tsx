@@ -3,7 +3,8 @@ export const CUSTOMER_PATH = {
   SHOP: "/shop",
   CART: "/cart",
   ABOUT: "/about",
-  PROFILE: "/profile"
+  PROFILE: "/profile",
+  DETAIL_PRODUCT: "/detail"
 };
 
 export const AUTH_PATH = {
