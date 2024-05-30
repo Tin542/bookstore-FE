@@ -1,4 +1,4 @@
-import { CartStoreType } from "./cart.type";
+import { CartItemType } from "./cart.type";
 import { UserStoreType } from "./user.type";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -17,7 +17,7 @@ interface UnknownAction {
 
 export interface State {
   user: UserStoreType | undefined;
-  cart: CartStoreType[] | undefined;
+  cart: CartItemType[] | undefined;
 }
 
 //Actions Type
@@ -32,7 +32,7 @@ export interface LogoutAction extends UnknownAction {
 
 export interface GetCartAction extends UnknownAction {
   type: typeof CART;
-  payload: CartStoreType[]
+  payload: CartItemType[]
 }
 
 export type AuthActionTypes = LoginAction | LogoutAction ;

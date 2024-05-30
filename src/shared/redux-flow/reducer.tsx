@@ -1,5 +1,5 @@
 import { CART_STORE, USER_STORE } from "../constants/appConstants";
-import { CartStoreType } from "../constants/types/cart.type";
+import { CartItemType } from "../constants/types/cart.type";
 import { AuthActionTypes, CART, LOGIN, LOGOUT, State } from "../constants/types/redux.type";
 import { UserStoreType } from "../constants/types/user.type";
 
@@ -7,7 +7,7 @@ import { UserStoreType } from "../constants/types/user.type";
 const storedUser = localStorage.getItem(USER_STORE);
 const storedCart = localStorage.getItem(CART_STORE);
 const initialUser: UserStoreType | undefined = storedUser ? JSON.parse(storedUser) : undefined;
-const initialCart: CartStoreType[] | undefined = storedCart ? JSON.parse(storedCart) : undefined;
+const initialCart: CartItemType[] | undefined = storedCart ? JSON.parse(storedCart) : undefined;
 
 // Initial state
 const initState: State = {

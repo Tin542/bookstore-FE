@@ -1,10 +1,17 @@
 import React from "react";
-import { Button, ConfigProvider, Dropdown, Flex, MenuProps } from "antd";
+import {
+  Badge,
+  Button,
+  ConfigProvider,
+  Dropdown,
+  Flex,
+  MenuProps,
+} from "antd";
 import { AUTH_PATH, CUSTOMER_PATH } from "../../constants/path";
 import logo from "../../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { UserOutlined } from "@ant-design/icons";
-import { userSelector } from "../../redux-flow/selector";
+import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { cartSelector, userSelector } from "../../redux-flow/selector";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../../redux-flow/action";
 import { success } from "../Notification";
@@ -13,11 +20,13 @@ const contentStyle: React.CSSProperties = {
   color: "white",
 };
 
-
 const HeaderLayout: React.FC = () => {
   const userStore = useSelector(userSelector);
+  const cartStore = useSelector(cartSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log('cart: ', cartStore);
 
   const itemsWithOutLogin: MenuProps["items"] = [
     {
@@ -36,14 +45,12 @@ const HeaderLayout: React.FC = () => {
     },
     {
       key: "2",
-      label: 'Sign Out',
+      label: "Sign Out",
       onClick: () => {
-        dispatch(
-          handleLogout()
-        )
-        success('Sign Out successfully')
-        navigate(AUTH_PATH.SIGNIN)
-      }
+        dispatch(handleLogout());
+        success("Sign Out successfully");
+        navigate(AUTH_PATH.SIGNIN);
+      },
     },
   ];
   return (
@@ -68,22 +75,31 @@ const HeaderLayout: React.FC = () => {
           <Button style={contentStyle} type="link">
             <Link to={CUSTOMER_PATH.ABOUT}>About</Link>
           </Button>
-          <Button style={contentStyle} type="link">
-            <Link to={ userStore ? CUSTOMER_PATH.CART : AUTH_PATH.SIGNIN}>Cart (0)</Link>
-          </Button>
+          {userStore ? (
+            <Button style={contentStyle} type="link">
+              <Link to={userStore ? CUSTOMER_PATH.CART : AUTH_PATH.SIGNIN}>
+                <Badge size="small" count={cartStore ? cartStore.length : 0}>
+                  <ShoppingCartOutlined
+                    style={{ fontSize: 20, color: "white" }}
+                  />
+                </Badge>
+              </Link>
+            </Button>
+          ) : (
+            ""
+          )}
+
           <Dropdown
             menu={{ items: userStore ? itemsWithLogin : itemsWithOutLogin }}
             placement="bottom"
             arrow>
-            <div style={{color: 'white'}}>
-              {userStore ? `Welcome, ${userStore.username}` : ''}
-              
+            <div style={{ color: "white" }}>
+              {userStore ? `Welcome, ${userStore.username}` : ""}
               <Button
-              style={contentStyle}
-              icon={<UserOutlined />}
-              type="link"></Button>
+                style={contentStyle}
+                icon={<UserOutlined />}
+                type="link"></Button>
             </div>
-            
           </Dropdown>
         </Flex>
       </Flex>

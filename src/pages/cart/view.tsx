@@ -1,35 +1,26 @@
-import React, { useState } from "react";
-import { Button, Card, Col, Divider, Flex, Row, Table, TableProps } from "antd";
-import { IBook } from "../../shared/constants/types/book.type";
+import { FC } from "react";
+import { Button, Card, Col, Flex, Row, Table, TableColumnsType } from "antd";
 
-interface CartItemType {
-  id: number;
-  book: IBook;
-  price: number;
-  quantity: number;
+import { CartItemType } from "../../shared/constants/types/cart.type";
+
+
+interface CartViewProps {
+  data: CartItemType[] | undefined;
 }
-const contentStyle: React.CSSProperties = {
-  background: "#fff",
-  borderRadius: 5,
-  height: "auto",
-  width: "100%",
-  padding: 15,
-  marginBottom: 10,
-};
-const columns: TableProps<CartItemType>["columns"] = [
+const columns: TableColumnsType<CartItemType>  = [
   {
     title: "Product",
     dataIndex: "book",
     key: "book",
     responsive: ["md"],
-    render: (_, item) => (
+    render: (item) => (
       <>
         <Flex justify="flex-start" align="flex-start">
           <div style={{ width: "auto", height: "100px", textAlign: "left" }}>
             <img
               style={{ borderRadius: 0, height: "100%", objectFit: "cover" }}
               alt="example"
-              src={item.book.imageUrl}
+              src={item.imageUrl}
             />
           </div>
 
@@ -38,7 +29,7 @@ const columns: TableProps<CartItemType>["columns"] = [
             vertical
             justify="space-between"
             align="flex-start">
-            <span>{item.book.title}</span>
+            <span>{item.title}</span>
             <span>{item.price} VND</span>
           </Flex>
         </Flex>
@@ -49,11 +40,13 @@ const columns: TableProps<CartItemType>["columns"] = [
     title: "Quantity",
     dataIndex: "quantity",
     key: "quantity",
+    render: (item) =><span>{item}</span> 
   },
   {
     title: "Total price",
     dataIndex: "price",
     key: "price",
+    render: (item) => <b style={{color: 'red'}}>$ {item}</b>
   },
 
   {
@@ -62,78 +55,37 @@ const columns: TableProps<CartItemType>["columns"] = [
     render: () => <a>Delete</a>,
   },
 ];
-const data: CartItemType[] = [
-  {
-    id: 1,
-    book: {
-      id: "d6d239eb-481b-4a4b-b49a-b903eddf46fw",
-      title: "Book Title 1",
-      price: 100000,
-      rate: 5,
-      categoryId: "category 1",
-      authorId: "author 1",
-      isOutofStock: false,
-      imageUrl:
-        "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
-    },
-    quantity: 2,
-    price: 10000,
-  },
-  {
-    id: 2,
-    book: {
-      id: "d6d239eb-481b-4a4b-b49a-b903eddf46fw",
-      title: "Book Title 1",
-      price: 100000,
-      rate: 5,
-      categoryId: "category 1",
-      authorId: "author 1",
-      isOutofStock: false,
-      imageUrl:
-        "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
-    },
-    quantity: 2,
-    price: 10000,
-  },
-  {
-    id: 3,
-    book: {
-      id: "d6d239eb-481b-4a4b-b49a-b903eddf46fw",
-      title: "Book Title 1",
-      price: 100000,
-      rate: 5,
-      categoryId: "category 1",
-      authorId: "author 1",
-      isOutofStock: false,
-      imageUrl:
-        "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
-    },
-    quantity: 2,
-    price: 10000,
-  },
-];
-const CartView = () => {
+const CartView: FC<CartViewProps> = (props) => {
+  const { data } = props;
   return (
     <>
       <span style={{ margin: "auto 0" }}>
-        <b style={{ fontSize: 20 }}>Cart </b>(3 products)
+        <b style={{ fontSize: 20 }}>Cart </b>({} products)
       </span>
       <hr />
       <Row gutter={[10, 10]}>
         <Col md={15} sm={24} xs={24}>
-          <Table columns={columns} dataSource={data} pagination={false} />
+        <Table columns={columns} dataSource={data} pagination={false} rowKey={(item) => item.book.id} />
+
         </Col>
-        <Col md={9} sm={24} xs={24} style={{ alignContent: 'flex-start'}}>
-          <Card title="CHEKC OUT" bordered={false} style={{ width: '100%', border: '1px, solid' }}>
+        <Col md={9} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
+          <Card
+            title="CART TOTAL"
+            bordered={false}
+            style={{ width: "100%", border: "1px, solid" }}>
             <Flex justify="space-between" align="flex-start">
-              <b>Total Price (VAT inclued)</b>
-              <span style={{color: 'red'}}>300000 VND</span>
+              <b>Total Price</b>
+              <span style={{ color: "red" }}>$ 300000</span>
             </Flex>
-            <hr/>
-            <Flex vertical gap="small" style={{ width: '100%', padding: '0 10px' }}>
-            <Button type="primary" danger>Check out</Button>
+            <hr />
+            <Flex
+              vertical
+              gap="small"
+              style={{ width: "100%", padding: "0 10px" }}>
+              <Button type="primary" danger>
+                Place Order
+              </Button>
             </Flex>
-            
           </Card>
         </Col>
       </Row>

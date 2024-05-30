@@ -1,5 +1,5 @@
 import { ACCESS_TOKEN, CART_STORE, USER_STORE } from "../constants/appConstants";
-import { CartStoreType } from "../constants/types/cart.type";
+import { CartItemType } from "../constants/types/cart.type";
 import { CART, GetCartAction, LOGIN, LOGOUT, LoginAction, LogoutAction } from "../constants/types/redux.type";
 import { UserStoreType } from "../constants/types/user.type";
 
@@ -21,7 +21,7 @@ export const handleLogout = (): LogoutAction => {
   };
 };
 
-export const handleStoreCart = (cart: CartStoreType[]): GetCartAction => {
+export const handleStoreCart = (cart: CartItemType[]): GetCartAction => {
   localStorage.setItem(CART_STORE, JSON.stringify(cart))
   return {
     type: CART,
