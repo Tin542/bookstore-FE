@@ -13,6 +13,8 @@ import {
 
 import { CartItemType } from "../../shared/constants/types/cart.type";
 import { CloseOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { CUSTOMER_PATH } from "../../shared/constants/path";
 
 interface CartViewProps {
   data: CartItemType[] | undefined;
@@ -23,6 +25,7 @@ interface CartViewProps {
 
 const CartView: FC<CartViewProps> = (props) => {
   const { data, onChangeQuantity, onClickRemoveCartItem, totalPrice } = props;
+  const navigate = useNavigate();
   const cartItems = data ?? [];
   const columns: TableColumnsType<CartItemType> = [
     {
@@ -115,7 +118,7 @@ const CartView: FC<CartViewProps> = (props) => {
                 vertical
                 gap="small"
                 style={{ width: "100%", padding: "0 10px" }}>
-                <Button type="primary" danger>
+                <Button type="primary" danger onClick={() => navigate(CUSTOMER_PATH.ORDER)}>
                   Place Order
                 </Button>
               </Flex>

@@ -1,6 +1,6 @@
 export type UserStoreType = {
     id: string;
-    name: string;
+    fullName: string;
     username: string;
     accessToken: string;
     refreshToken: string;

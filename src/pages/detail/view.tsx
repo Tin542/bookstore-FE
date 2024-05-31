@@ -101,23 +101,13 @@ const DetailView: FC<detailViewProps> = (props) => {
               vertical
               gap="small"
               style={{ width: "100%", padding: "0 10px" }}>
-              <ConfigProvider
-                  theme={{
-                    components: {
-                      Button: {
-                        defaultColor: "#fff",
-                        defaultBorderColor: "#001529",
-                        defaultBg: "#001529",
-                      },
-                    },
-                  }}>
-                  <Button
-                    onClick={addToCartButton}
-                    style={{ borderRadius: 0 }}
-                    icon={<ShoppingCartOutlined />}>
-                    Add To Cart
-                  </Button>
-                </ConfigProvider>
+              <Button
+                type="primary"
+                onClick={addToCartButton}
+                style={{ borderRadius: 0 }}
+                icon={<ShoppingCartOutlined />}>
+                Add To Cart
+              </Button>
             </Flex>
           </Card>
         </Col>

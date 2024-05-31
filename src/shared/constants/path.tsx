@@ -4,7 +4,8 @@ export const CUSTOMER_PATH = {
   CART: "/cart",
   ABOUT: "/about",
   PROFILE: "/profile",
-  DETAIL_PRODUCT: "/detail"
+  DETAIL_PRODUCT: "/detail",
+  ORDER: '/order'
 };
 
 export const AUTH_PATH = {
