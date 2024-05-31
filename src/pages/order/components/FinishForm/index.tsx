@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { cartSelector } from "../../../../shared/redux-flow/selector";
 import { OrderType } from "../../../../shared/constants/types/order.type";
 import { FC } from "react";
-import { calculateTotalPrice } from "../../../../shared/utils/calculateTotalPrice";
 
 const containerStle: React.CSSProperties = {
   height: "auto",

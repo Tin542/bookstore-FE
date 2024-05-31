@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import { useState } from "react";
 import OrderView from "./view";
 import { OrderType } from "../../shared/constants/types/order.type";
 
