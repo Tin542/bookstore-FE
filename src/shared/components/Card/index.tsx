@@ -42,7 +42,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
       }>
       <div>
         <Rate disabled value={item.rate} style={{ fontSize: 15 }} />
-        <Meta title={item.title} description={`${item.price} VND`} />
+        <Meta title={item.title} description={`$ ${item.price}`} />
       </div>
     </Card>
   );

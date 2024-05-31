@@ -16,12 +16,13 @@ import { CloseOutlined } from "@ant-design/icons";
 
 interface CartViewProps {
   data: CartItemType[] | undefined;
+  totalPrice: number | undefined;
   onChangeQuantity: (value: number, item: CartItemType) => void;
   onClickRemoveCartItem: (value: string) => void;
 }
 
 const CartView: FC<CartViewProps> = (props) => {
-  const { data, onChangeQuantity, onClickRemoveCartItem } = props;
+  const { data, onChangeQuantity, onClickRemoveCartItem, totalPrice } = props;
   const cartItems = data ?? [];
   const columns: TableColumnsType<CartItemType> = [
     {
@@ -107,7 +108,7 @@ const CartView: FC<CartViewProps> = (props) => {
               style={{ width: "100%", border: "1px, solid" }}>
               <Flex justify="space-between" align="flex-start">
                 <b>Total Price</b>
-                <span style={{ color: "red" }}>$ 300000</span>
+                <span style={{ color: "red", fontWeight: 'bold' }}>$ {totalPrice}</span>
               </Flex>
               <hr />
               <Flex

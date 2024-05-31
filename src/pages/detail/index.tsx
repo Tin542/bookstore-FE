@@ -55,6 +55,7 @@ const DetailPage = () => {
         userId: userStore.id,
       }).then((rs) => {
         const response = rs.data.data.addToCart;
+        console.log(response);
 
         if (cartStore) {
           const updatedCart: CartItemType[] = cartStore
