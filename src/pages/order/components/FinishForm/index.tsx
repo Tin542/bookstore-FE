@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { cartSelector } from "../../../../shared/redux-flow/selector";
 import { OrderType } from "../../../../shared/constants/types/order.type";
 import { FC } from "react";
+import { calculateTotalPrice } from "../../../../shared/utils/calculateTotalPrice";
 
 const containerStle: React.CSSProperties = {
   height: "auto",
@@ -10,7 +11,7 @@ const containerStle: React.CSSProperties = {
   padding: "0 16px",
   border: "1px solid rgba(140, 140, 140, 0.35)",
   borderRadius: 0,
-  lineHeight: 3
+  lineHeight: 3,
 };
 
 interface FinishFormProps {
@@ -18,7 +19,7 @@ interface FinishFormProps {
 }
 
 const FinishForm: FC<FinishFormProps> = (props) => {
-  const {value} = props;
+  const { value } = props;
   const cartStore = useSelector(cartSelector);
 
   const cartItems = cartStore ?? [];
@@ -42,10 +43,7 @@ const FinishForm: FC<FinishFormProps> = (props) => {
         </div>
       </Col>
       <Col md={12} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
-        <Card
-          title="ORDER INFOMATION"
-          bordered={false}
-          style={containerStle}>
+        <Card title="ORDER INFOMATION" bordered={false} style={containerStle}>
           <Flex justify="space-between" align="flex-start">
             <b>Customer Name</b>
             <span>{value.customerName}</span>
@@ -60,11 +58,17 @@ const FinishForm: FC<FinishFormProps> = (props) => {
           </Flex>
           <Flex justify="space-between" align="flex-start">
             <b>Payment Method</b>
-            <span>{value.paymentMethod===0 ? 'Payment on delivery' : 'Online Banking'}</span>
+            <span>
+              {value.paymentMethod === 0
+                ? "Payment on delivery"
+                : "Online Banking"}
+            </span>
           </Flex>
           <Flex justify="space-between" align="flex-start">
             <b>Total Price</b>
-            <span style={{ color: "red", fontWeight: "bold" }}>$ {value.totalPrice}</span>
+            <span style={{ color: "red", fontWeight: "bold" }}>
+              $ {value.totalPrice}
+            </span>
           </Flex>
         </Card>
       </Col>

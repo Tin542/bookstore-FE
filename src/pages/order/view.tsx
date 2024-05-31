@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
-import { Button, Flex, message, Steps } from "antd";
+import React, { useState } from "react";
+import { Button, Flex, Steps } from "antd";
 import { useSelector } from "react-redux";
 
 import InfoForm from "./components/infoForm";
@@ -11,7 +11,8 @@ import {
   OrderType,
   PaymentMethod,
 } from "../../shared/constants/types/order.type";
-import {  userSelector } from "../../shared/redux-flow/selector";
+import {  cartSelector, userSelector } from "../../shared/redux-flow/selector";
+import { calculateTotalPrice } from "../../shared/utils/calculateTotalPrice";
 
 const contentStyle: React.CSSProperties = {
   minHeight: "25rem",
@@ -22,7 +23,6 @@ const contentStyle: React.CSSProperties = {
 };
 interface OrderPageProps {
   setOrderValue: (value: OrderType) => void;
-  prices: number
 }
 
 export enum CurrentStatus {
@@ -33,15 +33,16 @@ export enum CurrentStatus {
 }
 
 const OrderView: React.FC<OrderPageProps> = (props) => {
-  const { setOrderValue, prices } = props;
+  const { setOrderValue } = props;
   const userStore = useSelector(userSelector);
+  const carStore = useSelector(cartSelector);
   const [current, setCurrent] = useState(0);
   const [currentStatus, setCurrentStatus] = useState<CurrentStatus>(
     CurrentStatus.PROCESS
   );
   
   const [value, setValue] = useState<OrderType>({
-    totalPrice: prices,
+    totalPrice: calculateTotalPrice(carStore ? carStore : []),
     status: OrderStatus.INIT,
     userId: userStore?.id,
     paidAt: "",
@@ -50,12 +51,11 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
     customerName: userStore?.fullName,
     paymentMethod: PaymentMethod.COD,
   });
-  useEffect(() => {
-    if (value) {
-      setOrderValue(value);
-    }
-  }, [value]);
-  
+
+  const onClickSubmitOrder = () => {
+    setOrderValue(value);
+  }
+
   const steps = [
     {
       title: `Order's infomation`,
@@ -112,7 +112,7 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
         {current === steps.length - 1 && (
           <Button
             type="primary"
-            onClick={() => message.success("Processing complete!")}>
+            onClick={onClickSubmitOrder}>
             Submit order
           </Button>
         )}

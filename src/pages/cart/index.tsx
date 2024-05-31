@@ -17,6 +17,7 @@ import {
   successPopUpMessage,
 } from "../../shared/components/Notification";
 import { useEffect, useState } from "react";
+import { calculateTotalPrice } from "../../shared/utils/calculateTotalPrice";
 
 const CartPage = () => {
   const cartStore = useSelector(cartSelector);
@@ -26,18 +27,9 @@ const CartPage = () => {
 
   useEffect(() => {
     if (cartStore) {
-      calculateTotalPrice(cartStore);
+      setTotalPrice(calculateTotalPrice(cartStore));
     }
   }, [cartStore]);
-
-  const calculateTotalPrice = (list: any[]) => {
-    let result: number = 0;
-    list.forEach((item) => {
-      result += item.price;
-    });
-    setTotalPrice(result);
-    return result;
-  };
 
   const updateQuantity = async (value: UpdateCartItemType) => {
     try {
