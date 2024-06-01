@@ -15,17 +15,22 @@ import { CartItemType } from "../../shared/constants/types/cart.type";
 import { CloseOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { CUSTOMER_PATH } from "../../shared/constants/path";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../shared/redux-flow/selector";
 
 interface CartViewProps {
   data: CartItemType[] | undefined;
   totalPrice: number | undefined;
   onChangeQuantity: (value: number, item: CartItemType) => void;
   onClickRemoveCartItem: (value: string) => void;
+  onClickRemoveCart: (value: string) => void;
 }
 
 const CartView: FC<CartViewProps> = (props) => {
-  const { data, onChangeQuantity, onClickRemoveCartItem, totalPrice } = props;
+  const { data, onChangeQuantity, onClickRemoveCartItem, totalPrice, onClickRemoveCart } = props;
+  const userStore = useSelector(userSelector);
   const navigate = useNavigate();
+
   const cartItems = data ?? [];
   const columns: TableColumnsType<CartItemType> = [
     {
@@ -77,7 +82,17 @@ const CartView: FC<CartViewProps> = (props) => {
     },
 
     {
-      title: "",
+      title: (
+        <>
+          <Button
+            onClick={() => onClickRemoveCart(userStore?.id as string)}
+            type="text"
+            danger
+            icon={<CloseOutlined />}
+            size={"small"}
+          />
+        </>
+      ),
       key: "action",
       render: (_, item) => (
         <>
@@ -111,14 +126,20 @@ const CartView: FC<CartViewProps> = (props) => {
               style={{ width: "100%", border: "1px, solid" }}>
               <Flex justify="space-between" align="flex-start">
                 <b>Total Price</b>
-                <span style={{ color: "red", fontWeight: 'bold' }}>$ {totalPrice}</span>
+                <span style={{ color: "red", fontWeight: "bold" }}>
+                  $ {totalPrice}
+                </span>
               </Flex>
               <hr />
               <Flex
                 vertical
                 gap="small"
                 style={{ width: "100%", padding: "0 10px" }}>
-                <Button disabled={cartItems.length < 1} type="primary" danger onClick={() => navigate(CUSTOMER_PATH.ORDER)}>
+                <Button
+                  disabled={cartItems.length < 1}
+                  type="primary"
+                  danger
+                  onClick={() => navigate(CUSTOMER_PATH.ORDER)}>
                   Place Order
                 </Button>
               </Flex>

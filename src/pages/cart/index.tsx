@@ -9,9 +9,13 @@ import {
 } from "../../shared/constants/types/cart.type";
 import {
   deleteCartItem,
+  removeCurrentCart,
   updateCartItem,
 } from "../../shared/services/cart/cart.service";
-import { handleStoreCart } from "../../shared/redux-flow/action";
+import {
+  handleRemoveCart,
+  handleStoreCart,
+} from "../../shared/redux-flow/action";
 import {
   errorPopUpMessage,
   successPopUpMessage,
@@ -63,9 +67,22 @@ const CartPage = () => {
         ? cartStore.filter((item) => item.id !== deletedItem.id)
         : [];
       dispatch(handleStoreCart(updatedCart));
-      successPopUpMessage("Delete Cart  item successfully");
+      successPopUpMessage("Delete Cart item successfully");
     } catch (error) {
       errorPopUpMessage("Remove Cart item failed", "");
+      console.log("Error removing", error);
+    }
+  };
+
+  const removeAllCartItem = async (uid: string) => {
+    try {
+      const response = await removeCurrentCart(uid);
+      if (response.data.data.deleteAllCart > 0) {
+        dispatch(handleRemoveCart());
+        successPopUpMessage("Delete Cart successfully");
+      }
+    } catch (error) {
+      errorPopUpMessage("Remove Cart failed", "");
       console.log("Error removing", error);
     }
   };
@@ -78,12 +95,17 @@ const CartPage = () => {
     await removeCartItem(cartId);
   };
 
+  const onClickRemoveCart = async (uid: string) => {
+    await removeAllCartItem(uid);
+  };
+
   return (
     <CartView
       data={cartStore}
       totalPrice={totalPrice}
       onChangeQuantity={onChangeQuantity}
       onClickRemoveCartItem={onClickRemoveCartItem}
+      onClickRemoveCart={onClickRemoveCart}
     />
   );
 };
