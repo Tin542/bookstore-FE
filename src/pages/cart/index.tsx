@@ -22,6 +22,7 @@ import {
 } from "../../shared/components/Notification";
 import { useEffect, useState } from "react";
 import { calculateTotalPrice } from "../../shared/utils/calculateTotalPrice";
+import { PopUpConfirm } from "../../shared/components/Confirm";
 
 const CartPage = () => {
   const cartStore = useSelector(cartSelector);
@@ -92,11 +93,15 @@ const CartPage = () => {
   };
 
   const onClickRemoveCartItem = async (cartId: string) => {
-    await removeCartItem(cartId);
+    PopUpConfirm("Remove this item ?", () =>
+      removeCartItem(cartId)
+    );
   };
 
   const onClickRemoveCart = async (uid: string) => {
-    await removeAllCartItem(uid);
+    PopUpConfirm("Remove all item ?", () =>
+      removeAllCartItem(uid)
+    );
   };
 
   return (

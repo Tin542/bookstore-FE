@@ -1,25 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
-import React, { useState } from "react";
 
-const PopUpConfirm = () => {
-  const [open, setOpen] = useState(false);
+export const PopUpConfirm = (content: string, onConfirm: () => Promise<void>) => {
+  Modal.confirm({
+    title: "Confirm",
+    icon: <ExclamationCircleOutlined />,
+    content: `${content}`,
+    okText: "Confirm",
+    cancelText: "Cancel",
+    onOk: async () => {
+      await onConfirm();
+    }
+  });
 
-  const hideModal = () => {
-    setOpen(false);
-  };
-  return (
-    <Modal
-      title="Confirm"
-      open={open}
-      onOk={hideModal}
-      onCancel={hideModal}
-      okText="Yes"
-      cancelText="No">
-      <p>Bla bla ...</p>
-      <p>Bla bla ...</p>
-      <p>Bla bla ...</p>
-    </Modal>
-  );
+  return null;
 };
-
-export default PopUpConfirm;
