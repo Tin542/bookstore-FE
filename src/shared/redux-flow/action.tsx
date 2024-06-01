@@ -1,6 +1,6 @@
-import { ACCESS_TOKEN, CART, CART_STORE, LOGIN, LOGOUT, USER_STORE } from "../constants/appConstants";
+import { ACCESS_TOKEN, CART, CART_STORE, DELETE_CART, LOGIN, LOGOUT, USER_STORE } from "../constants/appConstants";
 import { CartItemType } from "../constants/types/cart.type";
-import { GetCartAction,LoginAction, LogoutAction } from "../constants/types/redux.type";
+import { DeleteCartAction, GetCartAction,LoginAction, LogoutAction } from "../constants/types/redux.type";
 import { UserStoreType } from "../constants/types/user.type";
 
 export const handleLogin = (data: UserStoreType): LoginAction => {
@@ -26,5 +26,13 @@ export const handleStoreCart = (cart: CartItemType[]): GetCartAction => {
   return {
     type: CART,
     payload: cart
+  }
+}
+
+export const handleRemoveCart = (): DeleteCartAction => {
+  localStorage.setItem(CART_STORE, JSON.stringify([]))
+  return {
+    type: DELETE_CART,
+    payload: undefined
   }
 }

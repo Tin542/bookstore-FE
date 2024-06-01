@@ -1,22 +1,33 @@
-import { CART, CART_STORE, LOGIN, LOGOUT, USER_STORE } from "../constants/appConstants";
+import {
+  CART,
+  CART_STORE,
+  DELETE_CART,
+  LOGIN,
+  LOGOUT,
+  USER_STORE,
+} from "../constants/appConstants";
 import { CartItemType } from "../constants/types/cart.type";
-import { AuthActionTypes, State } from "../constants/types/redux.type";
+import { ActionTypes, State } from "../constants/types/redux.type";
 import { UserStoreType } from "../constants/types/user.type";
 
 // Get initial user state from local storage
 const storedUser = localStorage.getItem(USER_STORE);
 const storedCart = localStorage.getItem(CART_STORE);
-const initialUser: UserStoreType | undefined = storedUser ? JSON.parse(storedUser) : undefined;
-const initialCart: CartItemType[] | undefined = storedCart ? JSON.parse(storedCart) : undefined;
+const initialUser: UserStoreType | undefined = storedUser
+  ? JSON.parse(storedUser)
+  : undefined;
+const initialCart: CartItemType[] | undefined = storedCart
+  ? JSON.parse(storedCart)
+  : undefined;
 
 // Initial state
 const initState: State = {
   user: initialUser,
-  cart: initialCart
+  cart: initialCart,
 };
 
 // Reducer
-const rootReducer = (state = initState, action: AuthActionTypes) => {
+const rootReducer = (state = initState, action: ActionTypes) => {
   switch (action.type) {
     case LOGIN:
       return { ...state, user: action.payload };
@@ -24,10 +35,12 @@ const rootReducer = (state = initState, action: AuthActionTypes) => {
       return {
         ...state,
         user: undefined,
-        cart: undefined
+        cart: undefined,
       };
     case CART:
       return { ...state, cart: action.payload };
+    case DELETE_CART:
+      return { ...state, cart: undefined };
     default:
       return state;
   }

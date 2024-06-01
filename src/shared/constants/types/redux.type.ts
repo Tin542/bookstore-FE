@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CART, LOGIN } from "../appConstants";
+import { CART, DELETE_CART, LOGIN, LOGOUT } from "../appConstants";
 import { CartItemType } from "./cart.type";
 import { UserStoreType } from "./user.type";
 
@@ -23,12 +23,20 @@ export interface LoginAction extends UnknownAction {
 }
 
 export interface LogoutAction extends UnknownAction {
-  type: string;
+  type: typeof LOGOUT;
 }
 
 export interface GetCartAction extends UnknownAction {
   type: typeof CART;
-  payload: CartItemType[]
+  payload: CartItemType[];
 }
 
-export type AuthActionTypes = LoginAction | LogoutAction ;
+export interface DeleteCartAction extends UnknownAction {
+  type: typeof DELETE_CART;
+}
+
+export type ActionTypes =
+  | LoginAction
+  | LogoutAction
+  | GetCartAction
+  | DeleteCartAction;

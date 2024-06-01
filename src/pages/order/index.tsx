@@ -10,10 +10,14 @@ import {
 import { removeCurrentCart } from "../../shared/services/cart/cart.service";
 import { useNavigate } from "react-router-dom";
 import { CUSTOMER_PATH } from "../../shared/constants/path";
+import { useDispatch } from "react-redux";
+import { handleRemoveCart } from "../../shared/redux-flow/action";
 
 const OrderPage = () => {
   const [orderValue, setOrderValue] = useState<IOrderCreate>();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (orderValue) {
       handleCreateOrder(orderValue);
@@ -27,7 +31,7 @@ const OrderPage = () => {
           errorPopUpMessage("Order created Failed", result.errors[0].message);
           return;
         }
-        await removeCurrentCart(result.data.createOrder.userId);
+        await deleteCart(result.data.createOrder.userId);
         successPopUpMessage("Order created Successful");
         navigate(CUSTOMER_PATH.HOME);
       });
@@ -35,6 +39,18 @@ const OrderPage = () => {
       console.log(error);
     }
   };
+
+  const deleteCart = async(uid: string) => {
+    try {
+      await removeCurrentCart(uid).then((rs) => {
+        if(rs.data.data.deleteAllCart > 0) {
+          dispatch(handleRemoveCart());
+        }
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return <OrderView setOrderValue={setOrderValue} />;
 };

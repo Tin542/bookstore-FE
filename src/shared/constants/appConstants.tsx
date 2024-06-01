@@ -8,6 +8,6 @@ export const PRODUCT_ID = 'product_id';
 //REDUX
 export const LOGIN = 'auth/login';
 export const LOGOUT = 'auth/logout';
-export const CART = 'customer/cart';
-export const UPDATE_CART_ITEM = 'customer/updateCart'
 export const UPDATE_PROFILE = 'auth/updateProfile';
+export const CART = 'cart/store';
+export const DELETE_CART = 'cart/delete'
