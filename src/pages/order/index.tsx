@@ -33,16 +33,15 @@ const OrderPage = () => {
   }, []);
   const handleCreateOrder = async (value: IOrderCreate) => {
     try {
-      await placeOrder(value).then(async (rs) => {
-        const result = rs.data;
-        if (!result.data) {
-          errorPopUpMessage("Order created Failed", result.errors[0].message);
-          return;
-        }
-        await deleteCart(result.data.createOrder.userId);
-        successPopUpMessage("Order created Successful");
-        navigate(CUSTOMER_PATH.HOME);
-      });
+      const response = await placeOrder(value);
+      const result = response.data;
+      if (!result.data) {
+        errorPopUpMessage("Order created Failed", result.errors[0].message);
+        return;
+      }
+      await deleteCart(result.data.createOrder.userId);
+      successPopUpMessage("Order created Successful");
+      navigate(CUSTOMER_PATH.HOME);
     } catch (error) {
       console.log(error);
     }
@@ -50,11 +49,10 @@ const OrderPage = () => {
 
   const deleteCart = async (uid: string) => {
     try {
-      await removeCurrentCart(uid).then((rs) => {
-        if (rs.data.data.deleteAllCart > 0) {
-          dispatch(handleRemoveCart());
-        }
-      });
+      const response = await removeCurrentCart(uid);
+      if (response.data.data.deleteAllCart > 0) {
+        dispatch(handleRemoveCart());
+      }
     } catch (error) {
       console.log(error);
     }
