@@ -1,9 +1,12 @@
-import { AddToCartType, UpdateCartItemType } from "../../constants/types/cart.type";
+import {
+  AddToCartType,
+  UpdateCartItemType,
+} from "../../constants/types/cart.type";
 
 export const allCartItemQuery = (uid: string) => {
-    return {
-      operationName: "GetCart",
-      query: `
+  return {
+    operationName: "GetCart",
+    query: `
       query GetCart($uid: String!) {
         getCart(uid: $uid) {
             id
@@ -18,14 +21,14 @@ export const allCartItemQuery = (uid: string) => {
         }
       }         
         `,
-      variables: {uid: uid},
-    };
+    variables: { uid: uid },
   };
-  
-  export const updateCart = (data: UpdateCartItemType) => {
-    return {
-      operationName: "UpdateCart",
-      query: `
+};
+
+export const updateCart = (data: UpdateCartItemType) => {
+  return {
+    operationName: "UpdateCart",
+    query: `
       mutation UpdateCart($id: String!, $quantity: Int!) {
         updateCart(id: $id, quantity: $quantity) {
           id
@@ -40,28 +43,40 @@ export const allCartItemQuery = (uid: string) => {
         }
       }
         `,
-      variables: data,
-    };
-  }
+    variables: data,
+  };
+};
 
-  export const removeCartItem = (id: string) => {
-    return {
-      operationName: "RemoveCart",
-      query: `
+export const removeCartItem = (id: string) => {
+  return {
+    operationName: "RemoveCart",
+    query: `
       mutation RemoveCart($id: String!) {
         removeCart(id: $id) {
             id
         }
       }
         `,
-      variables: {id: id},
-    };
+    variables: { id: id },
+  };
+};
+export const removeAllCartItem = (id: string) => {
+  return {
+    operationName: "DeleteAllCart",
+    query: `
+    mutation DeleteAllCart($uid: String!) {
+      deleteAllCart(uid: $uid)
   }
+  
+        `,
+    variables: { uid: id },
+  };
+};
 
-  export const addToCart = (data: AddToCartType) => {
-    return {
-      operationName: "AddToCart",
-      query: `
+export const addToCart = (data: AddToCartType) => {
+  return {
+    operationName: "AddToCart",
+    query: `
       mutation AddToCart($bookId: String!, $price: Float!, $quantity: Int!, $userId: String!) {
         addToCart(
             bookId: $bookId
@@ -82,6 +97,6 @@ export const allCartItemQuery = (uid: string) => {
       }
     
         `,
-      variables: data,
-    };
-  }
+    variables: data,
+  };
+};
