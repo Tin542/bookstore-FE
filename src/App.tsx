@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 import pageRoutes from "./pages/routes";
 import Main from "./shared/components/Layout/Main";
-import { CUSTOMER_PATH } from "./shared/constants/path";
+import { CUSTOMER_PATH, ERROR_PATH } from "./shared/constants/path";
 // import ProtectedRoute from "./shared/routes/protected.routes";
 
 import "./index.css";
@@ -62,6 +62,10 @@ function App() {
             <Route
               path="/"
               element={<Navigate replace to={CUSTOMER_PATH.HOME} />}
+            />
+            <Route
+              path="*"
+              element={<Navigate replace to={ERROR_PATH.PAGE_NOT_FOUND} />}
             />
           </Routes>
         </Suspense>

@@ -10,11 +10,13 @@ import {
 import { removeCurrentCart } from "../../shared/services/cart/cart.service";
 import { useNavigate } from "react-router-dom";
 import { CUSTOMER_PATH } from "../../shared/constants/path";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleRemoveCart } from "../../shared/redux-flow/action";
+import { cartSelector } from "../../shared/redux-flow/selector";
 
 const OrderPage = () => {
   const [orderValue, setOrderValue] = useState<IOrderCreate>();
+  const cartStorage = useSelector(cartSelector);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -23,6 +25,12 @@ const OrderPage = () => {
       handleCreateOrder(orderValue);
     }
   }, [orderValue]);
+
+  useEffect(() => {
+    if (cartStorage && cartStorage.length < 1) {
+      navigate(CUSTOMER_PATH.CART);
+    }
+  }, []);
   const handleCreateOrder = async (value: IOrderCreate) => {
     try {
       await placeOrder(value).then(async (rs) => {
@@ -40,17 +48,17 @@ const OrderPage = () => {
     }
   };
 
-  const deleteCart = async(uid: string) => {
+  const deleteCart = async (uid: string) => {
     try {
       await removeCurrentCart(uid).then((rs) => {
-        if(rs.data.data.deleteAllCart > 0) {
+        if (rs.data.data.deleteAllCart > 0) {
           dispatch(handleRemoveCart());
         }
-      })
+      });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return <OrderView setOrderValue={setOrderValue} />;
 };

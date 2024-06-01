@@ -12,3 +12,8 @@ export const AUTH_PATH = {
   SIGNIN: "/auth/signin",
   SIGNUP: "/auth/signup",
 };
+
+export const ERROR_PATH = {
+  PAGE_NOT_FOUND: "/error/404",
+  ERROR_PAGE: "/error"
+}
