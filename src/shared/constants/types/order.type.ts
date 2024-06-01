@@ -1,22 +1,22 @@
 export enum OrderStatus {
-  INIT,
-  INPROGRESS,
-  APPROVED,
-  REJECTED,
-  SHIPING,
-  DONE,
+  INIT = "Init",
+  INPROGRESS = "inProgress",
+  APPROVED = "Approved",
+  REJECTED = "Rejected",
+  SHIPING = "Shiping",
+  DONE = "Done",
 }
 
 export enum PaymentMethod {
-  COD,
-  ONLINE_BANKING,
+  COD = "Payment on delivery",
+  ONLINE_BANKING = "Online Banking",
 }
 
 export type OrderType = {
   totalPrice: number;
   status: OrderStatus;
   userId?: string;
-  paidAt?: Date | "";
+  paidAt?: Date | null;
   address: string;
   phoneNumber: string;
   customerName?: string;

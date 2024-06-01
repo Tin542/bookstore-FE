@@ -46,7 +46,7 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
     totalPrice: calculateTotalPrice(carStore ? carStore : []),
     status: OrderStatus.INIT,
     userId: userStore?.id,
-    paidAt: "",
+    paidAt: null,
     address: "",
     phoneNumber: "",
     customerName: userStore?.fullName,

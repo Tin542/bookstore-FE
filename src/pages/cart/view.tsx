@@ -118,7 +118,7 @@ const CartView: FC<CartViewProps> = (props) => {
                 vertical
                 gap="small"
                 style={{ width: "100%", padding: "0 10px" }}>
-                <Button type="primary" danger onClick={() => navigate(CUSTOMER_PATH.ORDER)}>
+                <Button disabled={cartItems.length < 1} type="primary" danger onClick={() => navigate(CUSTOMER_PATH.ORDER)}>
                   Place Order
                 </Button>
               </Flex>

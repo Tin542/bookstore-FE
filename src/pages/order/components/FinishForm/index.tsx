@@ -58,9 +58,7 @@ const FinishForm: FC<FinishFormProps> = (props) => {
           <Flex justify="space-between" align="flex-start">
             <b>Payment Method</b>
             <span>
-              {value.paymentMethod === 0
-                ? "Payment on delivery"
-                : "Online Banking"}
+              {value.paymentMethod}
             </span>
           </Flex>
           <Flex justify="space-between" align="flex-start">
