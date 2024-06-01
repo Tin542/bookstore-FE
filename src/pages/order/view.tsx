@@ -7,13 +7,13 @@ import { useSelector } from "react-redux";
 import InfoForm from "./components/infoForm";
 import PaymentForm from "./components/paymentForm";
 import FinishForm from "./components/FinishForm";
+import { IOrderCreate } from "../../shared/constants/types/order.type";
+import { cartSelector, userSelector } from "../../shared/redux-flow/selector";
+import { calculateTotalPrice } from "../../shared/utils/calculateTotalPrice";
 import {
   OrderStatus,
-  OrderType,
   PaymentMethod,
-} from "../../shared/constants/types/order.type";
-import {  cartSelector, userSelector } from "../../shared/redux-flow/selector";
-import { calculateTotalPrice } from "../../shared/utils/calculateTotalPrice";
+} from "../../shared/constants/types/enum.type";
 
 const contentStyle: React.CSSProperties = {
   minHeight: "25rem",
@@ -23,7 +23,7 @@ const contentStyle: React.CSSProperties = {
   padding: 20,
 };
 interface OrderPageProps {
-  setOrderValue: (value: OrderType) => void;
+  setOrderValue: (value: IOrderCreate) => void;
 }
 
 export enum CurrentStatus {
@@ -41,8 +41,8 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
   const [currentStatus, setCurrentStatus] = useState<CurrentStatus>(
     CurrentStatus.PROCESS
   );
-  
-  const [value, setValue] = useState<OrderType>({
+
+  const [value, setValue] = useState<IOrderCreate>({
     totalPrice: calculateTotalPrice(carStore ? carStore : []),
     status: OrderStatus.INIT,
     userId: userStore?.id,
@@ -51,11 +51,16 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
     phoneNumber: "",
     customerName: userStore?.fullName,
     paymentMethod: PaymentMethod.COD,
+    book: carStore
+      ? carStore.map((item) => ({
+          id: item.book.id,
+        }))
+      : [],
   });
 
   const onClickSubmitOrder = () => {
     setOrderValue(value);
-  }
+  };
 
   const steps = [
     {
@@ -80,7 +85,7 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
     },
     {
       title: "Finish",
-      content: <FinishForm value={value}/>,
+      content: <FinishForm value={value} />,
     },
   ];
 
@@ -111,9 +116,7 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
           </Button>
         )}
         {current === steps.length - 1 && (
-          <Button
-            type="primary"
-            onClick={onClickSubmitOrder}>
+          <Button type="primary" onClick={onClickSubmitOrder}>
             Submit order
           </Button>
         )}

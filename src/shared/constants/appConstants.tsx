@@ -5,8 +5,9 @@ export const CART_STORE = 'cart';
 export const PRODUCT_ID = 'product_id';
 
 
-//PAYMENT METHOD
-export const PAYMENT_METHOD = {
-    0: 'Payment on delivery',
-    1: 'Online Banking'
-}
+//REDUX
+export const LOGIN = 'auth/login';
+export const LOGOUT = 'auth/logout';
+export const CART = 'customer/cart';
+export const UPDATE_CART_ITEM = 'customer/updateCart'
+export const UPDATE_PROFILE = 'auth/updateProfile';

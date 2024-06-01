@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-export interface IApi<V = Record<string, unknown>> {
+export interface IApi {
   operationName: string;
   query: string;
-  variables: V; // default type Record<string, unknown> if not provided
+  variables: any; // default type Record<string, unknown> if not provided
 }

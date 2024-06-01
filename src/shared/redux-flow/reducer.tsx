@@ -1,6 +1,6 @@
-import { CART_STORE, USER_STORE } from "../constants/appConstants";
+import { CART, CART_STORE, LOGIN, LOGOUT, USER_STORE } from "../constants/appConstants";
 import { CartItemType } from "../constants/types/cart.type";
-import { AuthActionTypes, CART, LOGIN, LOGOUT, State } from "../constants/types/redux.type";
+import { AuthActionTypes, State } from "../constants/types/redux.type";
 import { UserStoreType } from "../constants/types/user.type";
 
 // Get initial user state from local storage

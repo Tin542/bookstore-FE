@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { CurrentStatus } from "../../view";
 import {
-  OrderType,
-  PaymentMethod,
+  IOrderCreate,
 } from "../../../../shared/constants/types/order.type";
 import { Button, Form, FormProps, Typography, Select } from "antd";
 import { successPopUpMessage } from "../../../../shared/components/Notification";
+import { PaymentMethod } from "../../../../shared/constants/types/enum.type";
 
 const formItemLayout = {
   labelCol: {
@@ -19,8 +19,8 @@ const formItemLayout = {
 const { Text } = Typography;
 
 interface paymentFormFormProps {
-  setValue: (value: OrderType) => void;
-  value?: OrderType;
+  setValue: (value: IOrderCreate) => void;
+  value?: IOrderCreate;
   setCurrentStatus: (value: CurrentStatus) => void;
 }
 

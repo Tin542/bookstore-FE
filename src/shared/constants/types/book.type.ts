@@ -44,3 +44,7 @@ export type Book = {
     name: string;
   };
 };
+
+export type BookInputList = {
+  id: string;
+}

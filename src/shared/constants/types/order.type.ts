@@ -1,16 +1,7 @@
-export enum OrderStatus {
-  INIT = "Init",
-  INPROGRESS = "inProgress",
-  APPROVED = "Approved",
-  REJECTED = "Rejected",
-  SHIPING = "Shiping",
-  DONE = "Done",
-}
+import { BookInputList } from "./book.type";
+import { OrderStatus, PaymentMethod } from "./enum.type";
 
-export enum PaymentMethod {
-  COD = "Payment on delivery",
-  ONLINE_BANKING = "Online Banking",
-}
+
 
 export type OrderType = {
   totalPrice: number;
@@ -22,3 +13,8 @@ export type OrderType = {
   customerName?: string;
   paymentMethod: PaymentMethod;
 };
+
+export interface IOrderCreate extends OrderType{
+  book: BookInputList[] | [];
+}
+

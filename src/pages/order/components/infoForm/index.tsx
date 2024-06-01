@@ -1,6 +1,6 @@
 import { Button, Form, FormProps, Input } from "antd";
 import React from "react";
-import { OrderType } from "../../../../shared/constants/types/order.type";
+import { IOrderCreate } from "../../../../shared/constants/types/order.type";
 import { CurrentStatus } from "../../view";
 import { successPopUpMessage } from "../../../../shared/components/Notification";
 const formItemLayout = {
@@ -13,8 +13,8 @@ const formItemLayout = {
 };
 
 interface infoFormProps {
-  setValue: (value: OrderType) => void;
-  value?: OrderType;
+  setValue: (value: IOrderCreate) => void;
+  value?: IOrderCreate;
   setCurrentStatus: (value: CurrentStatus) => void;
 }
 
