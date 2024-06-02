@@ -5,7 +5,7 @@
         "description": "Book Description 8",
         "price": 95000,
         "rate": 3.5,
-        "imageUrl": "https://marketplace.canva.com/EAFZ2pNC6Uo/2/0/1003w/canva-dramatic-night-photo-book-cover-jdkc66NkIVw.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 8"
         },
@@ -21,7 +21,7 @@
         "description": "Book Description 7",
         "price": 110000,
         "rate": 4.5,
-        "imageUrl": "https://marketplace.canva.com/EAFfZwO2-AE/2/0/1003w/canva-dark-woods-photo-book-cover-rJOLB3BID3M.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 7"
         },
@@ -37,7 +37,7 @@
         "description": "Book Description 6",
         "price": 80000,
         "rate": 5,
-        "imageUrl": "https://marketplace.canva.com/EAFYZtMv69c/2/0/1003w/canva-dark-mystical-forest-photo-book-cover-9REwWKbdr7I.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 6"
         },
@@ -53,7 +53,7 @@
         "description": "Book Description 5",
         "price": 120000,
         "rate": 4,
-        "imageUrl": "https://marketplace.canva.com/EAFYJ_XS4iA/2/0/1003w/canva-dark-and-moody-photo-book-cover-gcNvWuRG7lA.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 5"
         },
@@ -69,7 +69,7 @@
         "description": "Book Description 4",
         "price": 90000,
         "rate": 3.5,
-        "imageUrl": "https://marketplace.canva.com/EAFfUmtErzg/2/0/1003w/canva-dark-photography-photo-book-cover-0rEjRzghkIo.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 4"
         },
@@ -85,7 +85,7 @@
         "description": "Book Description 3",
         "price": 75000,
         "rate": 4.5,
-        "imageUrl": "https://marketplace.canva.com/EAFYgOuTphI/2/0/1003w/canva-classy-night-photography-book-cover-tOAiVIvS8Vw.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 3"
         },
@@ -101,7 +101,7 @@
         "description": "Book Description 2",
         "price": 85000,
         "rate": 4,
-        "imageUrl": "https://marketplace.canva.com/EAFZb3KFl8g/2/0/1003w/canva-starry-night-dream-photo-book-cover-ZjW8Wq6lRX0.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 2"
         },
@@ -117,7 +117,7 @@
         "description": "Book Description 1",
         "price": 100000,
         "rate": 5,
-        "imageUrl": "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 1"
         },
@@ -133,7 +133,7 @@
         "description": "Book Description 1",
         "price": 100000,
         "rate": 5,
-        "imageUrl": "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 1"
         },
@@ -149,39 +149,7 @@
         "description": "Book Description 1",
         "price": 100000,
         "rate": 5,
-        "imageUrl": "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
-        "author": {
-          "name": "Author Name 1"
-        },
-        "category": {
-          "name": "Category 1"
-        },
-        "isOutOfStock": false,
-        "isActive": true
-      },
-      {
-        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46fw",
-        "title": "Book Title 1",
-        "description": "Book Description 1",
-        "price": 100000,
-        "rate": 5,
-        "imageUrl": "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
-        "author": {
-          "name": "Author Name 1"
-        },
-        "category": {
-          "name": "Category 1"
-        },
-        "isOutOfStock": false,
-        "isActive": true
-      },
-      {
-        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46fq",
-        "title": "Book Title 1",
-        "description": "Book Description 1",
-        "price": 100000,
-        "rate": 5,
-        "imageUrl": "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
         "author": {
           "name": "Author Name 1"
         },
@@ -191,12 +159,4 @@
         "isOutOfStock": false,
         "isActive": true
       }
-      
-      
-      
-      
-      
-      
-      
-      
 ]
