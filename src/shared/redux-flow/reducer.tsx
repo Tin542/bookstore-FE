@@ -40,7 +40,7 @@ const rootReducer = (state = initState, action: ActionTypes) => {
     case CART:
       return { ...state, cart: action.payload };
     case DELETE_CART:
-      return { ...state, cart: undefined };
+      return { ...state, cart: [] };
     default:
       return state;
   }

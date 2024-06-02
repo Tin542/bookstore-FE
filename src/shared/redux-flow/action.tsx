@@ -33,6 +33,6 @@ export const handleRemoveCart = (): DeleteCartAction => {
   localStorage.setItem(CART_STORE, JSON.stringify([]))
   return {
     type: DELETE_CART,
-    payload: undefined
+    payload: []
   }
 }
