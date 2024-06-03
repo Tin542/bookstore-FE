@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC, useState } from "react";
 import { Book } from "../../shared/constants/types/book.type";
 import {
   Button,
   Card,
   Col,
-  ConfigProvider,
   Flex,
   Image,
   InputNumber,
@@ -12,6 +12,7 @@ import {
   Typography,
 } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import ReviewComponent from "./review";
 
 interface detailViewProps {
   data: Book | undefined;
@@ -89,9 +90,7 @@ const DetailView: FC<detailViewProps> = (props) => {
                 onChange={(value) => onChangeQuantity(value as number)}
               />
             </div>
-
             <hr />
-
             <Flex justify="space-between" align="flex-start">
               <b>Total Price</b>
               <span style={{ color: "red" }}>$ {price * qty}</span>
@@ -104,7 +103,6 @@ const DetailView: FC<detailViewProps> = (props) => {
               <Button
                 type="primary"
                 onClick={addToCartButton}
-                style={{ borderRadius: 0 }}
                 icon={<ShoppingCartOutlined />}>
                 Add To Cart
               </Button>
@@ -112,6 +110,8 @@ const DetailView: FC<detailViewProps> = (props) => {
           </Card>
         </Col>
       </Row>
+      {/* REVIEW COMPONENT */}
+      <ReviewComponent bookId={data?.id as string} />
     </>
   );
 };
