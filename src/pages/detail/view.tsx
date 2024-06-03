@@ -42,23 +42,30 @@ const DetailView: FC<detailViewProps> = (props) => {
       <h1>{data?.category.name}</h1>
       <hr />
       <Row gutter={[10, 10]}>
-        <Col md={15} sm={24} xs={24}>
-          <div style={infoBookStyle}>
-            <Row gutter={[10, 10]}>
+        <Col md={17} sm={24} xs={24}>
+          <Card style={infoBookStyle}>
+            <Row gutter={[10, 5]}>
               <Col
                 md={9}
                 sm={24}
                 xs={24}
                 style={{ alignContent: "flex-start" }}>
                 <Flex vertical justify="center" align="center" gap={20}>
-                  <Image width={200} src={data?.imageUrl} />
+                  <div>
+                    <Image width={200} src={data?.imageUrl} />
+                  </div>
+
                   <div>
                     By <b>{data?.author.name}</b>
                   </div>
                 </Flex>
               </Col>
               <Col md={15} sm={24} xs={24}>
-                <Flex vertical justify="flex-start" align="flex-start">
+                <Flex
+                  style={{ fontSize: 20 }}
+                  vertical
+                  justify="flex-start"
+                  align="flex-start">
                   <h2>{data?.title}</h2>
                   <div>
                     <Typography.Paragraph
@@ -67,16 +74,17 @@ const DetailView: FC<detailViewProps> = (props) => {
                         expandable: "collapsible",
                         expanded,
                         onExpand: (_, info) => setExpanded(info.expanded),
-                      }}>
+                      }}
+                      style={{ lineHeight: 2, fontSize: 15 }}>
                       {data?.description}
                     </Typography.Paragraph>
                   </div>
                 </Flex>
               </Col>
             </Row>
-          </div>
+          </Card>
         </Col>
-        <Col md={9} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
+        <Col md={7} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
           <Card
             title="PRICE"
             bordered={false}

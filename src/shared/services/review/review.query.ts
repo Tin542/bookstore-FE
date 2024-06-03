@@ -1,5 +1,4 @@
-
-import { IReviewInput } from "../../constants/types/review";
+import { IQueryReview, IReviewInput } from "../../constants/types/review";
 
 export const createReview = (data: IReviewInput) => {
   return {
@@ -28,6 +27,37 @@ export const createReview = (data: IReviewInput) => {
     }
     
         `,
+    variables: data,
+  };
+};
+
+export const getReview = (data: IQueryReview) => {
+  return {
+    operationName: "GetAllReview",
+    query: `
+    query GetAllReview (
+        $limit: Int!,
+        $page: Int!,
+        $rate: [Int!]
+    ) {
+        getAllReview(limit: $limit, page: $page, rate: $rate) {
+            currentPage
+            limit
+            totalPages
+            totalProducts
+            list {
+                content
+                createdAt
+                id
+                rate
+                user {
+                    fullName
+                    avatar
+                }
+            }
+        }
+    }      
+          `,
     variables: data,
   };
 };
