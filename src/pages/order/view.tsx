@@ -51,11 +51,11 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
     phoneNumber: "",
     customerName: userStore?.fullName,
     paymentMethod: PaymentMethod.COD,
-    book: carStore
-      ? carStore.map((item) => ({
-          id: item.book.id,
-        }))
-      : [],
+    orderItem:  carStore ? carStore.map((item) => ({
+      bookId: item.book.id,
+      price: item.price,
+      quantity: item.quantity
+    })) : []
   });
 
   const onClickSubmitOrder = () => {

@@ -1,4 +1,4 @@
-import { BookInputList } from "./book.type";
+import { OrderDtaileInputType } from "./cart.type";
 import { OrderStatus, PaymentMethod } from "./enum.type";
 
 
@@ -15,6 +15,6 @@ export type OrderType = {
 };
 
 export interface IOrderCreate extends OrderType{
-  book: BookInputList[] | [];
+  orderItem: OrderDtaileInputType[] | [];
 }
 

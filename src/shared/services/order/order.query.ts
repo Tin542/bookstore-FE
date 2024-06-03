@@ -6,7 +6,7 @@ export const createOrder = (data: IOrderCreate) => {
     query: `
       mutation CreateOrder(
         $address: String!,
-        $book: [BookInput!]!,
+        $orderItem: [OrderItemInput!]!,
         $customerName: String!,
         $paidAt: DateTime,
         $paymentMethod: PaymentMethod!,
@@ -17,7 +17,7 @@ export const createOrder = (data: IOrderCreate) => {
       ) {
         createOrder(
             address: $address
-            book: $book
+            orderItem: $orderItem
             customerName: $customerName
             paidAt: $paidAt
             paymentMethod: $paymentMethod

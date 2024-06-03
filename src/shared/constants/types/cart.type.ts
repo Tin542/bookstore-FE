@@ -14,6 +14,12 @@
     quantity: number;
     book: Book;
   };
+
+  export type OrderDtaileInputType  ={
+    bookId: string;
+    price: number;
+    quantity: number;
+  }
   
   export type CartStoreType = {
     items: CartItemType[];
