@@ -31,7 +31,6 @@ const DetailPage = () => {
   const loadDetail = async (id: string) => {
     await fetchOneBook(id)
       .then((rs) => {
-        console.log("detail", rs);
         setProductDetail(rs.data.data.getDetailBook);
       })
       .catch((err) => {

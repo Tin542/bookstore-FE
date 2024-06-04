@@ -35,12 +35,12 @@ export const getReview = (data: IQueryReview) => {
   return {
     operationName: "GetAllReview",
     query: `
-    query GetAllReview (
-        $limit: Int!,
-        $page: Int!,
-        $rate: [Int!]
-    ) {
-        getAllReview(limit: $limit, page: $page, rate: $rate) {
+    query GetAllReview($limit: Int, $page: Int, $bookId: String!) {
+        getAllReview(
+            limit: $limit
+            page: $page
+            bookId: $bookId
+        ) {
             currentPage
             limit
             totalPages
@@ -56,7 +56,8 @@ export const getReview = (data: IQueryReview) => {
                 }
             }
         }
-    }      
+    }
+    
           `,
     variables: data,
   };

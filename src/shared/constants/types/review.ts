@@ -1,7 +1,8 @@
 export type ReviewType = {
   id: string;
   content: string;
-  rate: string;
+  rate: number;
+  createdAt: string;
   user: {
     fullName: string;
     imageUrl: string;
@@ -16,6 +17,7 @@ export interface IReviewInput {
 }
 
 export interface IQueryReview {
+  bookId: string | null;
   rate?: number[];
   page?: number;
   limit?: number;

@@ -3,6 +3,7 @@ import {
   Avatar,
   Button,
   Card,
+  Checkbox,
   Col,
   Flex,
   Form,
@@ -16,27 +17,32 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../../shared/redux-flow/selector";
 import { AUTH_PATH } from "../../../shared/constants/path";
+import {
+  IQueryReview,
+  ReviewType,
+} from "../../../shared/constants/types/review";
+import { CheckboxValueType } from "antd/es/checkbox/Group";
 
-const dataList = [
-  {
-    title: "Ant Design Title 1",
-  },
-  {
-    title: "Ant Design Title 2",
-  },
-  {
-    title: "Ant Design Title 3",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-];
 
 interface ReviewViewProps {
   onFinishReview: (value: any) => void;
+  setFilter: (value: IQueryReview) => void;
+  data: ReviewType[] | undefined;
+  onChangeRating: (checkedValues: CheckboxValueType[]) => void;
+  totalItems: number | undefined;
+  filter: IQueryReview;
 }
+
+const ratingOption = [
+  { label: <Rate disabled defaultValue={1} />, value: 1 },
+  { label: <Rate disabled defaultValue={2} />, value: 2 },
+  { label: <Rate disabled defaultValue={3} />, value: 3 },
+  { label: <Rate disabled defaultValue={4} />, value: 4 },
+  { label: <Rate disabled defaultValue={5} />, value: 5 },
+];
+
 const ReviewView: FC<ReviewViewProps> = (props) => {
-  const { onFinishReview } = props;
+  const { onFinishReview, onChangeRating, data, totalItems, filter } = props;
   const userStore = useSelector(userSelector);
   return (
     <Row gutter={[10, 10]} style={{ marginTop: 10 }}>
@@ -54,37 +60,45 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
             <div style={{ width: "100%" }}>
               <Card>
                 <Flex vertical gap={15}>
-                  <Rate style={{ fontSize: 10 }} disabled defaultValue={1} />
-                  <Rate style={{ fontSize: 10 }} disabled defaultValue={2} />
-                  <Rate style={{ fontSize: 10 }} disabled defaultValue={3} />
-                  <Rate style={{ fontSize: 10 }} disabled defaultValue={4} />
-                  <Rate style={{ fontSize: 10 }} disabled defaultValue={5} />
+                  <Checkbox.Group
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      padding: 5,
+                    }}
+                    options={ratingOption}
+                    onChange={onChangeRating}
+                  />
                 </Flex>
               </Card>
             </div>
           </Flex>
           <List
             itemLayout="horizontal"
-            dataSource={dataList}
-            renderItem={(item, index) => (
+            dataSource={data}
+            renderItem={(item) => (
               <List.Item>
                 <List.Item.Meta
-                  avatar={
-                    <Avatar
-                      src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
-                    />
+                  avatar={<Avatar src={item.user.imageUrl} />}
+                  title={
+                    <span>
+                      {item.user.fullName} | {item.createdAt}
+                    </span>
                   }
-                  title={<span>{item.title} | 06/03/2024</span>}
-                  description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                  description={item.content}
                 />
-                <Rate style={{ fontSize: 10 }} disabled defaultValue={2} />
+                <Rate
+                  style={{ fontSize: 10 }}
+                  disabled
+                  defaultValue={item.rate}
+                />
               </List.Item>
             )}
           />
           <Pagination
-            defaultCurrent={1}
-            total={10}
-            pageSize={5}
+            defaultCurrent={filter.page}
+            total={totalItems}
+            pageSize={filter.limit}
             // onChange={onChangePage}
           />
         </Card>

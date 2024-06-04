@@ -5,11 +5,11 @@ import { fetchAllCategory } from "../../../shared/services/category/category.ser
 import { fetchAllAuthor } from "../../../shared/services/author/author.service.ts";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import { SearchProps } from "antd/es/input/Search";
-import { IBookQuery } from "../../../shared/constants/types/book.type.ts";
+import { BookQuery } from "../../../shared/constants/types/book.type.ts";
 
 interface FilterProps {
-  filter: IBookQuery;
-  setFilter: (value: IBookQuery) => void;
+  filter: BookQuery;
+  setFilter: (value: BookQuery) => void;
 }
 
 const Filter: FC<FilterProps> = (props) => {
