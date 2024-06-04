@@ -99,7 +99,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
                 <Rate
                   style={{ fontSize: 10 }}
                   disabled
-                  defaultValue={item.rate}
+                  value={item.rate}
                 />
               </List.Item>
             )}
