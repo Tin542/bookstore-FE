@@ -63,3 +63,19 @@ export const getDetailBook = (id: string) => {
     variables: {id: id},
   };
 };
+
+export const updateRate = (id: string) => {
+  return {
+    operationName: "UpdateBookRating",
+    query: `
+    mutation UpdateBookRating($id: String!) {
+      updateBookRating(id: $id) {
+          rate
+      }
+  }
+  
+  
+      `,
+    variables: {id: id},
+  };
+};

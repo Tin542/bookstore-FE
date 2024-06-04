@@ -11,20 +11,23 @@ import {
 } from "../../../shared/services/review/review.service";
 import {
   errorPopUpMessage,
-  successPopUpMessage,
 } from "../../../shared/components/Notification";
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../../shared/redux-flow/selector";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
+import { FormInstance } from "antd";
+import { fetchUpdateRate } from "../../../shared/services/book/book.service";
 
 interface ReviewComponentProps {
   bid: string | undefined;
+  totalRate: number | undefined;
 }
 const ReviewComponent: FC<ReviewComponentProps> = (props) => {
-  const { bid } = props;
+  const { bid, totalRate } = props;
 
   const userStore = useSelector(userSelector);
+  const formRef = React.createRef<FormInstance>();
 
   const [listReview, setListReview] = useState<ReviewType[] | undefined>();
   const [totalItems, setTotalItems] = useState<number>();
@@ -42,7 +45,6 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
   }, [bid]);
 
   useEffect(() => {
-    console.log('bookId: ', bid);
     handleGetAllReview(filter);
   }, [filter]);
 
@@ -62,17 +64,30 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
   const handleCreateReview = async (value: IReviewInput) => {
     try {
       const result = await createReviewApi(value);
-      if (!result.data.data.createReview) {
+      if (!result.data.data) {
         errorPopUpMessage("Review Failed", result.data.errors[0].message);
         return;
       }
-      successPopUpMessage("Review Success");
+      await handleUpdateRate(result.data.data.createReview.bookId);
+      await handleGetAllReview(filter);
+      window.location.reload();
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleUpdateRate = async (id: string) => {
+    try {
+      const result = await fetchUpdateRate(id);
+      if (!result.data.data) {
+        errorPopUpMessage("Review Failed", result.data.errors[0].message);
+        return;
+      }
     } catch (error) {
       console.log(error);
     }
   };
   const onFinishReview = async (values: IReviewInput) => {
-    console.log("onFinishReview", values);
     if (!bid) {
       errorPopUpMessage("Create Review failed", "BookId not found");
       return;
@@ -82,6 +97,7 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       bookId: bid,
       userId: userStore?.id as string,
     });
+    
   };
 
   const onChangeRating = (checkedValues: CheckboxValueType[]) => {
@@ -93,6 +109,13 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
     });
   };
 
+  const onChangePage = (value: number) => {
+    setFilter({
+      ...filter,
+      page: value,
+    });
+  };
+
   return (
     <ReviewView
       data={listReview}
@@ -101,6 +124,9 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       onChangeRating={onChangeRating}
       totalItems={totalItems}
       filter={filter}
+      onChangePage={onChangePage}
+      formRef={formRef}
+      totalRate={totalRate}
     />
   );
 };

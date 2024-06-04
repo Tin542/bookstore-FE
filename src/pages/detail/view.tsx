@@ -119,7 +119,7 @@ const DetailView: FC<detailViewProps> = (props) => {
         </Col>
       </Row>
       {/* REVIEW COMPONENT */}
-      <ReviewComponent bid={data?.id as string} />
+      <ReviewComponent bid={data?.id as string} totalRate={data?.rate as number} />
     </>
   );
 };

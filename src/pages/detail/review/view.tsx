@@ -23,7 +23,6 @@ import {
 } from "../../../shared/constants/types/review";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 
-
 interface ReviewViewProps {
   onFinishReview: (value: any) => void;
   setFilter: (value: IQueryReview) => void;
@@ -31,18 +30,30 @@ interface ReviewViewProps {
   onChangeRating: (checkedValues: CheckboxValueType[]) => void;
   totalItems: number | undefined;
   filter: IQueryReview;
+  onChangePage: (value: number) => void;
+  formRef: any;
+  totalRate: number | undefined;
 }
 
 const ratingOption = [
-  { label: <Rate disabled defaultValue={1} />, value: 1 },
-  { label: <Rate disabled defaultValue={2} />, value: 2 },
-  { label: <Rate disabled defaultValue={3} />, value: 3 },
-  { label: <Rate disabled defaultValue={4} />, value: 4 },
-  { label: <Rate disabled defaultValue={5} />, value: 5 },
+  { label: "1 star", value: 1 },
+  { label: "2 star", value: 2 },
+  { label: "3 star", value: 3 },
+  { label: "4 star", value: 4 },
+  { label: "5 star", value: 5 },
 ];
 
 const ReviewView: FC<ReviewViewProps> = (props) => {
-  const { onFinishReview, onChangeRating, data, totalItems, filter } = props;
+  const {
+    onFinishReview,
+    onChangeRating,
+    data,
+    totalItems,
+    filter,
+    onChangePage,
+    formRef,
+    totalRate,
+  } = props;
   const userStore = useSelector(userSelector);
   return (
     <Row gutter={[10, 10]} style={{ marginTop: 10 }}>
@@ -52,9 +63,8 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
           bordered={false}
           style={{ width: "100%", border: "1px, solid" }}>
           <Flex justify="flex-start" align="center" gap={10}>
-            <div style={{ width: "27%" }}>
-              <h1>4.5 /5</h1>
-              <Rate disabled defaultValue={4} style={{ fontSize: 20 }} />
+            <div style={{ width: "20%" }}>
+              <h1>{totalRate} /5</h1>
             </div>
 
             <div style={{ width: "100%" }}>
@@ -63,7 +73,6 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
                   <Checkbox.Group
                     style={{
                       display: "flex",
-                      flexDirection: "column",
                       padding: 5,
                     }}
                     options={ratingOption}
@@ -95,12 +104,14 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
               </List.Item>
             )}
           />
-          <Pagination
-            defaultCurrent={filter.page}
-            total={totalItems}
-            pageSize={filter.limit}
-            // onChange={onChangePage}
-          />
+          <div style={{ textAlign: "center" }}>
+            <Pagination
+              defaultCurrent={filter.page}
+              total={totalItems}
+              pageSize={filter.limit}
+              onChange={onChangePage}
+            />
+          </div>
         </Card>
       </Col>
       <Col md={7} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
@@ -113,7 +124,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
             gap="small"
             style={{ width: "100%", padding: "0 10px" }}>
             {userStore ? (
-              <Form layout="vertical" onFinish={onFinishReview}>
+              <Form ref={formRef} layout="vertical" onFinish={onFinishReview}>
                 <Form.Item label="Content" name="content">
                   <TextArea rows={4} />
                 </Form.Item>
