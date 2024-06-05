@@ -27,6 +27,11 @@ export const getAllBook = (data?: BookQuery) => {
           price
           title
           rate
+          bookPromotion {
+            promotion {
+                discountPercents
+            }
+        }
         }
       }
     }
@@ -48,6 +53,11 @@ export const getDetailBook = (id: string) => {
           rate
           title
           description
+          bookPromotion {
+            promotion {
+                discountPercents
+            }
+        }
           category {
               id
               name
@@ -73,8 +83,6 @@ export const updateRate = (id: string) => {
           rate
       }
   }
-  
-  
       `,
     variables: {id: id},
   };

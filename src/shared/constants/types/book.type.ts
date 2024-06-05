@@ -7,6 +7,7 @@ export interface IBook {
   isOutofStock: boolean;
   categoryId: string;
   authorId: string;
+  bookPromotion: bookPromotion[];
 }
 
 export interface IBooks {
@@ -16,6 +17,12 @@ export interface IBooks {
     totalProducts: number;
     limit: number;
   };
+}
+
+export type bookPromotion = {
+  promotion: {
+    discountPercents: number;
+  }
 }
 
 export type BookQuery = {
@@ -43,6 +50,7 @@ export type Book = {
     id: string;
     name: string;
   };
+  bookPromotion: bookPromotion[];
 };
 
 export type BookInputList = {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC, useState } from "react";
-import { Book } from "../../shared/constants/types/book.type";
+import { Book, bookPromotion } from "../../shared/constants/types/book.type";
 import {
   Button,
   Card,
@@ -13,6 +13,7 @@ import {
 } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import ReviewComponent from "./review";
+import { calculateDiscount } from "../../shared/utils/calculateTotalPrice";
 
 interface detailViewProps {
   data: Book | undefined;
@@ -29,7 +30,7 @@ const infoBookStyle: React.CSSProperties = {
   borderRadius: 5,
   backgroundColor: "white",
 };
-
+const { Text } = Typography;
 const DetailView: FC<detailViewProps> = (props) => {
   const { data, quantity, onChangeQuantity, addToCartButton } = props;
   const [expanded, setExpanded] = useState(false);
@@ -50,13 +51,19 @@ const DetailView: FC<detailViewProps> = (props) => {
                 sm={24}
                 xs={24}
                 style={{ alignContent: "flex-start" }}>
-                <Flex vertical justify="center" align="center" gap={20}>
+                <Flex vertical justify="flex-start" align="flex-start" gap={20}>
                   <div>
                     <Image width={200} src={data?.imageUrl} />
                   </div>
 
                   <div>
                     By <b>{data?.author.name}</b>
+                  </div>
+                  <div>
+                    ${calculateDiscount(
+                      data?.price as number,
+                      data?.bookPromotion as bookPromotion[]
+                    )}
                   </div>
                 </Flex>
               </Col>
@@ -119,7 +126,10 @@ const DetailView: FC<detailViewProps> = (props) => {
         </Col>
       </Row>
       {/* REVIEW COMPONENT */}
-      <ReviewComponent bid={data?.id as string} totalRate={data?.rate as number} />
+      <ReviewComponent
+        bid={data?.id as string}
+        totalRate={data?.rate as number}
+      />
     </>
   );
 };

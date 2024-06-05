@@ -1,10 +1,11 @@
 import React from "react";
-import { Card, Rate } from "antd";
+import { Card, Flex, Rate, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import { CUSTOMER_PATH } from "../../constants/path";
 import { IBook } from "../../constants/types/book.type";
 import { PRODUCT_ID } from "../../constants/appConstants";
+import { calculateDiscount } from "../../utils/calculateTotalPrice";
 
 interface CardComponentProps {
   item: IBook;
@@ -18,6 +19,8 @@ const cardStyle: React.CSSProperties = {
 };
 
 const { Meta } = Card;
+const { Text } = Typography;
+
 const CardComponent: React.FC<CardComponentProps> = (props) => {
   const { item } = props;
   const navigate = useNavigate();
@@ -26,6 +29,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
     localStorage.setItem(PRODUCT_ID, item.id);
     navigate(CUSTOMER_PATH.DETAIL_PRODUCT);
   };
+
   return (
     <Card
       onClick={onClickDetail}
@@ -40,9 +44,18 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
           />
         </div>
       }>
-      <div>
+      <div style={{ lineHeight: 2 }}>
         <Rate disabled value={item.rate} style={{ fontSize: 15 }} />
-        <Meta title={item.title} description={`$ ${item.price}`} />
+        <Meta title={item.title} />
+        {item.bookPromotion.length > 0 ? (
+          <Flex justify="flex-start" gap={10}>
+            <Text delete>$ {item.price}</Text> 
+            <Text strong type="danger">${calculateDiscount(item.price, item.bookPromotion)}</Text>
+            
+          </Flex>
+        ) : (
+          <span>$ {item.price}</span>
+        )}
       </div>
     </Card>
   );

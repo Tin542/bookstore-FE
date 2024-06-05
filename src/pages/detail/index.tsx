@@ -84,7 +84,9 @@ const DetailPage = () => {
   const onChange = (value: number | null) => {
     setQuantity(value as number);
   };
-  return <DetailView data={productDetail} quantity={quantity} onChangeQuantity={onChange} addToCartButton={addToCartButton} />;
+  return <>
+  <DetailView data={productDetail} quantity={quantity} onChangeQuantity={onChange} addToCartButton={addToCartButton} />;
+  </>
 };
 
 export default DetailPage;
