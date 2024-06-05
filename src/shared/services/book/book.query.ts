@@ -6,13 +6,15 @@ export const getAllBook = (data?: BookQuery) => {
     query: `query FindAllBooks(
       $author: [String!],
       $category: [String!],
-      $limit: Int
+      $sortByEnum: String,
+      $limit: Int,
       $page: Int,
       $rate: [Int!],
       $title: String) {
       findAllBooks(
         author: $author,
-        category: $category
+        category: $category,
+        sortByEnum: $sortByEnum,
         limit: $limit,
         page: $page,
         rate: $rate,

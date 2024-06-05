@@ -35,7 +35,6 @@ const DetailView: FC<detailViewProps> = (props) => {
   const { data, quantity, onChangeQuantity, addToCartButton } = props;
   const [expanded, setExpanded] = useState(false);
 
-  const price = data?.price ?? 0;
   const qty = quantity ?? 1;
 
   return (
@@ -60,9 +59,19 @@ const DetailView: FC<detailViewProps> = (props) => {
                     By <b>{data?.author.name}</b>
                   </div>
                   <div>
-                    ${calculateDiscount(
-                      data?.price as number,
-                      data?.bookPromotion as bookPromotion[]
+                    {data?.bookPromotion ? (
+                      data.bookPromotion.length > 0 ? (
+                        <Flex justify="flex-start" gap={10}>
+                          <Text delete>$ {data.price}</Text>
+                          <Text strong type="danger">
+                            ${calculateDiscount(data.price, data.bookPromotion)}
+                          </Text>
+                        </Flex>
+                      ) : (
+                        <span>$ {data.price}</span>
+                      )
+                    ) : (
+                      0
                     )}
                   </div>
                 </Flex>
@@ -108,7 +117,13 @@ const DetailView: FC<detailViewProps> = (props) => {
             <hr />
             <Flex justify="space-between" align="flex-start">
               <b>Total Price</b>
-              <span style={{ color: "red" }}>$ {price * qty}</span>
+              <span style={{ color: "red" }}>
+                $
+                {calculateDiscount(
+                  data?.price as number,
+                  data?.bookPromotion as bookPromotion[]
+                ) * qty}
+              </span>
             </Flex>
             <hr />
             <Flex

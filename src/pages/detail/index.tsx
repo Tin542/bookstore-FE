@@ -12,6 +12,7 @@ import { AUTH_PATH } from "../../shared/constants/path";
 import { addCartItem } from "../../shared/services/cart/cart.service";
 import { CartItemType } from "../../shared/constants/types/cart.type";
 import { handleStoreCart } from "../../shared/redux-flow/action";
+import { calculateDiscount } from "../../shared/utils/calculateTotalPrice";
 
 const DetailPage = () => {
   const productId = localStorage.getItem(PRODUCT_ID);
@@ -49,7 +50,7 @@ const DetailPage = () => {
       }
       await addCartItem({
         bookId: productDetail?.id,
-        price: productDetail?.price * quantity,
+        price: calculateDiscount(productDetail.price, productDetail.bookPromotion) * quantity,
         quantity: quantity,
         userId: userStore.id,
       }).then((rs) => {

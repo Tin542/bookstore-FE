@@ -25,11 +25,18 @@ export type bookPromotion = {
   }
 }
 
+export enum SortBookByEnum {
+  ON_SALE = 'ON_SALE',
+  POPULAR = 'POPULAR',
+  RECOMMENDED = 'RECOMMENDED',
+}
+
 export type BookQuery = {
   title?: string;
   rate?: number[];
   author?: string[];
   category?: string[];
+  sortByEnum?: SortBookByEnum
   page?: number;
   limit?: number;
 };

@@ -21,6 +21,11 @@ function App() {
           Steps: {
             finishIconBorderColor: "#001529",
           },
+          Button: {
+            defaultGhostBorderColor: "white",
+            defaultGhostColor: 'white',
+            ghostBg: '#001529'
+          }
         },
       }}>
       <Main>

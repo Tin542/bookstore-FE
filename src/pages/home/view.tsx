@@ -1,20 +1,22 @@
 import { Button, ConfigProvider, Flex, Space, Typography } from "antd";
-import React, { useState } from "react";
+import React, { FC } from "react";
 
-import book from "../../shared/data/book.json";
 import CardComponent from "../../shared/components/Card";
+import {
+  BookQuery,
+  IBook,
+  SortBookByEnum,
+} from "../../shared/constants/types/book.type";
+import { useNavigate } from "react-router-dom";
+import { CUSTOMER_PATH } from "../../shared/constants/path";
 
 const { Title } = Typography;
 
-interface Item {
-  id: string;
-  imageUrl: string;
-  title: string;
-  price: number;
-  rate: number;
-  author: {
-    name: string;
-  };
+interface HomeViewProps {
+  data: IBook[] | undefined;
+  featuredBook: IBook[] | undefined;
+  filter: BookQuery;
+  setFilter: (value: BookQuery) => void;
 }
 
 const contentStyle: React.CSSProperties = {
@@ -26,18 +28,22 @@ const contentStyle: React.CSSProperties = {
   padding: "10px",
 };
 
-const Homeview: React.FC = () => {
-  const [listbook, setListBook] = useState<Item[]>(book);
+const Homeview: FC<HomeViewProps> = (props) => {
+  const { data, setFilter, filter, featuredBook } = props;
+  const navigate = useNavigate();
 
   const handleChangeFeatured = (val: string) => {
-    if(val === 'recommented') {
-      setListBook(book.slice(0, 5));
+    if (val === "recommented") {
+      setFilter({ ...filter, sortByEnum: SortBookByEnum.RECOMMENDED });
     }
-    if(val === 'popular') {
-      setListBook(book.slice(3, 8));
+    if (val === "popular") {
+      setFilter({ ...filter, sortByEnum: SortBookByEnum.POPULAR });
     }
-    
-  }
+  };
+
+  const onClickViewAllButton = () => {
+    navigate(CUSTOMER_PATH.SHOP);
+  };
   return (
     <ConfigProvider
       theme={{
@@ -54,13 +60,16 @@ const Homeview: React.FC = () => {
       <div style={contentStyle}>
         <Flex justify="space-between" align="center" gap="small">
           <Title level={4}>ON SALE</Title>
-          <Button style={{ width: "5rem", height: "3rem" }} type="primary">
+          <Button
+            onClick={onClickViewAllButton}
+            style={{ width: "5rem", height: "3rem" }}
+            type="primary">
             View all
           </Button>
         </Flex>
         <hr />
         <Flex wrap justify="center" align="center" gap={10}>
-          {book.map((item) => (
+          {data?.map((item) => (
             <CardComponent key={item.id} item={item} />
           ))}
         </Flex>
@@ -68,13 +77,21 @@ const Homeview: React.FC = () => {
       <div style={{ textAlign: "center" }}>
         <h1>FEATURED BOOKS</h1>
         <Space size="large">
-          <Button onClick={() => handleChangeFeatured('recommented')}>Recommented</Button>
-          <Button onClick={() => handleChangeFeatured('popular')}>Popular</Button>
+          <Button
+            ghost={filter.sortByEnum === SortBookByEnum.RECOMMENDED}
+            onClick={() => handleChangeFeatured("recommented")}>
+            Recommented
+          </Button>
+          <Button
+            ghost={filter.sortByEnum === SortBookByEnum.POPULAR}
+            onClick={() => handleChangeFeatured("popular")}>
+            Popular
+          </Button>
         </Space>
       </div>
       <div style={contentStyle}>
         <Flex wrap justify="center" align="center" gap={10}>
-          {listbook.map((item) => (
+          {featuredBook?.map((item) => (
             <CardComponent key={item.id} item={item} />
           ))}
         </Flex>
