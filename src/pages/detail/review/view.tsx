@@ -88,7 +88,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
             renderItem={(item) => (
               <List.Item>
                 <List.Item.Meta
-                  avatar={<Avatar src={item.user.imageUrl} />}
+                  avatar={<Avatar src={item.user.avatar} />}
                   title={
                     <span>
                       {item.user.fullName} | {item.createdAt}

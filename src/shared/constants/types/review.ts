@@ -5,7 +5,7 @@ export type ReviewType = {
   createdAt: string;
   user: {
     fullName: string;
-    imageUrl: string;
+    avatar: string;
   }
 };
 
