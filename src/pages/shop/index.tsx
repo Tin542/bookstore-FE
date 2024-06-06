@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { fetchAllBooks } from "../../shared/services/book/book.service.ts";
 
 import ShopView from "./view";
-import { BookQuery } from "../../shared/constants/types/book.type.ts";
+import {
+  BookQuery,
+  SortBookByEnum,
+} from "../../shared/constants/types/book.type.ts";
 
 const ShopPage: React.FC = () => {
   const [book, setBook] = useState();
@@ -13,6 +16,7 @@ const ShopPage: React.FC = () => {
 
   const [filter, setFilter] = useState<BookQuery>({
     title: "",
+    sortByEnum: undefined,
     rate: [],
     author: [],
     category: [],
@@ -37,14 +41,26 @@ const ShopPage: React.FC = () => {
   };
 
   const onChangeSort = (val: string) => {
-    console.log("Sort", val);
+    switch (val) {
+      case "ON_SALE":
+        setFilter({ ...filter, sortByEnum: SortBookByEnum.ON_SALE });
+        break;
+      case "POPULAR":
+        setFilter({ ...filter, sortByEnum: SortBookByEnum.POPULAR });
+        break;
+      case "ALL":
+        setFilter({ ...filter, sortByEnum: undefined })
+        break;
+      default:
+        break;
+    }
   };
   const onChangePage = (val: number) => {
     setFilter({
       ...filter,
-      page: val
-    })
-  }
+      page: val,
+    });
+  };
   return (
     <ShopView
       item={book}

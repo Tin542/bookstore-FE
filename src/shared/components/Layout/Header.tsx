@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Avatar,
   Badge,
   Button,
   ConfigProvider,
@@ -92,11 +93,14 @@ const HeaderLayout: React.FC = () => {
             placement="bottom"
             arrow>
             <div style={{ color: "white" }}>
-              {userStore ? `Welcome, ${userStore.username}` : ""}
-              <Button
-                style={contentStyle}
-                icon={<UserOutlined />}
-                type="link"></Button>
+              {userStore ? (
+                <Avatar style={{marginTop: -7}} src={userStore.avatar} />
+              ) : (
+                <Button
+                  style={contentStyle}
+                  icon={<UserOutlined />}
+                  type="link"></Button>
+              )}
             </div>
           </Dropdown>
         </Flex>

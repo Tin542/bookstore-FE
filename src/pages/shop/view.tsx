@@ -53,15 +53,15 @@ const ShopView: FC<ShopViewProps> = (props) => {
           <div style={{ margin: "0 -7px" }}>
             <Flex justify="space-between" align="center">
               <Select
-                defaultValue="popular"
+                defaultValue="ALL"
                 style={{ width: 150, marginBottom: 5 }}
                 onChange={onChangeSort}>
-                <Option value="popular">Sort by Popular</Option>
-                <Option value="onsale"> Sort by On Sale</Option>
-                <Option value="all">All</Option>
+                <Option value="ALL">All</Option>
+                {/* <Option value="POPULAR">Sort by Popular</Option> */}
+                <Option value="ON_SALE"> Sort by On Sale</Option>
               </Select>
             </Flex>
-            <div style={{minHeight: '120vh'}}>
+            <div style={{ minHeight: "120vh" }}>
               <Flex wrap gap={5} justify="flex-start" align="center">
                 {item && item.length > 0 ? (
                   item.map((book) => (

@@ -4,4 +4,5 @@ export type UserStoreType = {
     username: string;
     accessToken: string;
     refreshToken: string;
+    avatar: string;
   }

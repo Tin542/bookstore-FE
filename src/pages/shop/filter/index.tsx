@@ -73,7 +73,6 @@ const Filter: FC<FilterProps> = (props) => {
   };
 
   const onSearch: SearchProps["onSearch"] = (value) => {
-    console.log("search", value);
     setFilter({
       ...filter,
       title: value,

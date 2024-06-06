@@ -14,7 +14,6 @@ export const calculateDiscount = (
   price: number,
   discountPercents: Array<bookPromotion>
 ) => {
-  console.log("discountPercents", discountPercents);
   if(!discountPercents) return price;
   let totalDiscountPercent = 0;
   discountPercents.forEach((item) => {

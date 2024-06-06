@@ -108,9 +108,8 @@ const CartView: FC<CartViewProps> = (props) => {
             onClick={() => onClickRemoveCart(userStore?.id as string)}
             type="text"
             danger
-            icon={<CloseOutlined />}
             size={"small"}
-          />
+          >Remove all </Button>
         </>
       ),
       key: "action",

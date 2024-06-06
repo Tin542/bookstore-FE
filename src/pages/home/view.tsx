@@ -1,4 +1,4 @@
-import { Button, ConfigProvider, Flex, Space, Typography } from "antd";
+import { Button, ConfigProvider, Flex, Space } from "antd";
 import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
@@ -9,8 +9,6 @@ import {
 } from "../../shared/constants/types/book.type";
 import { useNavigate } from "react-router-dom";
 import { CUSTOMER_PATH } from "../../shared/constants/path";
-
-const { Title } = Typography;
 
 interface HomeViewProps {
   data: IBook[] | undefined;
@@ -59,11 +57,14 @@ const Homeview: FC<HomeViewProps> = (props) => {
       }}>
       <div style={contentStyle}>
         <Flex justify="space-between" align="center" gap="small">
-          <Title level={4}>ON SALE</Title>
+          <img
+            src="https://res.cloudinary.com/dyo7rdbmx/image/upload/v1717641347/Sale-Free-PNG-Image_bsimtf.png"
+            width={100}
+          />
           <Button
             onClick={onClickViewAllButton}
             style={{ width: "5rem", height: "3rem" }}
-            type="primary">
+            type="link">
             View all
           </Button>
         </Flex>
