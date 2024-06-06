@@ -48,8 +48,11 @@ const ShopPage: React.FC = () => {
       case "POPULAR":
         setFilter({ ...filter, sortByEnum: SortBookByEnum.POPULAR });
         break;
+      case "NEW":
+        setFilter({ ...filter, sortByEnum: SortBookByEnum.NEW });
+        break;
       case "ALL":
-        setFilter({ ...filter, sortByEnum: undefined })
+        setFilter({ ...filter, sortByEnum: undefined });
         break;
       default:
         break;

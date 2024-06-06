@@ -20,8 +20,6 @@ export const allCartItemQuery = (uid: string) => {
                 bookPromotion {
                   promotion {
                       discountPercents
-                      expriedDate
-                      startDate
                   }
                 }
             }
@@ -102,8 +100,6 @@ export const addToCart = (data: AddToCartType) => {
                 bookPromotion {
                   promotion {
                       discountPercents
-                      expriedDate
-                      startDate
                   }
               }
             }

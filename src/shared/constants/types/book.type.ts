@@ -22,8 +22,8 @@ export interface IBooks {
 export type bookPromotion = {
   promotion: {
     discountPercents: number;
-    expriedDate: Date;
-    startDate: Date;
+    // expriedDate: Date;
+    // startDate: Date;
   };
 };
 
@@ -31,6 +31,7 @@ export enum SortBookByEnum {
   ON_SALE = "ON_SALE",
   POPULAR = "POPULAR",
   RECOMMENDED = "RECOMMENDED",
+  NEW = "NEW"
 }
 
 export type BookQuery = {

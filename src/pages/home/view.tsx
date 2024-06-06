@@ -1,4 +1,4 @@
-import { Button, ConfigProvider, Flex, Space } from "antd";
+import { Button, ConfigProvider, Empty, Flex, Space } from "antd";
 import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
@@ -31,8 +31,8 @@ const Homeview: FC<HomeViewProps> = (props) => {
   const navigate = useNavigate();
 
   const handleChangeFeatured = (val: string) => {
-    if (val === "recommented") {
-      setFilter({ ...filter, sortByEnum: SortBookByEnum.RECOMMENDED });
+    if (val === "new") {
+      setFilter({ ...filter, sortByEnum: SortBookByEnum.NEW });
     }
     if (val === "popular") {
       setFilter({ ...filter, sortByEnum: SortBookByEnum.POPULAR });
@@ -70,18 +70,23 @@ const Homeview: FC<HomeViewProps> = (props) => {
         </Flex>
         <hr />
         <Flex wrap justify="center" align="center" gap={10}>
-          {data?.map((item) => (
+          {data && data?.length > 0 ? (data?.map((item) => (
             <CardComponent key={item.id} item={item} />
-          ))}
+          ))) :  <Empty style={{ width: "40rem" }} description={
+            <span>
+              Sorry! No book discount now :(
+            </span>
+          } />}
+          
         </Flex>
       </div>
       <div style={{ textAlign: "center" }}>
         <h1>FEATURED BOOKS</h1>
         <Space size="large">
           <Button
-            ghost={filter.sortByEnum === SortBookByEnum.RECOMMENDED}
-            onClick={() => handleChangeFeatured("recommented")}>
-            Recommented
+            ghost={filter.sortByEnum === SortBookByEnum.NEW}
+            onClick={() => handleChangeFeatured("new")}>
+            New
           </Button>
           <Button
             ghost={filter.sortByEnum === SortBookByEnum.POPULAR}

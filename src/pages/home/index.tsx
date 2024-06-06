@@ -11,7 +11,7 @@ const HomePage: FC = () => {
   const [book, setBook] = useState<IBook[]>();
   const [featuredBook, setFeaturedBook] = useState<IBook[]>();
   const [filter, setFilter] = useState<BookQuery>({
-    sortByEnum: SortBookByEnum.RECOMMENDED,
+    sortByEnum: SortBookByEnum.NEW,
     page: 1,
     limit: 5,
   });

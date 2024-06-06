@@ -57,7 +57,7 @@ const ShopView: FC<ShopViewProps> = (props) => {
                 style={{ width: 150, marginBottom: 5 }}
                 onChange={onChangeSort}>
                 <Option value="ALL">All</Option>
-                {/* <Option value="POPULAR">Sort by Popular</Option> */}
+                <Option value="NEW">Sort by New</Option>
                 <Option value="ON_SALE"> Sort by On Sale</Option>
               </Select>
             </Flex>
