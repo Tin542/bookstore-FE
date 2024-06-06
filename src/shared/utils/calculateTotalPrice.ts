@@ -16,9 +16,11 @@ export const calculateDiscount = (
 ) => {
   if(!discountPercents) return price;
   let totalDiscountPercent = 0;
+  let result: number = 0;
   discountPercents.forEach((item) => {
     totalDiscountPercent += item.promotion.discountPercents;
   });
   if (totalDiscountPercent > 80) totalDiscountPercent = 80;
-  return Math.ceil((price * totalDiscountPercent) / 100);
+  result = price - Math.ceil((price * totalDiscountPercent) / 100)
+  return result;
 };

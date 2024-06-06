@@ -6,7 +6,10 @@ import DetailView from "./view";
 import { PRODUCT_ID } from "../../shared/constants/appConstants";
 import { Book } from "../../shared/constants/types/book.type";
 import { fetchOneBook } from "../../shared/services/book/book.service";
-import { errorPopUpMessage, successPopUpMessage } from "../../shared/components/Notification";
+import {
+  errorPopUpMessage,
+  successPopUpMessage,
+} from "../../shared/components/Notification";
 import { cartSelector, userSelector } from "../../shared/redux-flow/selector";
 import { AUTH_PATH } from "../../shared/constants/path";
 import { addCartItem } from "../../shared/services/cart/cart.service";
@@ -44,13 +47,20 @@ const DetailPage = () => {
       errorPopUpMessage("Add to cart failed", "Signin required");
       navigate(AUTH_PATH.SIGNIN);
     } else {
-      if(!productDetail) {
+      if (!productDetail) {
         errorPopUpMessage("Add to cart failed", "Cannot find product ");
         return;
       }
+      const actualPrice = calculateDiscount(
+        productDetail.price,
+        productDetail.bookPromotion
+      );
       await addCartItem({
         bookId: productDetail?.id,
-        price: calculateDiscount(productDetail.price, productDetail.bookPromotion) * quantity,
+        price:
+          actualPrice > 0
+            ? actualPrice * quantity
+            : productDetail.price * quantity,
         quantity: quantity,
         userId: userStore.id,
       }).then((rs) => {
@@ -84,9 +94,17 @@ const DetailPage = () => {
   const onChange = (value: number | null) => {
     setQuantity(value as number);
   };
-  return <>
-  <DetailView data={productDetail} quantity={quantity} onChangeQuantity={onChange} addToCartButton={addToCartButton} />;
-  </>
+  return (
+    <>
+      <DetailView
+        data={productDetail}
+        quantity={quantity}
+        onChangeQuantity={onChange}
+        addToCartButton={addToCartButton}
+      />
+      ;
+    </>
+  );
 };
 
 export default DetailPage;
