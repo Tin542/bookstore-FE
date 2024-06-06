@@ -22,13 +22,15 @@ export interface IBooks {
 export type bookPromotion = {
   promotion: {
     discountPercents: number;
-  }
-}
+    expriedDate: Date;
+    startDate: Date;
+  };
+};
 
 export enum SortBookByEnum {
-  ON_SALE = 'ON_SALE',
-  POPULAR = 'POPULAR',
-  RECOMMENDED = 'RECOMMENDED',
+  ON_SALE = "ON_SALE",
+  POPULAR = "POPULAR",
+  RECOMMENDED = "RECOMMENDED",
 }
 
 export type BookQuery = {
@@ -36,7 +38,7 @@ export type BookQuery = {
   rate?: number[];
   author?: string[];
   category?: string[];
-  sortByEnum?: SortBookByEnum
+  sortByEnum?: SortBookByEnum;
   page?: number;
   limit?: number;
 };
@@ -62,4 +64,4 @@ export type Book = {
 
 export type BookInputList = {
   id: string;
-}
+};

@@ -17,6 +17,13 @@ export const allCartItemQuery = (uid: string) => {
                 price
                 title
                 imageUrl
+                bookPromotion {
+                  promotion {
+                      discountPercents
+                      expriedDate
+                      startDate
+                  }
+                }
             }
         }
       }         
@@ -92,6 +99,13 @@ export const addToCart = (data: AddToCartType) => {
                 imageUrl
                 price
                 title
+                bookPromotion {
+                  promotion {
+                      discountPercents
+                      expriedDate
+                      startDate
+                  }
+              }
             }
         }
       }

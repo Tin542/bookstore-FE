@@ -9,6 +9,7 @@ import {
   Row,
   Table,
   TableColumnsType,
+  Typography,
 } from "antd";
 
 import { CartItemType } from "../../shared/constants/types/cart.type";
@@ -25,9 +26,15 @@ interface CartViewProps {
   onClickRemoveCartItem: (value: string) => void;
   onClickRemoveCart: (value: string) => void;
 }
-
+const { Text } = Typography;
 const CartView: FC<CartViewProps> = (props) => {
-  const { data, onChangeQuantity, onClickRemoveCartItem, totalPrice, onClickRemoveCart } = props;
+  const {
+    data,
+    onChangeQuantity,
+    onClickRemoveCartItem,
+    totalPrice,
+    onClickRemoveCart,
+  } = props;
   const userStore = useSelector(userSelector);
   const navigate = useNavigate();
 
@@ -55,7 +62,20 @@ const CartView: FC<CartViewProps> = (props) => {
               justify="center"
               align="flex-start">
               <span>{item.book.title}</span>
-              <span>${item.book.price}</span>
+              <span>
+                {item.book.price !== item.price ? (
+                  <>
+                    <Flex justify="flex-start" gap={10}>
+                      <Text delete>$ {item.book.price}</Text>
+                      <Text strong type="danger">
+                        ${item.price}
+                      </Text>
+                    </Flex>
+                  </>
+                ) : (
+                  <>${item.book.price}</>
+                )}
+              </span>
             </Flex>
           </Flex>
         </>

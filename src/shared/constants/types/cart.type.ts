@@ -1,6 +1,3 @@
-
-
-
   type Book = {
     id: string;
     price: number;

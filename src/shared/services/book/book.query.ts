@@ -32,8 +32,10 @@ export const getAllBook = (data?: BookQuery) => {
           bookPromotion {
             promotion {
                 discountPercents
+                expriedDate
+                startDate
             }
-        }
+          }
         }
       }
     }
@@ -58,8 +60,10 @@ export const getDetailBook = (id: string) => {
           bookPromotion {
             promotion {
                 discountPercents
+                expriedDate
+                startDate
             }
-        }
+          }
           category {
               id
               name
