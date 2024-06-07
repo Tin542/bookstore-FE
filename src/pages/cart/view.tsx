@@ -13,7 +13,6 @@ import {
 } from "antd";
 
 import { CartItemType } from "../../shared/constants/types/cart.type";
-import { CloseOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { CUSTOMER_PATH } from "../../shared/constants/path";
 import { useSelector } from "react-redux";
@@ -119,9 +118,8 @@ const CartView: FC<CartViewProps> = (props) => {
             onClick={() => onClickRemoveCartItem(item.id)}
             type="text"
             danger
-            icon={<CloseOutlined />}
             size={"small"}
-          />
+          >Remove</Button>
         </>
       ),
     },
