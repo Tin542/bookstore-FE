@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { ComponentType, lazy } from "react";
 
-import { AUTH_PATH, CUSTOMER_PATH, ERROR_PATH } from "../shared/constants/path";
+import { AUTH_PATH, CUSTOMER_PATH, ERROR_PATH, SUCCESS_PATH } from "../shared/constants/path";
 
 const HomePage = lazy(() => import("./home"));
 const ShopPage = lazy(() => import("./shop"));
@@ -15,6 +15,8 @@ const OrderPage = lazy(() => import("./order"));
 
 const PageNotFound = lazy(() => import("./errors/pageNotFound"));
 const ErrorPage = lazy(() => import("./errors/errorPage"));
+
+const OrderSuccessPage = lazy(() => import("./success/submitOrderSuccess"));
 
 interface RouteObject {
   path: string;
@@ -52,6 +54,12 @@ const pageRoutes: RouteObject[] = [
     path: ERROR_PATH.ERROR_PAGE,
     exact: true,
     component: ErrorPage,
+  },
+  // SUCCESS PAGE
+  {
+    path: SUCCESS_PATH.ORDER_SUCCESS,
+    exact: true,
+    component: OrderSuccessPage,
   },
   // PUBLIC PAGE
   {

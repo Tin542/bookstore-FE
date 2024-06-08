@@ -1,6 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import OrderComponentView from "./view";
-import { IOrderList, IOrderQuery } from "../../../../shared/constants/types/order.type";
+import {
+  IOrderList,
+  IOrderQuery,
+} from "../../../../shared/constants/types/order.type";
 import { getOrderForCurrentUser } from "../../../../shared/services/order/order.service";
 import { errorPopUpMessage } from "../../../../shared/components/Notification";
 import { useSelector } from "react-redux";
@@ -37,7 +40,12 @@ const OrderComponent: FC = () => {
       }
       const newOrders = result.data.data.getOrder;
       setListOrder((prevOrders) => [...prevOrders, ...newOrders]);
-      setHasMore(newOrders.length > 5);
+      if (filter.page === 1 && newOrders.length < 5) {
+        setHasMore(false);
+      } else {
+        setHasMore(newOrders.length > 0);
+      }
+
       setFilter((prevFilter) => ({ ...prevFilter, page: prevFilter.page + 1 }));
       setLoading(false);
     } catch (error) {

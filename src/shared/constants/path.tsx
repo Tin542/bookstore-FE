@@ -17,3 +17,7 @@ export const ERROR_PATH = {
   PAGE_NOT_FOUND: "/error/404",
   ERROR_PAGE: "/error"
 }
+
+export const SUCCESS_PATH = {
+  ORDER_SUCCESS: "/order-success"
+}

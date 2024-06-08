@@ -9,7 +9,7 @@ import {
 } from "../../shared/components/Notification";
 import { removeCurrentCart } from "../../shared/services/cart/cart.service";
 import { useNavigate } from "react-router-dom";
-import { CUSTOMER_PATH } from "../../shared/constants/path";
+import { CUSTOMER_PATH, SUCCESS_PATH } from "../../shared/constants/path";
 import { useDispatch, useSelector } from "react-redux";
 import { handleRemoveCart } from "../../shared/redux-flow/action";
 import { cartSelector } from "../../shared/redux-flow/selector";
@@ -41,7 +41,7 @@ const OrderPage = () => {
       }
       await deleteCart(result.data.createOrder.userId);
       successPopUpMessage("Order created Successful");
-      navigate(CUSTOMER_PATH.HOME);
+      navigate(SUCCESS_PATH.ORDER_SUCCESS);
     } catch (error) {
       console.log(error);
     }
