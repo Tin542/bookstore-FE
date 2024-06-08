@@ -24,3 +24,9 @@ export type UpdateUserType = {
   fullName: string;
   phoneNumber: string;
 }
+
+export type UpdatePasswordType = {
+  id: string;
+  currentPassword: string;
+  newPassword: string;
+}

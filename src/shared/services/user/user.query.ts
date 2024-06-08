@@ -1,4 +1,4 @@
-import { UpdateUserType } from "../../constants/types/user.type";
+import { UpdatePasswordType, UpdateUserType } from "../../constants/types/user.type";
 
 export const getCurrentUser = (id: string) => {
   return {
@@ -42,6 +42,27 @@ export const updateUserInfo = (data: UpdateUserType) => {
         phoneNumber
     }
 }
+            `,
+    variables: data,
+  };
+};
+
+export const updateUserPassword = (data: UpdatePasswordType) => {
+  return {
+    operationName: "UpdatePassword",
+    query: `
+    mutation UpdatePassword($id: String!, $currentPassword: String!, $newPassword: String!) {
+      updatePassword(currentPassword: $currentPassword, id: $id, newPassword: $newPassword) {
+        avatar
+        email
+        fullName
+        id
+        password
+        refreshToken
+        username
+      }
+    }
+
             `,
     variables: data,
   };
