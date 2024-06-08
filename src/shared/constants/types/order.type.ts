@@ -12,6 +12,18 @@ export type OrderType = {
   paymentMethod: PaymentMethod;
 };
 
+export type orderDetailType = {
+  id: string;
+  price: number;
+  quantity: number;
+  book: {
+    id: string;
+    title: string;
+    price: number;
+    imageUrl: string;
+  }
+}
+
 export interface IOrderQuery {
   page: number;
   limit: number;
@@ -29,4 +41,8 @@ export interface IOrderList {
   paymentMethod: PaymentMethod;
   status: OrderStatus;
   totalPrice: number;
+}
+
+export interface IOrderDetail extends OrderType  {
+ OrderDetail: orderDetailType[];
 }

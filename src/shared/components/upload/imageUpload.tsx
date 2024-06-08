@@ -29,7 +29,6 @@ const ImageUpload: React.FC<ImageUploadProps> = (props) => {
       onSuccess("Ok");
       message.success(`${file.name} file uploaded successfully.`);
       setData(response.data.url as string);
-      console.log("response", response.data);
     } catch (err) {
       onError({ err });
       message.error(`${file.name} file upload failed.`);

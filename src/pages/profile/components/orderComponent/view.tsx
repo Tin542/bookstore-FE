@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Divider, List, Skeleton } from "antd";
-import { FC } from "react";
+import { Button, Divider, List, Skeleton } from "antd";
+import { FC, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IOrderList } from "../../../../shared/constants/types/order.type";
 import ShowStatusComponent from "../../../../shared/components/Status";
+import DetailModal from "./detail";
 
 interface OrderComponentViewProps {
   listOrder: IOrderList[] | undefined;
@@ -13,7 +14,12 @@ interface OrderComponentViewProps {
 
 const OrderComponentView: FC<OrderComponentViewProps> = (props) => {
   const { listOrder, getOrderList, hasMore } = props;
-
+  const [openDetail, setOpenDetail] = useState<boolean>(false);
+  const [orderId, setOrderId] = useState<string>();
+  const onClickOpneModal = (value: string) => {
+    setOpenDetail(true);
+    setOrderId(value);
+  }
   return (
     <>
       <h3>ORDERS</h3>
@@ -37,7 +43,7 @@ const OrderComponentView: FC<OrderComponentViewProps> = (props) => {
             renderItem={(item) => (
               <List.Item key={item.id}>
                 <List.Item.Meta
-                  title={item.id}
+                  title={<Button onClick={() => onClickOpneModal(item.id)} style={{marginLeft: -15, color: 'black', fontWeight: 'bold'}} type="link">{item.id}</Button>}
                   description={
                     <span>
                       <b style={{ color: "red" }}>${item.totalPrice}</b> |{" "}
@@ -51,6 +57,7 @@ const OrderComponentView: FC<OrderComponentViewProps> = (props) => {
           />
         </InfiniteScroll>
       </div>
+      <DetailModal open={openDetail} setOpen={setOpenDetail} orderId={orderId}/>
     </>
   );
 };

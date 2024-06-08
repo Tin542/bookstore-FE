@@ -43,7 +43,7 @@ const Profileview: React.FC = () => {
       case "RESET":
         return <ResetComponent />;
       default:
-        return <div>Profile Content</div>;
+        return <ProfileComponent />;
     }
   };
 
@@ -59,7 +59,7 @@ const Profileview: React.FC = () => {
         <Menu
           onClick={onClick}
           style={{ flex: 1, minWidth: 0 }}
-          defaultSelectedKeys={["PROFILE"]}
+          defaultSelectedKeys={[selectedKey]}
           mode="inline"
           items={items}
         />

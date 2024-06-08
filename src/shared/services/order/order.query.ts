@@ -54,3 +54,37 @@ export const getAllOrderQuery = (data: IOrderQuery) => {
     variables: data,
   };
 };
+
+export const getOrderDetailQuery = (id: string) => {
+  return {
+    operationName: "GetOrderDetail",
+    query: `
+      query GetOrderDetail($id: String!) {
+        getOrderDetail(oid: $id) {
+          address
+          createdAt
+          customerName
+          id
+          paidAt
+          paymentMethod
+          phoneNumber
+          status
+          totalPrice
+          updatedAt
+          OrderDetail {
+            price
+            quantity
+            id
+            book {
+                id
+                price
+                title
+                imageUrl
+            }
+          }
+        }
+      }
+        `,
+    variables: { id },
+  };
+};
