@@ -82,6 +82,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
               </Card>
             </div>
           </Flex>
+          <hr/>
           <List
             itemLayout="horizontal"
             dataSource={data}

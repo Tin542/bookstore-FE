@@ -1,4 +1,4 @@
-import { IOrderCreate } from "../../constants/types/order.type";
+import { IOrderCreate, IOrderQuery } from "../../constants/types/order.type";
 
 export const createOrder = (data: IOrderCreate) => {
   return {
@@ -31,6 +31,25 @@ export const createOrder = (data: IOrderCreate) => {
             userId
         }
     }
+        `,
+    variables: data,
+  };
+};
+
+export const getAllOrderQuery = (data: IOrderQuery) => {
+  return {
+    operationName: "GetOrder",
+    query: `
+      query GetOrder($limit: Int!, $page: Int!, $userId: String!) {
+        getOrder(limit: $limit, page: $page, userId: $userId) {
+          createdAt
+          id
+          paidAt
+          paymentMethod
+          status
+          totalPrice
+        }
+      }
         `,
     variables: data,
   };
