@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileComponentView from "./view";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../../../shared/redux-flow/selector";
 import {
   ProfileUserType,
@@ -15,8 +15,10 @@ import {
   errorPopUpMessage,
   successPopUpMessage,
 } from "../../../../shared/components/Notification";
+import { handleLogin } from "../../../../shared/redux-flow/action";
 const ProfileComponent = () => {
   const userStore = useSelector(userSelector);
+  const dispatch = useDispatch();
   const [data, setData] = useState<ProfileUserType>();
   const [avatarUrl, setAvatarUrl] = useState<string>();
 
@@ -24,7 +26,7 @@ const ProfileComponent = () => {
     if (userStore) {
       getCurrentUser(userStore.id);
     }
-  }, [userStore]);
+  }, []);
 
   const getCurrentUser = async (id: string) => {
     try {
@@ -42,6 +44,10 @@ const ProfileComponent = () => {
 
   const updateUserInfo = async (data: UpdateUserType) => {
     try {
+      if(!userStore){
+        errorPopUpMessage("Cannot find user", "");
+        return;
+      }
       const result = await updateUserApi({
         ...data,
         avatar: avatarUrl ? avatarUrl : (userStore?.avatar as string),
@@ -54,6 +60,8 @@ const ProfileComponent = () => {
         );
         return;
       }
+      const resultData = result.data.data.updateInfo;
+      dispatch(handleLogin({...userStore, avatar: resultData.avatar }));
       successPopUpMessage("Update success");
     } catch (error) {
       console.log("Error updating", error);
