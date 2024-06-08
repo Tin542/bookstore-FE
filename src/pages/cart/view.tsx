@@ -65,9 +65,9 @@ const CartView: FC<CartViewProps> = (props) => {
                 {item.book.price !== (item.price / item.quantity) ? (
                   <>
                     <Flex justify="flex-start" gap={10}>
-                      <Text delete>$ {item.book.price}</Text>
+                      <Text delete>${item.book.price}</Text>
                       <Text strong type="danger">
-                        ${item.price}
+                        ${item.price / item.quantity}
                       </Text>
                     </Flex>
                   </>
