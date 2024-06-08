@@ -25,7 +25,12 @@ function App() {
             defaultGhostBorderColor: "white",
             defaultGhostColor: 'white',
             ghostBg: '#001529'
-          }
+          },
+          Menu: {
+            itemActiveBg: '#001529',
+            itemSelectedBg: '#001529',
+            itemSelectedColor: 'white'
+          },
         },
       }}>
       <Main>

@@ -62,7 +62,7 @@ const CartView: FC<CartViewProps> = (props) => {
               align="flex-start">
               <span>{item.book.title}</span>
               <span>
-                {item.book.price !== item.price ? (
+                {item.book.price !== (item.price / item.quantity) ? (
                   <>
                     <Flex justify="flex-start" gap={10}>
                       <Text delete>$ {item.book.price}</Text>
