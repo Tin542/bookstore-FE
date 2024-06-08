@@ -50,7 +50,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
         {item.bookPromotion.length > 0 ? (
           <Flex justify="flex-start" gap={10}>
             <Text delete>$ {item.price}</Text> 
-            <Text strong type="danger">${calculateDiscount(item.price, item.bookPromotion)}</Text>
+            <Text strong type="danger">${calculateDiscount(item.limitDiscount,item.price, item.bookPromotion)}</Text>
             
           </Flex>
         ) : (

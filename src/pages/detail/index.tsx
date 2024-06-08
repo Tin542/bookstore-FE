@@ -52,6 +52,7 @@ const DetailPage = () => {
         return;
       }
       const actualPrice = calculateDiscount(
+        productDetail.limitDiscount,
         productDetail.price,
         productDetail.bookPromotion
       );

@@ -7,6 +7,7 @@ export interface IBook {
   isOutofStock: boolean;
   categoryId: string;
   authorId: string;
+  limitDiscount: number;
   bookPromotion: bookPromotion[];
 }
 
@@ -22,8 +23,6 @@ export interface IBooks {
 export type bookPromotion = {
   promotion: {
     discountPercents: number;
-    // expriedDate: Date;
-    // startDate: Date;
   };
 };
 
@@ -52,6 +51,7 @@ export type Book = {
   imageUrl: string;
   description: string;
   isOutofStock: boolean;
+  limitDiscount: number;
   category: {
     id: string;
     name: string;

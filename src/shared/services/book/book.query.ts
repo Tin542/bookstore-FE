@@ -29,6 +29,7 @@ export const getAllBook = (data?: BookQuery) => {
           price
           title
           rate
+          limitDiscount
           bookPromotion {
             promotion {
                 discountPercents
@@ -55,6 +56,7 @@ export const getDetailBook = (id: string) => {
           rate
           title
           description
+          limitDiscount
           bookPromotion {
             promotion {
                 discountPercents

@@ -64,7 +64,7 @@ const DetailView: FC<detailViewProps> = (props) => {
                         <Flex justify="flex-start" gap={10}>
                           <Text delete>$ {data.price}</Text>
                           <Text strong type="danger">
-                            ${calculateDiscount(data.price, data.bookPromotion)}
+                            ${calculateDiscount(data.limitDiscount,data.price, data.bookPromotion)}
                           </Text>
                         </Flex>
                       ) : (
@@ -120,6 +120,7 @@ const DetailView: FC<detailViewProps> = (props) => {
               <span style={{ color: "red" }}>
                 $
                 {calculateDiscount(
+                  data?.limitDiscount as number,
                   data?.price as number,
                   data?.bookPromotion as bookPromotion[]
                 ) * qty}
