@@ -23,10 +23,14 @@ import {
 import { useEffect, useState } from "react";
 import { calculateTotalPrice } from "../../shared/utils/calculateTotalPrice";
 import { PopUpConfirm } from "../../shared/components/Confirm";
+import { useNavigate } from "react-router-dom";
+import { CUSTOMER_PATH } from "../../shared/constants/path";
 
 const CartPage = () => {
   const cartStore = useSelector(cartSelector);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -35,7 +39,8 @@ const CartPage = () => {
       setTotalPrice(calculateTotalPrice(cartStore));
     }
   }, [cartStore]);
-
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
   const updateQuantity = async (value: UpdateCartItemType) => {
     try {
       const response = await updateCartItem(value);
@@ -61,6 +66,7 @@ const CartPage = () => {
 
   const removeCartItem = async (cid: string) => {
     try {
+      await delay(1000);
       const response = await deleteCartItem(cid);
       const deletedItem = response.data.data.removeCart;
       // Update Store
@@ -77,6 +83,7 @@ const CartPage = () => {
 
   const removeAllCartItem = async (uid: string) => {
     try {
+      await delay(1000);
       const response = await removeCurrentCart(uid);
       if (response.data.data.deleteAllCart > 0) {
         dispatch(handleRemoveCart());
@@ -89,20 +96,26 @@ const CartPage = () => {
   };
 
   const onChangeQuantity = async (value: number, item: CartItemType) => {
+    setLoading(true);
+    await delay(1000);
     await updateQuantity({ id: item.id, quantity: value });
+    setLoading(false);
   };
 
   const onClickRemoveCartItem = async (cartId: string) => {
-    PopUpConfirm("Remove this item ?", () =>
-      removeCartItem(cartId)
-    );
+    PopUpConfirm("Remove this item ?", () => removeCartItem(cartId));
   };
 
   const onClickRemoveCart = async (uid: string) => {
-    PopUpConfirm("Remove all item ?", () =>
-      removeAllCartItem(uid)
-    );
+    PopUpConfirm("Remove all item ?", () => removeAllCartItem(uid));
   };
+
+  const onClickPlaceOrder = async () => {
+    setLoading(true);
+    await delay(1000);
+    setLoading(false);
+    navigate(CUSTOMER_PATH.ORDER);
+  }
 
   return (
     <CartView
@@ -111,6 +124,8 @@ const CartPage = () => {
       onChangeQuantity={onChangeQuantity}
       onClickRemoveCartItem={onClickRemoveCartItem}
       onClickRemoveCart={onClickRemoveCart}
+      loading={loading}
+      onClickPlaceOrder={onClickPlaceOrder}
     />
   );
 };

@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import { Button, Flex, Steps } from "antd";
+import { Button, Flex, Spin, Steps } from "antd";
 import { useSelector } from "react-redux";
 
 import InfoForm from "./components/infoForm";
@@ -24,6 +24,7 @@ const contentStyle: React.CSSProperties = {
 };
 interface OrderPageProps {
   setOrderValue: (value: IOrderCreate) => void;
+  loading: boolean;
 }
 
 export enum CurrentStatus {
@@ -34,7 +35,7 @@ export enum CurrentStatus {
 }
 
 const OrderView: React.FC<OrderPageProps> = (props) => {
-  const { setOrderValue } = props;
+  const { setOrderValue, loading } = props;
   const userStore = useSelector(userSelector);
   const carStore = useSelector(cartSelector);
   const [current, setCurrent] = useState(0);
@@ -49,13 +50,15 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
     paidAt: null,
     address: "",
     phoneNumber: "",
-    customerName: userStore?.fullName,
+    customerName: userStore?.username,
     paymentMethod: PaymentMethod.COD,
-    orderItem:  carStore ? carStore.map((item) => ({
-      bookId: item.book.id,
-      price: item.price,
-      quantity: item.quantity
-    })) : []
+    orderItem: carStore
+      ? carStore.map((item) => ({
+          bookId: item.book.id,
+          price: item.price,
+          quantity: item.quantity,
+        }))
+      : [],
   });
 
   const onClickSubmitOrder = () => {
@@ -101,32 +104,34 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
 
   return (
-    <div style={{ marginTop: 20 }}>
-      <Steps status={currentStatus} current={current} items={items} />
-      <Flex justify="center" style={contentStyle}>
-        {steps[current].content}
-      </Flex>
-      <div style={{ marginTop: 24 }}>
-        {current < steps.length - 1 && (
-          <Button
-            disabled={currentStatus !== CurrentStatus.FINISH ? true : false}
-            type="primary"
-            onClick={() => next()}>
-            Next
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button type="primary" onClick={onClickSubmitOrder}>
-            Submit order
-          </Button>
-        )}
-        {current > 0 && (
-          <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-            Previous
-          </Button>
-        )}
+    <Spin spinning={loading} tip="Loading...">
+      <div style={{ marginTop: 20 }}>
+        <Steps status={currentStatus} current={current} items={items} />
+        <Flex justify="center" style={contentStyle}>
+          {steps[current].content}
+        </Flex>
+        <div style={{ marginTop: 24 }}>
+          {current < steps.length - 1 && (
+            <Button
+              disabled={currentStatus !== CurrentStatus.FINISH ? true : false}
+              type="primary"
+              onClick={() => next()}>
+              Next
+            </Button>
+          )}
+          {current === steps.length - 1 && (
+            <Button type="primary" onClick={onClickSubmitOrder}>
+              Submit order
+            </Button>
+          )}
+          {current > 0 && (
+            <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
+              Previous
+            </Button>
+          )}
+        </div>
       </div>
-    </div>
+    </Spin>
   );
 };
 

@@ -25,16 +25,22 @@ const filterContainerStyle: React.CSSProperties = {
   border: "1px solid",
   borderRadius: 5,
   padding: 5,
-  height: "auto",
   width: "200px",
   textAlign: "center",
+  height: 'auto'
 };
 
 const { Search } = Input;
 
 const FilterComponent: FC<FilterComponentProps> = (props) => {
-  const { category, author, onChangeCategory, onChangeAuthor, onSearch, onChangeRating } =
-    props;
+  const {
+    category,
+    author,
+    onChangeCategory,
+    onChangeAuthor,
+    onSearch,
+    onChangeRating,
+  } = props;
 
   const categoryOption: Option[] =
     (category

@@ -16,6 +16,7 @@ import { cartSelector } from "../../shared/redux-flow/selector";
 
 const OrderPage = () => {
   const [orderValue, setOrderValue] = useState<IOrderCreate>();
+  const [loading, setLoading] = useState<boolean>(false);
   const cartStorage = useSelector(cartSelector);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,9 +31,15 @@ const OrderPage = () => {
     if (cartStorage && cartStorage.length < 1) {
       navigate(CUSTOMER_PATH.CART);
     }
-  }, []);
+  }, [cartStorage]);
+
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
   const handleCreateOrder = async (value: IOrderCreate) => {
     try {
+      setLoading(true);
+      await delay(1000);
       const response = await placeOrder(value);
       const result = response.data;
       if (!result.data) {
@@ -41,6 +48,7 @@ const OrderPage = () => {
       }
       await deleteCart(result.data.createOrder.userId);
       successPopUpMessage("Order created Successful");
+      setLoading(false);
       navigate(SUCCESS_PATH.ORDER_SUCCESS);
     } catch (error) {
       console.log(error);
@@ -58,7 +66,7 @@ const OrderPage = () => {
     }
   };
 
-  return <OrderView setOrderValue={setOrderValue} />;
+  return <OrderView setOrderValue={setOrderValue} loading={loading} />;
 };
 
 export default OrderPage;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -25,13 +26,15 @@ const DetailPage = () => {
   const navigate = useNavigate();
   const [productDetail, setProductDetail] = useState<Book>();
   const [quantity, setQuantity] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (productId) {
       loadDetail(productId);
     }
   }, []);
-
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
   const loadDetail = async (id: string) => {
     await fetchOneBook(id)
       .then((rs) => {
@@ -43,6 +46,7 @@ const DetailPage = () => {
   };
 
   const addToCartButton = async () => {
+    setLoading(true);
     if (!userStore) {
       errorPopUpMessage("Add to cart failed", "Signin required");
       navigate(AUTH_PATH.SIGNIN);
@@ -56,6 +60,43 @@ const DetailPage = () => {
         productDetail.price,
         productDetail.bookPromotion
       );
+      await delay(1000);
+      const result = await addCartItem({
+        bookId: productDetail?.id,
+        price:
+          actualPrice > 0
+            ? actualPrice * quantity
+            : productDetail.price * quantity,
+        quantity: quantity,
+        userId: userStore.id,
+      });
+      if (!result.data.data) {
+        errorPopUpMessage("Add to cart failed", result.data.errors[0].message);
+        return;
+      }
+      const response = result.data.data.addToCart;
+      if (cartStore) {
+        const updatedCart: CartItemType[] = cartStore
+          ? cartStore?.map((item) =>
+              item.id === response.id
+                ? {
+                    ...item,
+                    quantity: response.quantity,
+                    price: response.price,
+                  }
+                : item
+            )
+          : [];
+        // If the item was not found in the cart, add the new item to the cart
+        if (!updatedCart.find((cartItem) => cartItem.id === response.id)) {
+          updatedCart.push(response);
+        }
+        dispatch(handleStoreCart(updatedCart));
+        setLoading(false);
+        successPopUpMessage("Added To Cart");
+      } else {
+        errorPopUpMessage("Add to cart failed", "Could not find cart");
+      }
       await addCartItem({
         bookId: productDetail?.id,
         price:
@@ -64,29 +105,6 @@ const DetailPage = () => {
             : productDetail.price * quantity,
         quantity: quantity,
         userId: userStore.id,
-      }).then((rs) => {
-        const response = rs?.data.data.addToCart;
-        if (cartStore) {
-          const updatedCart: CartItemType[] = cartStore
-            ? cartStore?.map((item) =>
-                item.id === response.id
-                  ? {
-                      ...item,
-                      quantity: response.quantity,
-                      price: response.price,
-                    }
-                  : item
-              )
-            : [];
-          // If the item was not found in the cart, add the new item to the cart
-          if (!updatedCart.find((cartItem) => cartItem.id === response.id)) {
-            updatedCart.push(response);
-          }
-          dispatch(handleStoreCart(updatedCart));
-          successPopUpMessage("Added To Cart");
-        } else {
-          errorPopUpMessage("Add to cart failed", "Could not find cart");
-        }
       });
     }
   };
@@ -101,6 +119,7 @@ const DetailPage = () => {
         quantity={quantity}
         onChangeQuantity={onChange}
         addToCartButton={addToCartButton}
+        loading={loading}
       />
       ;
     </>

@@ -7,14 +7,13 @@ import {
   Flex,
   InputNumber,
   Row,
+  Spin,
   Table,
   TableColumnsType,
   Typography,
 } from "antd";
 
 import { CartItemType } from "../../shared/constants/types/cart.type";
-import { useNavigate } from "react-router-dom";
-import { CUSTOMER_PATH } from "../../shared/constants/path";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../shared/redux-flow/selector";
 
@@ -24,6 +23,8 @@ interface CartViewProps {
   onChangeQuantity: (value: number, item: CartItemType) => void;
   onClickRemoveCartItem: (value: string) => void;
   onClickRemoveCart: (value: string) => void;
+  loading: boolean;
+  onClickPlaceOrder: () => void;
 }
 const { Text } = Typography;
 const CartView: FC<CartViewProps> = (props) => {
@@ -33,9 +34,10 @@ const CartView: FC<CartViewProps> = (props) => {
     onClickRemoveCartItem,
     totalPrice,
     onClickRemoveCart,
+    loading,
+    onClickPlaceOrder
   } = props;
   const userStore = useSelector(userSelector);
-  const navigate = useNavigate();
 
   const cartItems = data ?? [];
   const columns: TableColumnsType<CartItemType> = [
@@ -62,7 +64,7 @@ const CartView: FC<CartViewProps> = (props) => {
               align="flex-start">
               <span>{item.book.title}</span>
               <span>
-                {item.book.price !== (item.price / item.quantity) ? (
+                {item.book.price !== item.price / item.quantity ? (
                   <>
                     <Flex justify="flex-start" gap={10}>
                       <Text delete>${item.book.price}</Text>
@@ -107,8 +109,9 @@ const CartView: FC<CartViewProps> = (props) => {
             onClick={() => onClickRemoveCart(userStore?.id as string)}
             type="text"
             danger
-            size={"small"}
-          >Remove all </Button>
+            size={"small"}>
+            Remove all{" "}
+          </Button>
         </>
       ),
       key: "action",
@@ -118,8 +121,9 @@ const CartView: FC<CartViewProps> = (props) => {
             onClick={() => onClickRemoveCartItem(item.id)}
             type="text"
             danger
-            size={"small"}
-          >Remove</Button>
+            size={"small"}>
+            Remove
+          </Button>
         </>
       ),
     },
@@ -127,43 +131,49 @@ const CartView: FC<CartViewProps> = (props) => {
 
   return (
     <>
-      <span style={{ margin: "auto 0" }}>
-        <b style={{ fontSize: 20 }}>Cart </b>({cartItems.length} products)
-      </span>
-      <hr />
-      <Row gutter={[10, 10]}>
-        <Col md={15} sm={24} xs={24}>
-          <Table columns={columns} dataSource={cartItems} pagination={false} />
-        </Col>
-        <Col md={9} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
-          <Affix offsetTop={100}>
-            <Card
-              title="CART TOTAL"
-              bordered={false}
-              style={{ width: "100%", border: "1px, solid" }}>
-              <Flex justify="space-between" align="flex-start">
-                <b>Total Price</b>
-                <span style={{ color: "red", fontWeight: "bold" }}>
-                  $ {totalPrice}
-                </span>
-              </Flex>
-              <hr />
-              <Flex
-                vertical
-                gap="small"
-                style={{ width: "100%", padding: "0 10px" }}>
-                <Button
-                  disabled={cartItems.length < 1}
-                  type="primary"
-                  danger
-                  onClick={() => navigate(CUSTOMER_PATH.ORDER)}>
-                  Place Order
-                </Button>
-              </Flex>
-            </Card>
-          </Affix>
-        </Col>
-      </Row>
+      <Spin spinning={loading} tip="Loading...">
+        <span style={{ margin: "auto 0" }}>
+          <b style={{ fontSize: 20 }}>Cart </b>({cartItems.length} products)
+        </span>
+        <hr />
+        <Row gutter={[10, 10]}>
+          <Col md={15} sm={24} xs={24}>
+            <Table
+              columns={columns}
+              dataSource={cartItems}
+              pagination={false}
+            />
+          </Col>
+          <Col md={9} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
+            <Affix offsetTop={100}>
+              <Card
+                title="CART TOTAL"
+                bordered={false}
+                style={{ width: "100%", border: "1px, solid" }}>
+                <Flex justify="space-between" align="flex-start">
+                  <b>Total Price</b>
+                  <span style={{ color: "red", fontWeight: "bold" }}>
+                    $ {totalPrice}
+                  </span>
+                </Flex>
+                <hr />
+                <Flex
+                  vertical
+                  gap="small"
+                  style={{ width: "100%", padding: "0 10px" }}>
+                  <Button
+                    disabled={cartItems.length < 1}
+                    type="primary"
+                    danger
+                    onClick={onClickPlaceOrder}>
+                    Place Order
+                  </Button>
+                </Flex>
+              </Card>
+            </Affix>
+          </Col>
+        </Row>
+      </Spin>
     </>
   );
 };

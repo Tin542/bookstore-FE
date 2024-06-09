@@ -63,9 +63,21 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
           bordered={false}
           style={{ width: "100%", border: "1px, solid" }}>
           <Flex justify="flex-start" align="center" gap={10}>
-            <div style={{ width: "20%" }}>
-              <h1>{totalRate} /5</h1>
-            </div>
+            <Flex
+              justify="flex-start"
+              align="flex-start"
+              vertical
+              style={{ width: "20%" }}>
+              <span>
+                <span style={{fontSize: 34, fontWeight: 'bold'}}>{totalRate}</span>/5
+              </span>
+              <Rate
+                style={{ fontSize: 15 }}
+                allowHalf
+                defaultValue={totalRate}
+                disabled
+              />
+            </Flex>
 
             <div style={{ width: "100%" }}>
               <Card>
@@ -82,7 +94,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
               </Card>
             </div>
           </Flex>
-          <hr/>
+          <hr />
           <List
             itemLayout="horizontal"
             dataSource={data}
@@ -97,11 +109,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
                   }
                   description={item.content}
                 />
-                <Rate
-                  style={{ fontSize: 10 }}
-                  disabled
-                  value={item.rate}
-                />
+                <Rate style={{ fontSize: 10 }} disabled value={item.rate} />
               </List.Item>
             )}
           />
