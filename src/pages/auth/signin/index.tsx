@@ -18,7 +18,7 @@ const SignInPage: React.FC = () => {
   const fetchAllCartItems = async (uid: string) => {
     try {
       const response = await fetchAllCartItem(uid);
-      const cartItems = response.data.data.getCart;
+      const cartItems = response?.data.data.getCart;
       dispatch(handleStoreCart(cartItems));
     } catch (err) {
       errorPopUpMessage('Failed to get cart', err as string);
@@ -28,7 +28,7 @@ const SignInPage: React.FC = () => {
   const handleSignIn = async (values: LoginFieldType) => {
     try {
       const response = await signIn(values);
-      const data = response.data;
+      const data = response?.data;
 
       if (data.errors) {
         errorPopUpMessage("Sign in Failed", data.errors[0].message);

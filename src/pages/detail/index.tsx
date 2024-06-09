@@ -35,7 +35,7 @@ const DetailPage = () => {
   const loadDetail = async (id: string) => {
     await fetchOneBook(id)
       .then((rs) => {
-        setProductDetail(rs.data.data.getDetailBook);
+        setProductDetail(rs?.data.data.getDetailBook);
       })
       .catch((err) => {
         console.error(err);
@@ -65,8 +65,7 @@ const DetailPage = () => {
         quantity: quantity,
         userId: userStore.id,
       }).then((rs) => {
-        const response = rs.data.data.addToCart;
-
+        const response = rs?.data.data.addToCart;
         if (cartStore) {
           const updatedCart: CartItemType[] = cartStore
             ? cartStore?.map((item) =>

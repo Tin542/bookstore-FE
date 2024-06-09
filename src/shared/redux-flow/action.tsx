@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, CART, CART_STORE, DELETE_CART, LOGIN, LOGOUT, USER_STORE } from "../constants/appConstants";
+import { ACCESS_TOKEN, CART, CART_STORE, DELETE_CART, LOGIN, LOGOUT, REFRESH_TOKEN, USER_STORE } from "../constants/appConstants";
 import { CartItemType } from "../constants/types/cart.type";
 import { DeleteCartAction, GetCartAction,LoginAction, LogoutAction } from "../constants/types/redux.type";
 import { UserStoreType } from "../constants/types/user.type";
@@ -6,6 +6,7 @@ import { UserStoreType } from "../constants/types/user.type";
 export const handleLogin = (data: UserStoreType): LoginAction => {
   localStorage.setItem(USER_STORE, JSON.stringify(data));
   localStorage.setItem(ACCESS_TOKEN, data.accessToken);
+  localStorage.setItem(REFRESH_TOKEN, data.refreshToken);
   return {
     type: LOGIN,
     payload: data,

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ConfigProvider, Layout } from "antd";
+import { Layout } from "antd";
 import HeaderLayout from "./Header";
 import FooterLayout from "./Footer";
 
@@ -15,16 +15,7 @@ const contentStyle: React.CSSProperties = {
 
 const Main: FC<MainProps> = ({ children }) => {
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Layout: {
-            headerHeight: 64,
-            headerPadding: "0 10px",
-            footerBg: "#001529",
-          },
-        },
-      }}>
+    <>
       <Layout style={{ minHeight: "100vh" }}>
         <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
           <HeaderLayout />
@@ -43,7 +34,7 @@ const Main: FC<MainProps> = ({ children }) => {
           <FooterLayout />
         </Footer>
       </Layout>
-    </ConfigProvider>
+    </>
   );
 };
 

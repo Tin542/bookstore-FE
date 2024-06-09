@@ -1,14 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Suspense } from "react";
+import { ConfigProvider } from "antd";
 
 import pageRoutes from "./pages/routes";
 import Main from "./shared/components/Layout/Main";
 import { CUSTOMER_PATH, ERROR_PATH } from "./shared/constants/path";
-// import ProtectedRoute from "./shared/routes/protected.routes";
 
 import "./index.css";
 import ProtectedRoute from "./shared/routes/protected.routes";
-import { ConfigProvider } from "antd";
 
 function App() {
   return (
@@ -18,6 +17,11 @@ function App() {
           colorPrimary: "#001529",
         },
         components: {
+          Layout: {
+            headerHeight: 64,
+            headerPadding: "0 10px",
+            footerBg: "#001529",
+          },
           Steps: {
             finishIconBorderColor: "#001529",
           },
