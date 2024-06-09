@@ -15,6 +15,7 @@
     "@apollo/react-hooks": "^4.0.0",
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.2.5",
+    "@tinymce/tinymce-react": "^5.0.1",
     "@types/redux-persist": "^4.3.1",
     "antd": "^5.17.3",
     "axios": "^1.7.2",
