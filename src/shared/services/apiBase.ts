@@ -49,7 +49,7 @@ export const apiBase = async (graphqlQuery: IApi) => {
 
         const newInfo = refreshResponse.data.data.refresh;
         localStorage.setItem(ACCESS_TOKEN, newInfo.accessToken);
-        localStorage.setItem(USER_STORE, newInfo.userInfo);
+        localStorage.setItem(USER_STORE,JSON.stringify(newInfo.userInfo) );
 
         // Retry the original request with the new access token
         if(config.headers){

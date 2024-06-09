@@ -49,7 +49,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
         <Meta title={item.title} />
         {item.bookPromotion.length > 0 ? (
           <Flex justify="flex-start" gap={10}>
-            <Text delete>$ {item.price}</Text>
+            <Text delete>${item.price}</Text>
             <Text strong type="danger">
               $
               {calculateDiscount(
@@ -60,7 +60,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
             </Text>
           </Flex>
         ) : (
-          <span>$ {item.price}</span>
+          <span>${item.price}</span>
         )}
       </div>
     </Card>
