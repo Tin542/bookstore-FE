@@ -74,7 +74,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
               <Rate
                 style={{ fontSize: 15 }}
                 allowHalf
-                defaultValue={totalRate}
+                value={totalRate}
                 disabled
               />
             </Flex>

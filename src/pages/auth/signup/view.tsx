@@ -2,9 +2,18 @@ import React from "react";
 import { Button, Flex, Form, Input } from "antd";
 import type { FormProps } from "antd";
 import { SignUpFieldType } from "../../../shared/constants/types/auth.type";
-import { HomeOutlined, LockOutlined, MailOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  LockOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AUTH_PATH } from "../../../shared/constants/path";
+import { validatePhoneNumber } from "../../../shared/validation/phone.validation";
+import { validateEmail } from "../../../shared/validation/email.validation";
+import { validateMinLength } from "../../../shared/validation/password.validation";
 
 interface SignViewProps {
   onFinish: FormProps<SignUpFieldType>["onFinish"];
@@ -43,17 +52,23 @@ const SignUpView: React.FC<SignViewProps> = (props) => {
         </Form.Item>
         <Form.Item
           name="email"
-          rules={[{ required: true, message: "Please input your email!" }]}>
+          rules={[
+            { required: true, message: "Please input your email!" },
+            { validator: validateEmail },
+          ]}>
           <Input
-            prefix={<MailOutlined className="site-form-item-icon"/>}
+            prefix={<MailOutlined className="site-form-item-icon" />}
             placeholder="Email"
           />
         </Form.Item>
         <Form.Item
           name="phoneNumber"
-          rules={[{ required: true, message: "Please input your phone number!" }]}>
+          rules={[
+            { required: true, message: "Please input your phone number!" },
+            { validator: validatePhoneNumber },
+          ]}>
           <Input
-            prefix={<PhoneOutlined className="site-form-item-icon"/>}
+            prefix={<PhoneOutlined className="site-form-item-icon" />}
             placeholder="Phone number"
           />
         </Form.Item>
@@ -61,7 +76,7 @@ const SignUpView: React.FC<SignViewProps> = (props) => {
           name="address"
           rules={[{ required: true, message: "Please input your address!" }]}>
           <Input
-            prefix={<HomeOutlined className="site-form-item-icon"/>}
+            prefix={<HomeOutlined className="site-form-item-icon" />}
             placeholder="Address"
           />
         </Form.Item>
@@ -69,13 +84,16 @@ const SignUpView: React.FC<SignViewProps> = (props) => {
           name="username"
           rules={[{ required: true, message: "Please input your username!" }]}>
           <Input
-            prefix={<UserOutlined className="site-form-item-icon"/>}
+            prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
           />
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}>
+          rules={[
+            { required: true, message: "Please input your Password!" },
+            { validator: validateMinLength },
+          ]}>
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"

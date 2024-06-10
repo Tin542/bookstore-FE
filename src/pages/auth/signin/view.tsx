@@ -5,6 +5,7 @@ import { LoginFieldType } from "../../../shared/constants/types/auth.type";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AUTH_PATH } from "../../../shared/constants/path";
+import { validateMinLength } from "../../../shared/validation/password.validation";
 
 interface SignViewProps {
   onFinish: FormProps<LoginFieldType>["onFinish"];
@@ -43,7 +44,7 @@ const SignInView: React.FC<SignViewProps> = (props) => {
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}>
+          rules={[{ required: true, message: "Please input your Password!" }, {validator: validateMinLength}]}>
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"

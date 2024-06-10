@@ -3,6 +3,7 @@ import React from "react";
 import { IOrderCreate } from "../../../../shared/constants/types/order.type";
 import { CurrentStatus } from "../../view";
 import { successPopUpMessage } from "../../../../shared/components/Notification";
+import { validatePhoneNumber } from "../../../../shared/validation/phone.validation";
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -36,7 +37,7 @@ const InfoForm: React.FC<infoFormProps> = (props) => {
         address: values.address,
       });
       setCurrentStatus(CurrentStatus.FINISH);
-      successPopUpMessage("Save Success")
+      successPopUpMessage("Save Success");
     }
   };
 
@@ -62,7 +63,10 @@ const InfoForm: React.FC<infoFormProps> = (props) => {
       <Form.Item
         label="Phone Number"
         name="phoneNumber"
-        rules={[{ required: true, message: "Please input phone number!" }]}>
+        rules={[
+          { required: true, message: "Please input phone number!" },
+          { validator: validatePhoneNumber },
+        ]}>
         <Input />
       </Form.Item>
 

@@ -21,12 +21,16 @@ const ProfileComponent = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState<ProfileUserType>();
   const [avatarUrl, setAvatarUrl] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (userStore) {
       getCurrentUser(userStore.id);
     }
   }, []);
+
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const getCurrentUser = async (id: string) => {
     try {
@@ -48,6 +52,8 @@ const ProfileComponent = () => {
         errorPopUpMessage("Cannot find user", "");
         return;
       }
+      setLoading(true);
+      await delay(1000);
       const result = await updateUserApi({
         ...data,
         avatar: avatarUrl ? avatarUrl : (userStore?.avatar as string),
@@ -58,10 +64,12 @@ const ProfileComponent = () => {
           "failed to update user",
           result.data.errors[0].message
         );
+        setLoading(false);
         return;
       }
       const resultData = result.data.data.updateInfo;
       dispatch(handleLogin({...userStore, avatar: resultData.avatar }));
+      setLoading(false);
       successPopUpMessage("Update success");
     } catch (error) {
       console.log("Error updating", error);
@@ -78,6 +86,7 @@ const ProfileComponent = () => {
       onFinishUpdateUser={onFinishUpdateUser}
       avatarUrl={avatarUrl}
       setAvatarUrl={setAvatarUrl}
+      loading={loading}
     />
   );
 };
