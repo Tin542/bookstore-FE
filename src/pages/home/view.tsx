@@ -70,14 +70,14 @@ const Homeview: FC<HomeViewProps> = (props) => {
         </Flex>
         <hr />
         <Flex wrap justify="center" align="center" gap={10}>
-          {data && data?.length > 0 ? (data?.map((item) => (
-            <CardComponent key={item.id} item={item} />
-          ))) :  <Empty style={{ width: "40rem" }} description={
-            <span>
-              Sorry! No book discount now :(
-            </span>
-          } />}
-          
+          {data && data?.length > 0 ? (
+            data?.map((item) => <CardComponent key={item.id} item={item} />)
+          ) : (
+            <Empty
+              style={{ width: "40rem" }}
+              description={<span>Sorry! No book discount now :(</span>}
+            />
+          )}
         </Flex>
       </div>
       <div style={{ textAlign: "center" }}>
@@ -97,9 +97,18 @@ const Homeview: FC<HomeViewProps> = (props) => {
       </div>
       <div style={contentStyle}>
         <Flex wrap justify="center" align="center" gap={10}>
-          {featuredBook?.map((item) => (
-            <CardComponent key={item.id} item={item} />
-          ))}
+          <Flex wrap justify="center" align="center" gap={10}>
+            {featuredBook && featuredBook?.length > 0 ? (
+              featuredBook?.map((item) => (
+                <CardComponent key={item.id} item={item} />
+              ))
+            ) : (
+              <Empty
+                style={{ width: "40rem" }}
+                description={<span>Sorry! No book recomment now :(</span>}
+              />
+            )}
+          </Flex>
         </Flex>
       </div>
     </ConfigProvider>
