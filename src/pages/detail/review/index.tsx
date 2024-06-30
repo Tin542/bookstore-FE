@@ -70,7 +70,6 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       }
       await handleUpdateRate(result.data.data.createReview.bookId);
       await handleGetAllReview(filter);
-      window.location.reload();
 
     } catch (error) {
       console.log(error);

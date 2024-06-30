@@ -17,6 +17,7 @@ export const handleLogout = (): LogoutAction => {
   localStorage.removeItem(USER_STORE);
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(CART_STORE);
+  localStorage.removeItem(REFRESH_TOKEN);
   return {
     type: LOGOUT,
   };

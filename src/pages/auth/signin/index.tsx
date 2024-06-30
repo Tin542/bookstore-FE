@@ -38,7 +38,7 @@ const SignInPage: React.FC = () => {
       if (data.data.signin) {
         const user = data.data.signin;
         dispatch(
-          handleLogin({ ...user.userInfo, accessToken: user.accessToken })
+          handleLogin({ ...user.userInfo, accessToken: user.accessToken, refreshToken: user.refreshToken })
         );
         await fetchAllCartItems(user.userInfo.id);
         successPopUpMessage("Sign in successfully");

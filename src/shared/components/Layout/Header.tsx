@@ -16,6 +16,8 @@ import { cartSelector, userSelector } from "../../redux-flow/selector";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../../redux-flow/action";
 import { successPopUpMessage } from "../Notification";
+import { logOut } from "../../services/auth/auth.service";
+import { REFRESH_TOKEN } from "../../constants/appConstants";
 
 const contentStyle: React.CSSProperties = {
   color: "white",
@@ -26,6 +28,18 @@ const HeaderLayout: React.FC = () => {
   const cartStore = useSelector(cartSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleLogoutApi = async () => {
+    const token = localStorage.getItem(REFRESH_TOKEN);
+    if (token) {
+      const result = await logOut({refresh_token: token});
+      if (result.data.data) {
+        dispatch(handleLogout());
+        successPopUpMessage("Sign Out successfully");
+        navigate(AUTH_PATH.SIGNIN);
+      }
+    }
+  };
 
   const itemsWithOutLogin: MenuProps["items"] = [
     {
@@ -45,11 +59,7 @@ const HeaderLayout: React.FC = () => {
     {
       key: "2",
       label: "Sign Out",
-      onClick: () => {
-        dispatch(handleLogout());
-        successPopUpMessage("Sign Out successfully");
-        navigate(AUTH_PATH.SIGNIN);
-      },
+      onClick: () => handleLogoutApi(),
     },
   ];
   return (
@@ -94,7 +104,7 @@ const HeaderLayout: React.FC = () => {
             arrow>
             <div style={{ color: "white" }}>
               {userStore ? (
-                <Avatar style={{marginTop: -7}} src={userStore.avatar} />
+                <Avatar style={{ marginTop: -7 }} src={userStore.avatar} />
               ) : (
                 <Button
                   style={contentStyle}

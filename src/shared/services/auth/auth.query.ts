@@ -1,5 +1,6 @@
 import {
   LoginFieldType,
+  LogoutFieldType,
   SignUpFieldType,
 } from "../../constants/types/auth.type";
 
@@ -9,12 +10,12 @@ export const signin = (data?: LoginFieldType) => {
     query: ` mutation Signin($username: String!, $password: String!) {
         signin(password: $password, username: $username) {
           accessToken
+          refreshToken
           userInfo {
             fullName
             username
             id
             avatar
-            refreshToken
           }
         }
       }
@@ -59,5 +60,18 @@ export const signup = (data?: SignUpFieldType) => {
     
       `,
     variables: data || ({} as SignUpFieldType),
+  };
+};
+export const logout = (data?: LogoutFieldType) => {
+  return {
+    operationName: "Logout",
+    query: ` 
+      mutation Logout($refresh_token: String!) {
+        logout(refresh_token: $refresh_token) {
+          refreshToken
+        }
+      }
+      `,
+    variables: data || ({} as LogoutFieldType),
   };
 };
