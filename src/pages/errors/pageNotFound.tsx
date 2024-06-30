@@ -1,5 +1,5 @@
 import { Button, Result } from "antd";
-import React, { FC } from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { CUSTOMER_PATH } from "../../shared/constants/path";
 

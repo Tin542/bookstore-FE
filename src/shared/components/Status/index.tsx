@@ -1,5 +1,5 @@
 import { Tag } from "antd";
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { OrderStatus } from "../../constants/types/enum.type";
 
 interface ShowStatusComponentProps {

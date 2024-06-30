@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AboutView from "./view";
 import { fetchAbout } from "../../shared/services/about/about.service";
 import { errorPopUpMessage } from "../../shared/components/Notification";

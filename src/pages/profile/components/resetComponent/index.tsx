@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import ResetComponentView from "./view";
 import { UpdatePasswordType } from "../../../../shared/constants/types/user.type";
 import { updatePasswordApi } from "../../../../shared/services/user/user.service";
