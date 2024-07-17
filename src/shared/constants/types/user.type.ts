@@ -4,6 +4,9 @@ export type UserStoreType = {
   accessToken: string;
   refreshToken: string;
   avatar: string;
+  address: string;
+  phoneNumber: string;
+  fullName: string
 };
 
 export type ProfileUserType = {

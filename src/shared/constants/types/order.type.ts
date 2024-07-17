@@ -6,8 +6,8 @@ export type OrderType = {
   status: OrderStatus;
   userId?: string;
   paidAt?: Date | null;
-  address: string;
-  phoneNumber: string;
+  address?: string;
+  phoneNumber?: string;
   customerName?: string;
   paymentMethod: PaymentMethod;
 };

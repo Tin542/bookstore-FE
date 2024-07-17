@@ -14,6 +14,8 @@ export const signin = (data?: LoginFieldType) => {
           userInfo {
             fullName
             username
+            address
+            phoneNumber
             id
             avatar
           }

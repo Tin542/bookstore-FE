@@ -48,9 +48,9 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
     status: OrderStatus.INIT,
     userId: userStore?.id,
     paidAt: null,
-    address: "",
-    phoneNumber: "",
-    customerName: userStore?.username,
+    address: userStore?.address,
+    phoneNumber: userStore?.phoneNumber,
+    customerName: userStore?.fullName,
     paymentMethod: PaymentMethod.COD,
     orderItem: carStore
       ? carStore.map((item) => ({
