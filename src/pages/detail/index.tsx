@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +33,7 @@ const DetailPage = () => {
     if (productId) {
       loadDetail(productId);
     }
-  }, []);
+  }, [loading]);
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
   const loadDetail = async (id: string) => {
@@ -120,6 +121,7 @@ const DetailPage = () => {
         onChangeQuantity={onChange}
         addToCartButton={addToCartButton}
         loading={loading}
+        setLoading={setLoading}
       />
       ;
     </>

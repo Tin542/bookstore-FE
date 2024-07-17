@@ -22,6 +22,7 @@ interface detailViewProps {
   onChangeQuantity: (value: number | null) => void;
   addToCartButton: () => void;
   loading: boolean;
+  setLoading: (value: boolean) => void;
 }
 
 const infoBookStyle: React.CSSProperties = {
@@ -34,7 +35,7 @@ const infoBookStyle: React.CSSProperties = {
 };
 const { Text } = Typography;
 const DetailView: FC<detailViewProps> = (props) => {
-  const { data, quantity, onChangeQuantity, addToCartButton, loading } = props;
+  const { data, quantity, onChangeQuantity, addToCartButton, loading, setLoading } = props;
   const [expanded, setExpanded] = useState(false);
 
   const qty = quantity ?? 1;
@@ -157,6 +158,8 @@ const DetailView: FC<detailViewProps> = (props) => {
         <ReviewComponent
           bid={data?.id as string}
           totalRate={data?.rate as number}
+          loading={loading}
+          setLoading={setLoading}
         />
       </Spin>
     </>

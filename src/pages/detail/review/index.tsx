@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReviewView from "./view";
 import {
@@ -18,13 +19,16 @@ import { userSelector } from "../../../shared/redux-flow/selector";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import { FormInstance } from "antd";
 import { fetchUpdateRate } from "../../../shared/services/book/book.service";
+import { delay } from "../../../shared/utils/delay";
 
 interface ReviewComponentProps {
   bid: string | undefined;
   totalRate: number | undefined;
+  loading: boolean;
+  setLoading: (value: boolean) => void;
 }
 const ReviewComponent: FC<ReviewComponentProps> = (props) => {
-  const { bid, totalRate } = props;
+  const { bid, totalRate, loading, setLoading } = props;
 
   const userStore = useSelector(userSelector);
   const formRef = React.createRef<FormInstance>();
@@ -50,6 +54,8 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
 
   const handleGetAllReview = async (value: IQueryReview) => {
     try {
+      setLoading(true);
+      await delay(1000);
       const response = await getAllReviews(value);
       if (!response.data.data) {
         return;
@@ -57,6 +63,7 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       const result = response.data.data.getAllReview;
       setListReview(result.list);
       setTotalItems(result.totalProducts);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +77,8 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       }
       await handleUpdateRate(result.data.data.createReview.bookId);
       await handleGetAllReview(filter);
-
+      formRef.current?.resetFields();
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -91,12 +99,13 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       errorPopUpMessage("Create Review failed", "BookId not found");
       return;
     }
+    setLoading(true);
+    await delay(1000);
     await handleCreateReview({
       ...values,
       bookId: bid,
       userId: userStore?.id as string,
     });
-    
   };
 
   const onChangeRating = (checkedValues: CheckboxValueType[]) => {
@@ -126,6 +135,7 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       onChangePage={onChangePage}
       formRef={formRef}
       totalRate={totalRate}
+      loading={loading}
     />
   );
 };
