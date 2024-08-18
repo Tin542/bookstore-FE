@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { BarChartOutlined, KeyOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  BarChartOutlined,
+  KeyOutlined,
+  MenuOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Layout, Menu } from "antd";
+import { Button, Drawer, Layout, Menu } from "antd";
 import ResetComponent from "./components/resetComponent";
 import OrderComponent from "./components/orderComponent";
 import ProfileComponent from "./components/profileComponent";
+import "../../assets/css/profile.css";
 
 const { Content, Sider } = Layout;
 
@@ -29,9 +35,13 @@ const items: MenuItem[] = [
 
 const Profileview: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState<string>("PROFILE");
-
+  const [drawerVisible, setDrawerVisible] = useState(false);
   const onClick: MenuProps["onClick"] = (e) => {
     setSelectedKey(e.key);
+  };
+
+  const toggleDrawer = () => {
+    setDrawerVisible(!drawerVisible);
   };
 
   const renderContent = () => {
@@ -55,7 +65,14 @@ const Profileview: React.FC = () => {
         borderRadius: 5,
         marginTop: 20,
       }}>
-      <Sider style={{ background: "white" }} width={200}>
+      <Sider
+        collapsible
+        trigger={null}
+        breakpoint="md"
+        collapsedWidth="0"
+        width={200}
+        style={{ background: "white" }}
+        className="sider-desktop">
         <Menu
           onClick={onClick}
           style={{ flex: 1, minWidth: 0 }}
@@ -65,8 +82,31 @@ const Profileview: React.FC = () => {
         />
       </Sider>
       <Content style={{ padding: "0 24px", minHeight: 280 }}>
+        <div className="menu-button-mobile">
+          <Button
+            className="menu-button-mobile"
+            icon={<MenuOutlined />}
+            onClick={toggleDrawer}
+            style={{ marginBottom: 16 }}
+          />
+        </div>
         {renderContent()}
       </Content>
+      <Drawer
+        title="Menu"
+        placement="left"
+        closable
+        onClose={toggleDrawer}
+        visible={drawerVisible}
+        bodyStyle={{ padding: 0 }}
+        className="sider-mobile">
+        <Menu
+          onClick={onClick}
+          defaultSelectedKeys={[selectedKey]}
+          mode="inline"
+          items={items}
+        />
+      </Drawer>
     </Layout>
   );
 };
