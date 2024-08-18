@@ -29,7 +29,7 @@ export const apiBase = async (graphqlQuery: IApi) => {
     if (
       !response.data.data &&
       response.data.errors &&
-      response.data.errors[0].message === "Unauthorized"
+      response.data.errors[0].message === "Invalid refresh token"
     ) {
       try {
         // Call your refresh token endpoint
@@ -50,11 +50,13 @@ export const apiBase = async (graphqlQuery: IApi) => {
           `,
         });
 
+        console.log('refreshToken', refreshResponse);
+
         if (!refreshResponse.data.data) {
           const logout = await axios.post(baseUrl, {
             query: `
-            mutation Logout() {
-              logout(refresh_token: ${refreshToken}) {
+            mutation Logout {
+              logout(refresh_token: "${refreshToken}") {
               refreshToken
               }
             }

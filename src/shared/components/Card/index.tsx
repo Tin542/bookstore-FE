@@ -44,7 +44,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
           />
         </div>
       }>
-      <div style={{ lineHeight: 2 }}>
+      <Flex vertical align="start" style={{ lineHeight: 2 }}>
         <Rate disabled value={item.rate} style={{ fontSize: 15 }} />
         <Meta title={item.title} />
         {item.bookPromotion.length > 0 ? (
@@ -62,7 +62,7 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
         ) : (
           <span>${item.price}</span>
         )}
-      </div>
+      </Flex>
     </Card>
   );
 };

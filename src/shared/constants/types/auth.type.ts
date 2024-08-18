@@ -14,5 +14,5 @@ export type SignUpFieldType = {
 };
 
 export type LogoutFieldType = {
-  refresh_token: string;
+  uid: string;
 };

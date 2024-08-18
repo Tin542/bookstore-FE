@@ -68,8 +68,8 @@ export const logout = (data?: LogoutFieldType) => {
   return {
     operationName: "Logout",
     query: ` 
-      mutation Logout($refresh_token: String!) {
-        logout(refresh_token: $refresh_token) {
+      mutation Logout($uid: String!) {
+        logout(uid: $uid) {
           refreshToken
         }
       }

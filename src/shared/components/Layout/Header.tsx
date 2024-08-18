@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../../redux-flow/action";
 import { successPopUpMessage } from "../Notification";
 import { logOut } from "../../services/auth/auth.service";
-import { REFRESH_TOKEN } from "../../constants/appConstants";
 
 const contentStyle: React.CSSProperties = {
   color: "white",
@@ -30,9 +29,8 @@ const HeaderLayout: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogoutApi = async () => {
-    const token = localStorage.getItem(REFRESH_TOKEN);
-    if (token) {
-      const result = await logOut({refresh_token: token});
+    if (userStore) {
+      const result = await logOut({uid: userStore.id});
       if (result.data.data) {
         dispatch(handleLogout());
         successPopUpMessage("Sign Out successfully");
