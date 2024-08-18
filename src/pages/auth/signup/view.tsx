@@ -14,6 +14,7 @@ import { AUTH_PATH } from "../../../shared/constants/path";
 import { validatePhoneNumber } from "../../../shared/validation/phone.validation";
 import { validateEmail } from "../../../shared/validation/email.validation";
 import { validateMinLength } from "../../../shared/validation/password.validation";
+import '../../../assets/css/LoginForm.css'
 
 interface SignViewProps {
   onFinish: FormProps<SignUpFieldType>["onFinish"];
@@ -24,10 +25,6 @@ const containerStyle: React.CSSProperties = {
   width: "100%",
   alignItems: "center",
 };
-const formStyle: React.CSSProperties = {
-  padding: 10,
-  width: "30%",
-};
 
 const SignUpView: React.FC<SignViewProps> = (props) => {
   const { onFinishFailed, onFinish } = props;
@@ -36,7 +33,6 @@ const SignUpView: React.FC<SignViewProps> = (props) => {
       <h1>SIGNUP FORM</h1>
       <hr />
       <Form
-        style={formStyle}
         name="normal_login"
         className="register-form"
         initialValues={{ remember: true }}

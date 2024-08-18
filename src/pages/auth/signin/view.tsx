@@ -6,6 +6,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AUTH_PATH } from "../../../shared/constants/path";
 import { validateMinLength } from "../../../shared/validation/password.validation";
+import '../../../assets/css/LoginForm.css'
 
 interface SignViewProps {
   onFinish: FormProps<LoginFieldType>["onFinish"];
@@ -16,10 +17,10 @@ const containerStyle: React.CSSProperties = {
   width: "100%",
   alignItems: "center",
 };
-const formStyle: React.CSSProperties = {
-  padding: 10,
-  width: "30%",
-};
+// const formStyle: React.CSSProperties = {
+//   padding: 10,
+//   width: "30%",
+// };
 
 const SignInView: React.FC<SignViewProps> = (props) => {
   const { onFinishFailed, onFinish } = props;
@@ -28,7 +29,7 @@ const SignInView: React.FC<SignViewProps> = (props) => {
       <h1>SIGNIN FORM</h1>
       <hr />
       <Form
-        style={formStyle}
+        // style={formStyle}
         name="normal_login"
         className="login-form"
         initialValues={{ remember: true }}
@@ -52,7 +53,7 @@ const SignInView: React.FC<SignViewProps> = (props) => {
           />
         </Form.Item>
         <Form.Item>
-          <Flex justify="space-between">
+          <Flex justify="space-between" wrap gap={10}>
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Remember me</Checkbox>
             </Form.Item>

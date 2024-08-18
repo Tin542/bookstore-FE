@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Avatar,
   Badge,
   Button,
   ConfigProvider,
+  Drawer,
   Dropdown,
   Flex,
+  Menu,
   MenuProps,
 } from "antd";
 import { AUTH_PATH, CUSTOMER_PATH } from "../../constants/path";
 import logo from "../../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  ShoppingCartOutlined,
+  UnorderedListOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { cartSelector, userSelector } from "../../redux-flow/selector";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../../redux-flow/action";
 import { successPopUpMessage } from "../Notification";
 import { logOut } from "../../services/auth/auth.service";
+import "../../../assets/css/HeaderLayout.css";
 
 const contentStyle: React.CSSProperties = {
   color: "white",
@@ -28,15 +35,25 @@ const HeaderLayout: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [open, setOpen] = useState(false);
+
   const handleLogoutApi = async () => {
     if (userStore) {
-      const result = await logOut({uid: userStore.id});
+      const result = await logOut({ uid: userStore.id });
       if (result.data.data) {
         dispatch(handleLogout());
         successPopUpMessage("Sign Out successfully");
         navigate(AUTH_PATH.SIGNIN);
       }
     }
+  };
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
   };
 
   const itemsWithOutLogin: MenuProps["items"] = [
@@ -72,7 +89,11 @@ const HeaderLayout: React.FC = () => {
           <img src={logo} alt="logo" height={60} />
         </Flex>
 
-        <Flex gap="large" justify="space-between" align="center">
+        <Flex
+          gap="large"
+          justify="space-between"
+          align="center"
+          className="header-pc">
           <Button style={contentStyle} type="link">
             <Link to={CUSTOMER_PATH.HOME}>Home</Link>
           </Button>
@@ -112,6 +133,31 @@ const HeaderLayout: React.FC = () => {
             </div>
           </Dropdown>
         </Flex>
+
+        <div className="header-mobile">
+          <Button type="primary" icon={<UnorderedListOutlined color="white" style={{fontSize: 30}}/>} onClick={showDrawer} />
+
+          <Drawer title="Menu" placement="right" onClose={onClose} open={open}>
+            <Menu>
+              <Menu.Item>
+                <Link to={CUSTOMER_PATH.HOME} onClick={onClose}>
+                  Home
+                </Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to={CUSTOMER_PATH.SHOP} onClick={onClose}>
+                  Shop
+                </Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to={CUSTOMER_PATH.ABOUT} onClick={onClose}>
+                  About
+                </Link>
+              </Menu.Item>
+            </Menu>
+            <Menu items={userStore ? itemsWithLogin : itemsWithOutLogin} />
+          </Drawer>
+        </div>
       </Flex>
     </ConfigProvider>
   );
