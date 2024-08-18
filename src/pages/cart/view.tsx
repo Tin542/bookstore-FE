@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import {
   Affix,
   Button,
@@ -6,6 +6,7 @@ import {
   Col,
   Flex,
   InputNumber,
+  List,
   Row,
   Spin,
   Table,
@@ -16,6 +17,7 @@ import {
 import { CartItemType } from "../../shared/constants/types/cart.type";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../shared/redux-flow/selector";
+import '../../assets/css/cart.css'
 
 interface CartViewProps {
   data: CartItemType[] | undefined;
@@ -35,7 +37,7 @@ const CartView: FC<CartViewProps> = (props) => {
     totalPrice,
     onClickRemoveCart,
     loading,
-    onClickPlaceOrder
+    onClickPlaceOrder,
   } = props;
   const userStore = useSelector(userSelector);
 
@@ -128,7 +130,6 @@ const CartView: FC<CartViewProps> = (props) => {
       ),
     },
   ];
-
   return (
     <>
       <Spin spinning={loading} tip="Loading...">
@@ -142,7 +143,59 @@ const CartView: FC<CartViewProps> = (props) => {
               columns={columns}
               dataSource={cartItems}
               pagination={false}
+              className="cart-pc"
             />
+            <div className="cart-mobile">
+              <List
+                itemLayout="vertical"
+                size="default"
+                dataSource={cartItems}
+                renderItem={(item) => (
+                  <List.Item
+                    key={item.book.id}
+                    style={{ backgroundColor: "white" }}
+                    extra={
+                      <img width={200} alt="logo" src={item.book.imageUrl} />
+                    }>
+                    <Flex gap={10} vertical style={{ margin: "0 30px" }}>
+                      <b>{item.book.title}</b>
+                      <span>
+                        {item.book.price !== item.price / item.quantity ? (
+                          <>
+                            <Flex justify="flex-start" gap={10}>
+                              <Text delete>${item.book.price}</Text>
+                              <Text strong type="danger">
+                                ${item.price / item.quantity}
+                              </Text>
+                            </Flex>
+                          </>
+                        ) : (
+                          <>${item.book.price}</>
+                        )}
+                      </span>
+                      <Flex justify="space-between" align="center">
+                        <InputNumber
+                          type="number"
+                          min={1}
+                          value={item.quantity ?? 1}
+                          onChange={(value) =>
+                            onChangeQuantity(value as number, item)
+                          }
+                        />
+                        <b style={{ color: "red" }}>$ {item.price}</b>
+                      </Flex>
+                      <Button
+                        onClick={() => onClickRemoveCartItem(item.id)}
+                        type="text"
+                        danger
+                        size={"small"}>
+                        Remove
+                      </Button>
+                    </Flex>
+                  </List.Item>
+                )}
+              />
+            </div>
           </Col>
           <Col md={9} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
             <Affix offsetTop={100}>
