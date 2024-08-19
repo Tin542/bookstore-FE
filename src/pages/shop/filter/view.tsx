@@ -23,11 +23,12 @@ interface Option {
 const filterContainerStyle: React.CSSProperties = {
   background: "#fff",
   border: "1px solid",
-  borderRadius: 5,
   padding: 5,
   width: "200px",
   textAlign: "center",
-  height: 'auto'
+  height: '200px',
+  overflow: "scroll",
+  overflowX: "hidden"
 };
 
 const { Search } = Input;
@@ -56,11 +57,11 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
       )
       .filter(Boolean) as Option[]) || []; // Remove empty option
   const ratingOption = [
-    { label: <Rate disabled defaultValue={1} />, value: 1 },
-    { label: <Rate disabled defaultValue={2} />, value: 2 },
-    { label: <Rate disabled defaultValue={3} />, value: 3 },
-    { label: <Rate disabled defaultValue={4} />, value: 4 },
-    { label: <Rate disabled defaultValue={5} />, value: 5 },
+    { label: <Rate disabled defaultValue={1} style={{fontSize: 15}} />, value: 1 },
+    { label: <Rate disabled defaultValue={2} style={{fontSize: 15}}/>, value: 2 },
+    { label: <Rate disabled defaultValue={3} style={{fontSize: 15}}/>, value: 3 },
+    { label: <Rate disabled defaultValue={4} style={{fontSize: 15}}/>, value: 4 },
+    { label: <Rate disabled defaultValue={5} style={{fontSize: 15}}/>, value: 5 },
   ];
   return (
     <div style={{ padding: 5 }}>
@@ -68,7 +69,7 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
         <Search
           placeholder="input search text"
           onSearch={onSearch}
-          style={{ width: 200, border: "1px solid", borderRadius: 5 }}
+          style={{ width: 200, border: "1px solid" }}
         />
         <div style={filterContainerStyle}>
           <h3>Category</h3>
