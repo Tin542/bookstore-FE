@@ -9,6 +9,7 @@ import {
 } from "../../shared/constants/types/book.type";
 import { useNavigate } from "react-router-dom";
 import { CUSTOMER_PATH } from "../../shared/constants/path";
+import CarouselComponent from "./components/carousel";
 
 interface HomeViewProps {
   data: IBook[] | undefined;
@@ -55,6 +56,12 @@ const Homeview: FC<HomeViewProps> = (props) => {
           padding: 10,
         },
       }}>
+      <div>
+        <CarouselComponent />
+      </div>
+      <div>
+        
+      </div>
       <div style={contentStyle}>
         <Flex justify="space-between" align="center" gap="small">
           <img
