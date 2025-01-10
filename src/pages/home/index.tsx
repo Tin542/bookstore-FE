@@ -6,10 +6,13 @@ import {
   IBook,
   SortBookByEnum,
 } from "../../shared/constants/types/book.type";
+import { ICategory } from "../../shared/constants/types/category.type";
+import { fetchAllCategory } from "../../shared/services/category/category.service";
 
 const HomePage: FC = () => {
   const [book, setBook] = useState<IBook[]>();
   const [featuredBook, setFeaturedBook] = useState<IBook[]>();
+  const [categories, setCategories] = useState<ICategory[]>();
   const [filter, setFilter] = useState<BookQuery>({
     sortByEnum: SortBookByEnum.NEW,
     page: 1,
@@ -18,6 +21,7 @@ const HomePage: FC = () => {
 
   useEffect(() => {
     findAllBooksOnSale();
+    findAllCategories();
   }, []);
 
   useEffect(() => {
@@ -38,6 +42,14 @@ const HomePage: FC = () => {
         console.log(err);
       });
   };
+  const findAllCategories = () => {
+    fetchAllCategory().then((res) => {
+      const responseData = res.data.data.findAllCategories;
+      setCategories(responseData);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
 
   const findAllBooksFeatured = (value:BookQuery ) => {
     fetchAllBooks(value)
@@ -49,7 +61,7 @@ const HomePage: FC = () => {
         console.log(err);
       });
   };
-  return <Homeview filter={filter} featuredBook={featuredBook} data={book} setFilter={setFilter} />;
+  return <Homeview categories={categories} filter={filter} featuredBook={featuredBook} data={book} setFilter={setFilter} />;
 };
 
 export default HomePage;

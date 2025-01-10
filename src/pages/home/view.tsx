@@ -1,4 +1,4 @@
-import { Button, ConfigProvider, Empty, Flex, Space } from "antd";
+import { Button, Col, ConfigProvider, Empty, Flex, Row, Space } from "antd";
 import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
@@ -9,11 +9,14 @@ import {
 } from "../../shared/constants/types/book.type";
 import { useNavigate } from "react-router-dom";
 import { CUSTOMER_PATH } from "../../shared/constants/path";
-import CarouselComponent from "./components/carousel";
+import CarouselComponent from "./components/carousel/carousel";
+import { ICategory } from "../../shared/constants/types/category.type";
+import CategoryComponent from "./components/category/category";
 
 interface HomeViewProps {
   data: IBook[] | undefined;
   featuredBook: IBook[] | undefined;
+  categories: ICategory[] | undefined;
   filter: BookQuery;
   setFilter: (value: BookQuery) => void;
 }
@@ -28,7 +31,7 @@ const contentStyle: React.CSSProperties = {
 };
 
 const Homeview: FC<HomeViewProps> = (props) => {
-  const { data, setFilter, filter, featuredBook } = props;
+  const { data, setFilter, filter, featuredBook, categories } = props;
   const navigate = useNavigate();
 
   const handleChangeFeatured = (val: string) => {
@@ -56,12 +59,15 @@ const Homeview: FC<HomeViewProps> = (props) => {
           padding: 10,
         },
       }}>
-      <div>
-        <CarouselComponent />
-      </div>
-      <div>
-        
-      </div>
+      <Row gutter={[16, 16]} style={{ marginTop: "10px" }}>
+        <Col xs={24} sm={24} md={8} lg={6} span={6}>
+          <CategoryComponent categories={categories} />
+        </Col>
+        <Col xs={24} sm={24} md={16} lg={18} span={18}>
+          <CarouselComponent />
+        </Col>
+      </Row>
+
       <div style={contentStyle}>
         <Flex justify="space-between" align="center" gap="small">
           <img

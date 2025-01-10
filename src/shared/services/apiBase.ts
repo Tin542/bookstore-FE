@@ -24,7 +24,6 @@ export const apiBase = async (graphqlQuery: IApi) => {
 
   try {
     const response = await axios(config);
-    console.log("response", response);
 
     if (
       !response.data.data &&

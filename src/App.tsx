@@ -31,8 +31,8 @@ function App() {
             ghostBg: '#001529'
           },
           Menu: {
-            itemActiveBg: '#001529',
-            itemSelectedBg: '#001529',
+            itemActiveBg: '#40a9ff)',
+            itemSelectedBg: '#40a9ff)',
             itemSelectedColor: 'white'
           },
         },
