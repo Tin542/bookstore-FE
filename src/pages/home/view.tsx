@@ -1,12 +1,8 @@
-import { Button, Col, ConfigProvider, Empty, Flex, Row, Space } from "antd";
+import { Button, Col, ConfigProvider, Empty, Flex, Row } from "antd";
 import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
-import {
-  BookQuery,
-  IBook,
-  SortBookByEnum,
-} from "../../shared/constants/types/book.type";
+import { Book } from "../../shared/constants/types/book.type";
 import { useNavigate } from "react-router-dom";
 import { CUSTOMER_PATH } from "../../shared/constants/path";
 import CarouselComponent from "./components/carousel/carousel";
@@ -14,11 +10,10 @@ import { ICategory } from "../../shared/constants/types/category.type";
 import CategoryComponent from "./components/category/category";
 
 interface HomeViewProps {
-  data: IBook[] | undefined;
-  featuredBook: IBook[] | undefined;
+  data: Book[] | undefined;
   categories: ICategory[] | undefined;
-  filter: BookQuery;
-  setFilter: (value: BookQuery) => void;
+  newBook: Book[] | undefined;
+  popularBook: Book[] | undefined;
 }
 
 const contentStyle: React.CSSProperties = {
@@ -31,17 +26,8 @@ const contentStyle: React.CSSProperties = {
 };
 
 const Homeview: FC<HomeViewProps> = (props) => {
-  const { data, setFilter, filter, featuredBook, categories } = props;
+  const { data, popularBook, newBook, categories } = props;
   const navigate = useNavigate();
-
-  const handleChangeFeatured = (val: string) => {
-    if (val === "new") {
-      setFilter({ ...filter, sortByEnum: SortBookByEnum.NEW });
-    }
-    if (val === "popular") {
-      setFilter({ ...filter, sortByEnum: SortBookByEnum.POPULAR });
-    }
-  };
 
   const onClickViewAllButton = () => {
     navigate(CUSTOMER_PATH.SHOP);
@@ -64,7 +50,7 @@ const Homeview: FC<HomeViewProps> = (props) => {
           <CategoryComponent categories={categories} />
         </Col>
         <Col xs={24} sm={24} md={16} lg={18} span={18}>
-          <CarouselComponent />
+          <CarouselComponent book={popularBook} />
         </Col>
       </Row>
 
@@ -93,26 +79,24 @@ const Homeview: FC<HomeViewProps> = (props) => {
           )}
         </Flex>
       </div>
-      <div style={{ textAlign: "center" }}>
-        <h1>FEATURED BOOKS</h1>
-        <Space size="large">
-          <Button
-            ghost={filter.sortByEnum === SortBookByEnum.NEW}
-            onClick={() => handleChangeFeatured("new")}>
-            New
-          </Button>
-          <Button
-            ghost={filter.sortByEnum === SortBookByEnum.POPULAR}
-            onClick={() => handleChangeFeatured("popular")}>
-            Popular
-          </Button>
-        </Space>
-      </div>
       <div style={contentStyle}>
+        <Flex justify="space-between" align="center" gap="small">
+          <img
+            src="https://res.cloudinary.com/dyo7rdbmx/image/upload/v1736831699/a5v6f93glizpy1twwxpp.jpg"
+            width={100}
+          />
+          <Button
+            onClick={onClickViewAllButton}
+            style={{ width: "5rem", height: "3rem" }}
+            type="link">
+            View all
+          </Button>
+        </Flex>
+        <hr />
         <Flex wrap justify="center" align="center" gap={10}>
           <Flex wrap justify="center" align="center" gap={10}>
-            {featuredBook && featuredBook?.length > 0 ? (
-              featuredBook?.map((item) => (
+            {newBook && newBook?.length > 0 ? (
+              newBook?.map((item) => (
                 <CardComponent key={item.id} item={item} />
               ))
             ) : (

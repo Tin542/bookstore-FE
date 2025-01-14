@@ -29,6 +29,7 @@ export const getAllBook = (data?: BookQuery) => {
           price
           title
           rate
+          description
           limitDiscount
           bookPromotion {
             promotion {

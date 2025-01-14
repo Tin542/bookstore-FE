@@ -1,0 +1,7 @@
+.custom-dot li button {
+    background-color: #3498db;
+  }
+  
+  .custom-dot li.slick-active button {
+    background-color: #e74c3c;
+  }

@@ -1,38 +1,109 @@
 import React from "react";
-import { Card, Flex, Rate, Typography } from "antd";
+import { Card, Flex, Rate, Tooltip, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 
-import { CUSTOMER_PATH } from "../../constants/path";
-import { IBook } from "../../constants/types/book.type";
+import { AUTH_PATH, CUSTOMER_PATH } from "../../constants/path";
+import { Book } from "../../constants/types/book.type";
 import { PRODUCT_ID } from "../../constants/appConstants";
 import { calculateDiscount } from "../../utils/calculateTotalPrice";
+import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { cartSelector, userSelector } from "../../redux-flow/selector";
+import { errorPopUpMessage, successPopUpMessage } from "../Notification";
+import { addCartItem } from "../../services/cart/cart.service";
+import { CartItemType } from "../../constants/types/cart.type";
+import { handleStoreCart } from "../../redux-flow/action";
 
 interface CardComponentProps {
-  item: IBook;
+  item: Book;
 }
 
 const cardStyle: React.CSSProperties = {
-  width: "12rem",
+  width: "15rem",
+  height: "auto",
   borderRadius: 0,
-  padding: "10px",
+  paddingTop: "10px",
   overflow: "hidden",
 };
 
-const { Meta } = Card;
 const { Text } = Typography;
 
 const CardComponent: React.FC<CardComponentProps> = (props) => {
   const { item } = props;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userStore = useSelector(userSelector);
+  const cartStore = useSelector(cartSelector);
+  
 
   const onClickDetail = () => {
     localStorage.setItem(PRODUCT_ID, item.id);
     navigate(CUSTOMER_PATH.DETAIL_PRODUCT);
   };
 
+   const addToCartButton = async () => {
+      if (!userStore) {
+        errorPopUpMessage("Add to cart failed", "Signin required");
+        navigate(AUTH_PATH.SIGNIN);
+      } else {
+        if (!item) {
+          errorPopUpMessage("Add to cart failed", "Cannot find product ");
+          return;
+        }
+        const actualPrice = calculateDiscount(
+          item.limitDiscount,
+          item.price,
+          item.bookPromotion
+        );
+        const result = await addCartItem({
+          bookId: item?.id,
+          price:
+            actualPrice > 0
+              ? actualPrice * 1
+              : item.price * 1,
+          quantity: 1,
+          userId: userStore.id,
+        });
+        if (!result.data.data) {
+          errorPopUpMessage("Add to cart failed", result.data.errors[0].message);
+          return;
+        }
+        const response = result.data.data.addToCart;
+        if (cartStore) {
+          const updatedCart: CartItemType[] = cartStore
+            ? cartStore?.map((item) =>
+                item.id === response.id
+                  ? {
+                      ...item,
+                      quantity: response.quantity,
+                      price: response.price,
+                    }
+                  : item
+              )
+            : [];
+          // If the item was not found in the cart, add the new item to the cart
+          if (!updatedCart.find((cartItem) => cartItem.id === response.id)) {
+            updatedCart.push(response);
+          }
+          dispatch(handleStoreCart(updatedCart));
+          successPopUpMessage("Added To Cart");
+        } else {
+          errorPopUpMessage("Add to cart failed", "Could not find cart");
+        }
+        await addCartItem({
+          bookId: item?.id,
+          price:
+            actualPrice > 0
+              ? actualPrice * 1
+              : item.price * 1,
+          quantity: 1,
+          userId: userStore.id,
+        });
+      }
+    };
+
   return (
     <Card
-      onClick={onClickDetail}
       hoverable
       style={cardStyle}
       cover={
@@ -43,10 +114,22 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
             src={item.imageUrl}
           />
         </div>
-      }>
-      <Flex vertical align="start" style={{ lineHeight: 2 }}>
+      }
+      actions={[
+        <ShoppingCartOutlined onClick={addToCartButton} />,
+        <HeartOutlined />,
+      ]}>
+      <Flex onClick={onClickDetail} vertical align="start" style={{ lineHeight: 2 }}>
         <Rate disabled value={item.rate} style={{ fontSize: 15 }} />
-        <Meta title={item.title} />
+        <Tooltip title={item.title}>
+          <Typography.Paragraph
+            ellipsis={{
+              rows: 2,
+            }}
+            style={{ textAlign: "left", fontWeight: "bold" }}>
+            {item.title}
+          </Typography.Paragraph>
+        </Tooltip>
         {item.bookPromotion.length > 0 ? (
           <Flex justify="flex-start" gap={10}>
             <Text delete>${item.price}</Text>
