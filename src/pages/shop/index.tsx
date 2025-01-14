@@ -8,8 +8,11 @@ import {
   SortBookByEnum,
 } from "../../shared/constants/types/book.type.ts";
 import { errorPopUpMessage } from "../../shared/components/Notification/index.tsx";
+import { useLocation } from "react-router-dom";
 
 const ShopPage: React.FC = () => {
+  const location = useLocation();
+
   const [book, setBook] = useState();
   const [currentPage, setCurrentPage] = useState();
   const [totalProducts, setTotalProducts] = useState();
@@ -28,6 +31,28 @@ const ShopPage: React.FC = () => {
   useEffect(() => {
     findAllBooks();
   }, [filter]);
+
+  useEffect(() => {
+    updateFiltersFromURL();
+  }, [location]);
+
+  const updateFiltersFromURL = () => {
+    const queryParams = new URLSearchParams(location.search);
+    const category = queryParams.get("category")
+      ? queryParams.get("category")!.split(",")
+      : [];
+    const author = queryParams.get("author")
+      ? queryParams.get("author")!.split(",")
+      : [];
+    const sort = queryParams.get("sort") || SortBookByEnum.RECOMMENDED;
+    setFilter({
+      title: "",
+      category: category,
+      author: author,
+      sortByEnum: SortBookByEnum.NEW,
+      limit: 12,
+    });
+  };
 
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));

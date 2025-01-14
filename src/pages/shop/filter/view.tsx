@@ -43,6 +43,8 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
     onChangeRating,
   } = props;
 
+  const queryParams = new URLSearchParams(location.search);
+
   const categoryOption: Option[] =
     (category
       ?.map((item) =>
@@ -74,6 +76,7 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
         <div style={filterContainerStyle}>
           <h3>Category</h3>
           <Checkbox.Group
+            defaultValue={[`${queryParams.get("category")}`]}
             style={{ display: "flex", flexDirection: "column", padding: 5 }}
             options={categoryOption}
             onChange={onChangeCategory}

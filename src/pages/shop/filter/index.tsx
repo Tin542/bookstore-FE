@@ -6,6 +6,7 @@ import { fetchAllAuthor } from "../../../shared/services/author/author.service.t
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import { SearchProps } from "antd/es/input/Search";
 import { BookQuery } from "../../../shared/constants/types/book.type.ts";
+import { useNavigate } from "react-router-dom";
 
 interface FilterProps {
   filter: BookQuery;
@@ -14,6 +15,7 @@ interface FilterProps {
 
 const Filter: FC<FilterProps> = (props) => {
   const { filter, setFilter } = props;
+  const navigate = useNavigate();
   const [category, setCategory] = useState();
   const [author, setAuthor] = useState();
 
@@ -45,19 +47,32 @@ const Filter: FC<FilterProps> = (props) => {
 
   const onChangeCategory = (checkedValues: CheckboxValueType[]) => {
     const stringValues = checkedValues.map((value) => value.toString());
-    setFilter({
-      ...filter,
-      category: stringValues,
-      page: 1
+    const queryParams = new URLSearchParams(location.search);
+
+    // Nếu không có category nào được chọn thì xóa query param
+    if (stringValues.length === 0) {
+      queryParams.delete("category");
+    } else {
+      queryParams.set("category", stringValues.join(","));
+    }
+
+    navigate({
+      search: queryParams.toString(),
     });
   };
 
   const onChangeAuthor = (checkedValues: CheckboxValueType[]) => {
     const stringValues = checkedValues.map((value) => value.toString());
-    setFilter({
-      ...filter,
-      author: stringValues,
-      page: 1
+    const queryParams = new URLSearchParams(location.search);
+    // Nếu không có category nào được chọn thì xóa query param
+    if (stringValues.length === 0) {
+      queryParams.delete("author");
+    } else {
+      queryParams.set("author", stringValues.join(","));
+    }
+
+    navigate({
+      search: queryParams.toString(),
     });
   };
 
@@ -68,7 +83,7 @@ const Filter: FC<FilterProps> = (props) => {
     setFilter({
       ...filter,
       rate: stringValues,
-      page: 1
+      page: 1,
     });
   };
 
@@ -76,7 +91,7 @@ const Filter: FC<FilterProps> = (props) => {
     setFilter({
       ...filter,
       title: value,
-      page: 1
+      page: 1,
     });
   };
 
