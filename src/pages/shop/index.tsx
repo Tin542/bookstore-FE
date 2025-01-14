@@ -44,7 +44,7 @@ const ShopPage: React.FC = () => {
     const author = queryParams.get("author")
       ? queryParams.get("author")!.split(",")
       : [];
-    const sort = queryParams.get("sort") || SortBookByEnum.RECOMMENDED;
+    // const sort = queryParams.get("sort") || SortBookByEnum.RECOMMENDED;
     setFilter({
       title: "",
       category: category,

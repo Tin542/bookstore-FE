@@ -12,10 +12,10 @@ import React, { FC } from "react";
 
 import CardComponent from "../../shared/components/Card";
 import FilterComponent from "./filter/index";
-import { IBook, BookQuery } from "../../shared/constants/types/book.type";
+import { BookQuery, Book } from "../../shared/constants/types/book.type";
 
 interface ShopViewProps {
-  item: IBook[] | undefined;
+  item: Book[] | undefined;
   currentPage: number | undefined;
   totalItems: number | undefined;
   limit: number | undefined;
