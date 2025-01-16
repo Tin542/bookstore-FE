@@ -16,7 +16,7 @@ export const apiBase = async (graphqlQuery: IApi) => {
   };
 
   const config: AxiosRequestConfig = {
-    url: baseUrl,
+    url: `${baseUrl}graphql`,
     method: "post",
     data: graphqlQuery,
     headers: headers,

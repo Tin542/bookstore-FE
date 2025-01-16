@@ -8,6 +8,7 @@ import { CUSTOMER_PATH, ERROR_PATH } from "./shared/constants/path";
 
 import "./index.css";
 import ProtectedRoute from "./shared/routes/protected.routes";
+import Chatbox from "./shared/components/chatbox/chatbox.component";
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
               element={<Navigate replace to={ERROR_PATH.PAGE_NOT_FOUND} />}
             />
           </Routes>
+          <Chatbox />
         </Suspense>
       </Main>
     </ConfigProvider>
