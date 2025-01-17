@@ -1,72 +1,72 @@
-import React, { useState, ChangeEvent, KeyboardEvent } from 'react';
-import { sendMessageToChatbot } from '../../services/chatboxAPI';
-import { CustomerServiceOutlined } from '@ant-design/icons';
-import { FloatButton } from 'antd';
+import React, { useState } from "react";
+import { sendMessageToChatbot } from "../../services/chatboxAPI";
+import ChatBot, { ChatBotProvider, Settings } from "react-chatbotify";
+import avatar from "../../../assets/dev_avatar.png";
 
-interface Message {
-  role: 'user' | 'bot';
-  content: string;
-}
+const settings: Settings = {
+  chatHistory: { disabled: true },
+  tooltip: {
+    mode: "NEVER",
+  },
+  header: {
+    title: (
+      <div
+        style={{
+          cursor: "pointer",
+          margin: 0,
+          fontSize: 20,
+          fontWeight: "bold",
+        }}>
+        Bookstore ChatBot
+      </div>
+    ),
+    showAvatar: false,
+  },
+  chatButton: {
+    icon: avatar,
+  },
+  footer: {
+		text: ""
+	},
+};
 
 const Chatbox: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState<string>('');
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
+  const [input, setInput] = useState("");
 
   const handleSend = async () => {
     if (!input.trim()) return;
 
-    const userMessage: Message = { role: 'user', content: input };
-    setMessages((prev) => [...prev, userMessage]);
+    // Gửi tin nhắn của người dùng
 
     try {
-      const botResponse = await sendMessageToChatbot(input);
-      const botMessage: Message = { role: 'bot', content: botResponse };
-      setMessages((prev) => [...prev, botMessage]);
+      const response = await sendMessageToChatbot(input);
+      return response;
     } catch (error) {
-      console.error('Error sending message:', error);
-      setMessages((prev) => [...prev, { role: 'bot', content: 'Error: Unable to fetch response.' }]);
+      console.error("Error:", error);
     }
 
-    setInput('');
+    setInput("");
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSend();
-    }
+  const flow = {
+    start: {
+      message: "What can I help you ?",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      function: (params: any) => setInput(params.userInput),
+      path: "loop",
+    },
+    loop: {
+      message: async () => {
+        return await handleSend();
+      },
+      path: "loop",
+    },
   };
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: '10px', width: '400px' }}>
-      <div style={{ maxHeight: '300px', overflowY: 'auto', marginBottom: '10px' }}>
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            style={{
-              textAlign: msg.role === 'user' ? 'right' : 'left',
-              margin: '5px 0',
-            }}
-          >
-            <strong>{msg.role === 'user' ? 'You' : 'Bot'}:</strong> {msg.content}
-          </div>
-        ))}
-      </div>
-      <input
-        type="text"
-        value={input}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-        style={{ width: '100%', padding: '8px' }}
-        placeholder="Type your message..."
-      />
-      <button onClick={handleSend} style={{ width: '100%', marginTop: '5px', padding: '8px' }}>
-        Send
-      </button>
-    </div>
+    <ChatBotProvider>
+      <ChatBot settings={settings} flow={flow} />
+    </ChatBotProvider>
   );
 };
 

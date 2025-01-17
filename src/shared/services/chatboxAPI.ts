@@ -2,10 +2,6 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API,
-  headers: {
-    'Content-Type': 'application/json',
-    authorization: `Bearer ${import.meta.env.VITE_OPENAI_KEY}`
-  },
 });
 
 export const sendMessageToChatbot = async (message: string) => {
