@@ -50,7 +50,7 @@ const Chatbox: React.FC = () => {
 
   const flow = {
     start: {
-      message: "What can I help you ?",
+      message: "How can I help you ?",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       function: (params: any) => setInput(params.userInput),
       path: "loop",
@@ -59,6 +59,8 @@ const Chatbox: React.FC = () => {
       message: async () => {
         return await handleSend();
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      function: (params: any) => setInput(params.userInput),
       path: "loop",
     },
   };
